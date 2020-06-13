@@ -1,0 +1,150 @@
+<body>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <style>
+    #markdeep_input {
+        height: 400px;
+        font-family: monospace;
+        font-size: 24;
+    }
+    td {
+      padding: 0.5em;
+    }
+
+    .md p {
+        font-size: inherit;
+        font-weight: normal;
+        margin: 0 0 10px;
+    }
+
+    .md h1, .md h2, .md h3 {
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+    .md h1:before, .md h2:before, .md h3:before {
+        display: none;
+    }
+
+    #result h1 {
+        font-size: 62px;
+    }
+
+    #result h2 {
+        font-size: 48px;
+    }
+
+    #result h3 {
+        font-size: 44px;
+    }
+
+    #result {
+        font-size: 40px !important;
+    }
+    /*    .markdeep, #markdeep_input { width: 470px; height: 370px; } */
+    .markdeep { width: 90%; height: 90%; }
+
+/*    .markdeep { position: absolute; top: 25px; left: 330px; overflow-y: scroll; } */
+
+.balloon1-left {
+  position: absolute;
+  display: block;
+  margin: 1.5em 0 1.5em 25px;
+  padding: 7px 10px;
+/*  min-width: 120px;
+  max-width: 100%; */
+  width: 720px;
+  height: 90%;
+  top: 10px;
+  left: 400px;
+  color: #555;
+/*  font-size: 16px; */
+  background: #e0edff;
+  border-radius: 10px;
+}
+
+.balloon1-left:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -50px;
+  margin-top: -50px;
+  border: 25px solid transparent;
+  border-right: 25px solid #e0edff;
+}
+
+/*.balloon1-left p {
+  margin: 0;
+  padding: 0;
+}*/
+  </style>
+</head>
+<body>
+  <table id="markdeep">
+  <thead>
+      <tr>
+        <th class="code">Markdeep code</th>
+        <th class="preview">Preview</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td>
+          <textarea id="markdeep_input"></textarea>
+        </td>
+        <td>
+          <!--
+          <svg>
+            <image xlink:href="image/avatar4.png" width="50%">
+            <foreignObject x="0" y="0">
+              <div class="markdeep"></div>
+            </foreignObject>
+          </svg>
+          -->
+          <div style="background-color: #FF00FF; width: 1378px; height: 734px; vertical-align: bottom; position: relative;">
+            <img src="image/me.png" style="position: absolute; bottom:0; left:0;">
+            <div class="balloon1-left">
+              <div class="markdeep" id="result"></div>
+            </div>
+          </div>
+        </td>
+      </tr>
+  </tbody>
+  </table>
+
+  <script>window.markdeepOptions = {mode: 'script'};</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script>
+  $(document).ready(function() {
+    "use strict";
+
+    document.head.innerHTML = window.markdeep.stylesheet() + document.head.innerHTML;
+
+    $('#markdeep_input').on("change keyup paste", function() {
+      var input = $('#markdeep_input').val() + "\n";
+      //console.log(window.markdeep.format(input));
+      $('.markdeep').html(window.markdeep.format(input));  // <----------- magic
+      postprocessMarkdeep();
+    });
+  });
+
+  function postprocessMarkdeep() {
+    // for some reason, markdeep creates an additional, superflous <p> tag right
+    // at the beginning, so let's get rid of that
+    $('.markdeep .md > p:first-child').hide();
+
+    // anchors mess up the spacing, so purge them too
+    $('.markdeep .md a.target').hide();
+
+    // tell mathjax to render math
+    $('.markdeep').each(function() {
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, $(this).get()]);
+    });
+  }
+  </script>
+</body>
+</html>
