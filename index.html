@@ -33,16 +33,17 @@
     }
 
     #result h2 {
-        font-size: 48px;
+        font-size: 50px;
     }
 
     #result h3 {
-        font-size: 44px;
+        font-size: 46px;
     }
 
-    #result {
-        font-size: 40px !important;
+    #result * {
+        font-size: 40px;
     }
+
     /*    .markdeep, #markdeep_input { width: 470px; height: 370px; } */
     .markdeep { width: 90%; height: 90%; }
 
@@ -83,15 +84,9 @@
 </head>
 <body>
   <table id="markdeep">
-  <thead>
-      <tr>
-        <th class="code">Markdeep code</th>
-        <th class="preview">Preview</th>
-      </tr>
-  </thead>
   <tbody>
       <tr>
-        <td>
+        <td style="vertical-align: top;">
           <textarea id="markdeep_input"></textarea>
         </td>
         <td>
