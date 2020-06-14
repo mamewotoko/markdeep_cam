@@ -4,7 +4,7 @@ var display_mode = true;
 var guide_mode = true;
 var border_width = 4; //px
 var normal_container_style = 'border: solid 4px red; z-index:1000;'
-var transp_container_style = 'border: dashed 4px pink; pointer-events: none; touch-events:none;'
+var transp_container_style = 'border: solid 4px #e0edff; pointer-events: none; touch-events:none;'
 var container = document.getElementById(ohp_id);
 container.style = normal_container_style;
 
@@ -120,21 +120,21 @@ function board_init(){
         index++;
     }
 
-    function resize_svg(is_fullscreen){
-        //frame size (#main div)
-        var width = document.body.scrollWidth - 2 * border_width;
-        // - 2 * border_width;
-        var height = document.body.scrollHeight;
+    // function resize_svg(is_fullscreen){
+    //     //frame size (#main div)
+    //     var width = document.body.scrollWidth - 2 * border_width;
+    //     // - 2 * border_width;
+    //     var height = document.body.scrollHeight;
 
-        console.log('w h %d %d', width, height);
-        draw.size(width, height);
+    //     console.log('w h %d %d', width, height);
+    //     draw.size(width, height);
 
-        var div = document.getElementById(ohp_id);
-        div.style.width = width+"px";
-        div.style.height = height+"px";
-    }
+    //     var div = document.getElementById(ohp_id);
+    //     div.style.width = width+"px";
+    //     div.style.height = height+"px";
+    // }
 
-    resize_svg(is_fullscreen);
+    // resize_svg(is_fullscreen);
 
     function hide_last_element(){
         var last = draw.last();
