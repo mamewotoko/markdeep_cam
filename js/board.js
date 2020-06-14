@@ -4,7 +4,7 @@ var display_mode = true;
 var guide_mode = true;
 var border_width = 4; //px
 var normal_container_style = 'border: dashed 4px #009900; z-index:1000;'
-var transp_container_style = 'border: solid 4px #e0edff; pointer-events: none; touch-events:none;'
+var transp_container_style = 'border: solid 4px transparent; pointer-events: none; touch-events:none;'
 var container = document.getElementById(ohp_id);
 container.style = normal_container_style;
 
@@ -160,7 +160,10 @@ function board_init(){
 
     document.addEventListener('keydown', function(event){
         //TODO; check focus
-
+        if($("#markdeep_input").is(":focus")){
+            return;
+        }
+        event.preventDefault();
         console.log(event.key);
         var keyname = event.key;
         var ctrl = event.getModifierState("Control");
@@ -194,4 +197,10 @@ function board_init(){
 
     draw.on('mouseup', pointend);
     draw.on('touchend', pointend);
+}
+
+function speak(){
+    var text = $("#markdeep_input").val();
+    var msg = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(msg);
 }
