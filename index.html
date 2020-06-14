@@ -4,6 +4,9 @@
 <head>
   <meta charset="utf-8">
   <style>
+    body {
+        margin: 0;
+    }
     #markdeep_input {
         height: 400px;
         width: 320px;
@@ -45,26 +48,33 @@
         font-size: 36px;
     }
 
-    /*    .markdeep, #markdeep_input { width: 470px; height: 370px; } */
-    /*.markdeep { height: 90%; } */
-
-/*    .markdeep { position: absolute; top: 25px; left: 330px; overflow-y: scroll; } */
-
 .balloon1-left {
-  position: absolute;
   display: block;
   margin: 1.5em 0 1.5em 25px;
   /*padding: 7px 10px;*/
   padding: 20px;
-  width: 850px;
-  height: 85%;
-  top: 10px;
-  left: 400px;
   color: #555;
 /*  font-size: 16px; */
   overflow-y: hidden;
   background: #e0edff;
   border-radius: 10px;
+}
+
+
+.balloon {
+    width: 850px;
+    height: 85%;
+    position: absolute;
+    top: 10px;
+    left: 400px;
+}
+
+#ohp {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
 }
 
 .balloon1-left:before {
@@ -77,10 +87,10 @@
   border-right: 50px solid #e0edff;
 }
 
-/*.balloon1-left p {
+.balloon1-left p {
   margin: 0;
   padding: 0;
-}*/
+}
   </style>
 </head>
 <body>
@@ -101,8 +111,12 @@
           -->
           <div style="background-color: #FF00FF; width: 1378px; height: 734px; vertical-align: bottom; position: relative;">
             <img src="image/me.png" style="position: absolute; width:350px; height: auto; bottom:0; left:0;">
-            <div class="balloon1-left">
-              <div class="markdeep" id="result"></div>
+            <div class="balloon1-left balloon" id="balloon">
+              <div style="position: relative">
+                <div class="markdeep" id="result" style="positon: relative;">
+                </div>
+                <div id="ohp"></div>
+              </div>
             </div>
           </div>
         </td>
@@ -114,9 +128,17 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+  <script src="https://mamewo.ddo.jp/svg_b/node_modules/svg.js/dist/svg.min.js"></script>
+  <script src="https://mamewo.ddo.jp/svg_b/js/svg.draw.js"></script>
+  <script src="js/board.js"></script>
   <script>
   $(document).ready(function() {
     "use strict";
+
+      board_init();
+      $("#ohp").css("width", $("#balloon").css("width"))
+          .css("height", $("#balloon").css("height"));
 
     document.head.innerHTML = window.markdeep.stylesheet() + document.head.innerHTML;
 
