@@ -6,9 +6,10 @@
   <style>
     body {
         margin: 0;
+        padding: 0;
     }
     #markdeep_input {
-        height: 400px;
+        height: 700px;
         width: 320px;
         font-family: monospace;
         font-size: 24;
@@ -33,19 +34,23 @@
     }
 
     #result h1 {
-        font-size: 62px;
+        font-size: 57px;
     }
 
     #result h2 {
-        font-size: 46px;
+        font-size: 41px;
     }
 
     #result h3 {
-        font-size: 40px;
+        font-size: 35px;
     }
 
     #result * {
-        font-size: 36px;
+        font-size: 31px;
+    }
+
+    .markdeep {
+        padding: 10px;
     }
 
 .balloon1-left {
@@ -93,14 +98,23 @@
   </style>
 </head>
 <body>
+  <h1>markdeep + 対話的な更新 + 描画機能</h1>
   <table id="markdeep">
   <tbody>
       <tr>
         <td style="vertical-align: top;">
-          <textarea id="markdeep_input"></textarea>
+          <textarea id="markdeep_input"># 主な特徴
+* 見出し `#`
+* 箇条書き `*` , `-`
+* 表
+* リンク `[]()`
+* 画像の挿入 `![]()`
+* フリーハンドで描画 (Fで切り替え)
+* markdeepのソースの読み上げ</textarea>
           <br><textarea id="svg_content"></textarea>
           <br><button onclick="speech();">読み上げ</button>
           <br><button onclick="save_svg();">SVG保存</button>
+
         </td>
         <td>
           <div style="background-color: #FF00FF; width: 1378px; height: 734px; vertical-align: bottom; position: relative;">
@@ -117,7 +131,13 @@
       </tr>
   </tbody>
   </table>
-
+  <h2>参考</h2>
+  <ul>
+    <li><a href="https://casual-effects.com/markdeep/">Markdeep - Causal Effects</a></li>
+    <li><a href="https://gist.github.com/doersino/9dcc636493ff1deb30912ed2efc44891">Preview Markdeep as you're typing (very simple, unstyled proof of concept)</a></li>
+    * <li><a href="https://mamewo.ddo.jp/svg_b/">svg board</a></li>
+  </ul>
+  <hr>
   <script>window.markdeepOptions = {mode: 'script'};</script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
