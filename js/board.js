@@ -8,25 +8,32 @@ var transp_container_style = 'border: solid 4px #e0edff; pointer-events: none; t
 var container = document.getElementById(ohp_id);
 container.style = normal_container_style;
 
+var draw = SVG(ohp_id);
+
+function save_svg(){
+    var current_svg = draw.svg();
+    $('#svg_content').val(current_svg);
+}
+
+
 function board_init(){
     var shapes = [];
     var color_table = {
-        "R": "red",
-        "N": "blue",
-        "G": "green",
+        'R': 'red',
+        'N': 'blue',
+        'G': 'green',
 
-        "B": "black",
-        "P": "pink",
-        "Y": "yellow",
-        "M": "purple",
-        "W": "white",
-        "A": "aqua",
-        "O": "orange"
+        'B': 'black',
+        'P': 'pink',
+        'Y': 'yellow',
+        'M': 'purple',
+        'W': 'white',
+        'A': 'aqua',
+        'O': 'orange'
     };
     var index = 0;
     var last_event = null;
     var point_started = false;
-    var draw = SVG(ohp_id);
     var stroke_color = 'green';
     var stroke_width = 4;
     var is_fullscreen = true;
@@ -39,7 +46,7 @@ function board_init(){
         'stroke-opacity': 0.75,
     };
 
-    function getDrawObject() {
+    function get_draw_object() {
         var g = draw.group();
         option['stroke'] = stroke_color;
         option['stroke-width'] = stroke_width;
@@ -76,7 +83,7 @@ function board_init(){
         }
         point_started = true;
         event.preventDefault();
-        var sh = getDrawObject();
+        var sh = get_draw_object();
         shapes[index] = sh;
         // https://svgjs.com/svg.draw.js/
         last_event = event;
@@ -130,8 +137,8 @@ function board_init(){
     //     draw.size(width, height);
 
     //     var div = document.getElementById(ohp_id);
-    //     div.style.width = width+"px";
-    //     div.style.height = height+"px";
+    //     div.style.width = width+'px';
+    //     div.style.height = height+'px';
     // }
 
     // resize_svg(is_fullscreen);
@@ -152,7 +159,7 @@ function board_init(){
         }
 
         if(!display_mode){
-            style += "display:none;"
+            style += 'display:none;'
         }
         var container = document.getElementById(ohp_id);
         container.style = style;
@@ -160,19 +167,22 @@ function board_init(){
 
     document.addEventListener('keydown', function(event){
         //TODO; check focus
-
+        if($('#markdeep_input').is(':focus')){
+            return;
+        }
+        event.preventDefault();
         console.log(event.key);
         var keyname = event.key;
-        var ctrl = event.getModifierState("Control");
+        var ctrl = event.getModifierState('Control');
         if(keyname in color_table){
             stroke_color = color_table[keyname];
             return;
         }
-        else if(keyname == "F"){
+        else if(keyname == 'F'){
             normal_mode = !normal_mode;
             update_container(display_mode, normal_mode);
         }
-        else if(keyname == "Q"){
+        else if(keyname == 'Q'){
             display_mode = !display_mode;
             update_container(display_mode, normal_mode);
         }
