@@ -15,7 +15,6 @@ function save_svg(){
     $('#svg_content').val(current_svg);
 }
 
-
 function board_init(){
     var shapes = [];
     var color_table = {
@@ -167,11 +166,8 @@ function board_init(){
 
     document.addEventListener('keydown', function(event){
         //TODO; check focus
-<<<<<<< HEAD
-        if($('#markdeep_input').is(':focus')){
-=======
-        if($("#markdeep_input").is(":focus")){
->>>>>>> ee5240b6514508507f9f3a46151995578f3f4127
+        if($('#markdeep_input').is(':focus')
+          || $('#svg_content').is(':focus')){
             return;
         }
         event.preventDefault();
