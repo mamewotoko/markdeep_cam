@@ -3,8 +3,8 @@ var normal_mode = true;
 var display_mode = true;
 var guide_mode = true;
 var border_width = 4; //px
-var normal_container_style = 'border-top: dashed 4px #009900; border-bottom: dashed 4px #009900; border-left: solid 4px transparent; border-right: solid 4px transparent; z-index:1000;'
-var transp_container_style = 'border: solid 4px transparent; pointer-events: none; touch-events:none;'
+var normal_container_style = 'border-bottom: solid 10px #D2691E; z-index:1000;'
+var transp_container_style = 'border-bottom: solid 10px transparent; pointer-events: none; touch-events:none;'
 var container = document.getElementById(ohp_id);
 container.style = normal_container_style;
 
@@ -14,7 +14,6 @@ function save_svg(){
     var current_svg = draw.svg();
     $('#svg_content').val(current_svg);
 }
-
 
 function board_init(){
     var shapes = [];
@@ -167,11 +166,7 @@ function board_init(){
 
     document.addEventListener('keydown', function(event){
         //TODO; check focus
-<<<<<<< HEAD
         if($('#markdeep_input').is(':focus')){
-=======
-        if($("#markdeep_input").is(":focus")){
->>>>>>> ee5240b6514508507f9f3a46151995578f3f4127
             return;
         }
         event.preventDefault();
@@ -210,7 +205,7 @@ function board_init(){
     draw.on('touchend', pointend);
 }
 
-function speak(){
+function speech(){
     var text = $("#markdeep_input").val();
     var msg = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(msg);
