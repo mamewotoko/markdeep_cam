@@ -55,8 +55,7 @@ function board_init(){
     }
 
     function pointstart(event){
-        console.log('pointstart ' + event.button);
-
+        //console.log('pointstart ' + event.button);
         //multiple fingers
         if('touches' in event && 1 < event.touches.length){
             //multi touch
@@ -87,7 +86,7 @@ function board_init(){
         // https://svgjs.com/svg.draw.js/
         last_event = event;
         var snap = 1;
-        console.log(event);
+        //console.log(event);
         shapes[index].draw('point', event);
     }
 
@@ -110,8 +109,8 @@ function board_init(){
     }
 
     function pointend(event) {
-        console.log('pointend');
-        console.log(event);
+        //console.log('pointend');
+        //console.log(event);
 
         //not left click
         if('button' in event && event.button != 0){
