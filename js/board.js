@@ -165,12 +165,7 @@ function board_init(){
 
     document.addEventListener('keydown', function(event){
         //TODO; check focus
-<<<<<<< HEAD
         if($('#markdeep_input').is(':focus')){
-=======
-        if($('#markdeep_input').is(':focus')
-          || $('#svg_content').is(':focus')){
->>>>>>> f0df4ec8a606ca4e9eae4e03eb0bab13500ba11c
             return;
         }
         event.preventDefault();
