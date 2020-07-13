@@ -54,6 +54,8 @@
     #result * {
         font-size: 28px;
     }
+
+    #capture_button { width: 40px;   }
     /* .markdeep { */
     /*     padding: 10px; */
     /* } */
@@ -122,7 +124,7 @@
           <br><textarea id="svg_content"></textarea>
           <br><button class="btn btn-primary" onclick="speech();">読み上げ</button>
           <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
-          <button class="btn btn-primary fa fa-camera" onclick="capture();" aria-hidden="true"></button>
+          <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
         </td>
         <td style="vertical-align: top;">
           <div id="frame">
