@@ -10,16 +10,19 @@
         margin: 0;
         padding: 0;
     }
+
     #markdeep_input {
         height: 400px;
         width: 320px;
         font-family: monospace;
         font-size: 24;
     }
+
     #svg_content {
         width: 320px;
         height: 150px;
     }
+
     td {
       padding: 0.5em;
     }
@@ -40,25 +43,35 @@
     }
 
     #result h1 {
-        font-size: 47px;
+        font-size: 54px;
     }
 
     #result h2 {
-        font-size: 34px;
+        font-size: 42px;
     }
 
     #result h3 {
-        font-size: 28px;
+        font-size: 38px;
     }
 
     #result * {
-        font-size: 28px;
+        font-size: 34px;
     }
 
-    #capture_button { width: 40px;   }
+    #capture_button { width: 80px;   }
     /* .markdeep { */
     /*     padding: 10px; */
     /* } */
+
+    #main {
+        height: 100vh;
+    }
+
+    .cam_col {
+        height: 100%;
+        padding: 0;
+        vertical-align: top;
+    }
 
 .balloon1-left {
   display: block;
@@ -73,12 +86,15 @@
 }
 
 #frame {
-    width: 1200px; height: 600px; vertical-align: top; position: relative;
+    width: 100%;
+    height: 100%;
+    vertical-align: top;
+    position: relative;
 }
 
 .balloon {
-    width: 850px;
-    height: 85%;
+    width: calc(70vw - 200px);
+    height: 90%;
     position: absolute;
     top: 10px;
     left: 250px;
@@ -106,14 +122,23 @@
   margin: 0;
   padding: 0;
 }
+
+#cam_output {
+    vertical-align: top;
+    width: 70vw;
+}
+#cam_intput {
+    vertical-align: top;
+    width: 30vw;
+}
   </style>
   <script src="https://use.fontawesome.com/16164d916e.js"></script>
 </head>
 <body>
-  <table id="markdeep">
+  <table id="main">
   <tbody>
       <tr>
-        <td style="vertical-align: top;">
+        <td id="cam_input" class="cam_col">
           <textarea id="markdeep_input"># I have five questions!
 ## Who: ___________________
 ## Why: ___________________
@@ -126,13 +151,14 @@
           <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
           <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
         </td>
-        <td style="vertical-align: top;">
+        <td id="cam_outut" class="cam_col">
           <div id="frame">
             <img src="image/me.png" style="position: absolute; width:200px; height: auto; bottom:0; left:5;">
             <div class="balloon1-left balloon" id="balloon">
               <div style="position: relative; height: 100%;">
                 <div class="markdeep" id="result" style="positon: relative;">
-                </div>
+
+                </div> 
               </div>
               <div id="ohp"></div>
             </div>

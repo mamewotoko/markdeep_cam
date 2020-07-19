@@ -34,7 +34,7 @@ function board_init(){
     var last_event = null;
     var point_started = false;
     var stroke_color = 'green';
-    var stroke_width = 4;
+    var stroke_width = 8;
     var is_fullscreen = true;
     var removed_element = [];
 
@@ -124,22 +124,6 @@ function board_init(){
         shapes[index].draw('stop', last_event);
         index++;
     }
-
-    // function resize_svg(is_fullscreen){
-    //     //frame size (#main div)
-    //     var width = document.body.scrollWidth - 2 * border_width;
-    //     // - 2 * border_width;
-    //     var height = document.body.scrollHeight;
-
-    //     console.log('w h %d %d', width, height);
-    //     draw.size(width, height);
-
-    //     var div = document.getElementById(ohp_id);
-    //     div.style.width = width+'px';
-    //     div.style.height = height+'px';
-    // }
-
-    // resize_svg(is_fullscreen);
 
     function hide_last_element(){
         var last = draw.last();
