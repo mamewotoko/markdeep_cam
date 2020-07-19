@@ -151,6 +151,7 @@
           <br><button class="btn btn-primary" onclick="speech();">読み上げ</button>
           <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
           <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
+          <a id="image_download" download="board_and_me.png">イメージ保存</a>
         </td>
         <td id="cam_outut" class="cam_col">
           <div id="frame">
@@ -236,15 +237,15 @@
             width: w,
             height: h
         };
-        html2canvas($("#frame")[0], config).then(c => {
-            c.id = "captured_frame";
+        html2canvas($("#frame")[0], config).then(canvas => {
+            canvas.id = "captured_frame";
             var target = document.getElementById("target");
             target.innerHTML = "";
-            target.appendChild(c);
-            add_svg();
+            target.appendChild(canvas);
+            add_svg(canvas);
         });
     }
-    function add_svg(){
+    function add_svg(c){
         var current_svg = draw.svg();
         var ohp_pos = $("#ohp").offset();
         var frame_pos = $("#frame").offset();
@@ -264,10 +265,12 @@
         var img = new Image();
         img.src = "data:image/svg+xml;base64," + base64data;
         img.style = "display: none;";
+        
         img.onload = function(){
             var context = c.getContext("2d");
             console.log(img);
             context.drawImage(img, x, y, $("ohp").width(), $("ohp").height());
+            document.getElementById("image_download").href = c.toDataURL("image/png");      
         };
         var target = document.getElementById("target");
         target.appendChild(img);
