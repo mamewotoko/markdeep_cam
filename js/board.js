@@ -152,27 +152,36 @@ function board_init(){
         if($('#markdeep_input').is(':focus')){
             return;
         }
-        event.preventDefault();
         console.log(event.key);
         var keyname = event.key;
         var ctrl = event.getModifierState('Control');
         if(keyname in color_table){
+            event.preventDefault();
             stroke_color = color_table[keyname];
             return;
         }
         else if(keyname == 'F'){
+            event.preventDefault();
             normal_mode = !normal_mode;
             update_container(display_mode, normal_mode);
         }
         else if(keyname == 'Q'){
+            event.preventDefault();
             display_mode = !display_mode;
             update_container(display_mode, normal_mode);
         }
         else if(event.ctrlKey && (event.code == 'KeyZ' || keyname == '/')){
+            event.preventDefault();
             //ctrl-z
             hide_last_element();
         }
+        else if(event.ctrlKey && event.keyCode == 46){
+            //delete, clear svg
+            event.preventDefault();
+            draw.clear();
+        }
         else if(keyname in ['1','2','3','4','5','6','7','8','9']){
+            event.preventDefault();
             stroke_width = Math.pow(2, parseInt(keyname));
             return;
         }
