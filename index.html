@@ -151,7 +151,7 @@
           <br><button class="btn btn-primary" onclick="speech();">読み上げ</button>
           <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
           <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
-          <a id="image_download" download="board_and_me.png">イメージ保存</a>
+          <br><a id="image_download" download="board_and_me.png">イメージ保存</a>
         </td>
         <td id="cam_outut" class="cam_col">
           <div id="frame">
@@ -207,8 +207,6 @@
           .css("height", $("#balloon").css("height"));
 
       document.head.innerHTML = window.markdeep.stylesheet() + document.head.innerHTML;
-      $("#target").width($("#frame").width()); 
-      $("#target").height($("#frame").height()); 
       update_markdown();
       $('#markdeep_input').on("change keyup paste", update_markdown);
   });
@@ -233,6 +231,9 @@
     function capture(){
         var w = $("#frame").width();
         var h = $("#frame").height();
+        $("#target").width(w); 
+        $("#target").height(h);
+        
         var config = {
             width: w,
             height: h
