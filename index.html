@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
   <style>
     body {
         margin: 0;
@@ -13,14 +12,14 @@
 
     #markdeep_input {
         height: 400px;
-        width: 320px;
+        /* width: 320px; */
         font-family: monospace;
         font-size: 24;
     }
 
     #svg_content {
-        width: 320px;
-        height: 150px;
+        /* width: 320px; */
+        height: 100px;
     }
 
     td {
@@ -57,14 +56,13 @@
     #result * {
         font-size: 34px;
     }
-
-    #capture_button { width: 80px;   }
+    #capture_button { width: 80px; }
     /* .markdeep { */
     /*     padding: 10px; */
     /* } */
 
     #main {
-        height: 100vh;
+        height: 50vh;
     }
 
     .cam_col {
@@ -101,7 +99,7 @@
     left: 250px;
 }
 
-#ohp {
+#ohp, #markmap_container {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -151,9 +149,13 @@
           <br><button class="btn btn-primary" onclick="speech();">読み上げ</button>
           <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
           <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+            <label class="custom-control-label" for="customSwitch1">markdeep mode</label>
+          </div>
           <br><a id="image_download" download="board_and_me.png">イメージ保存</a>
         </td>
-        <td id="cam_outut" class="cam_col">
+        <td id="cam_output" class="cam_col">
           <div id="frame">
             <img src="image/me.png" style="position: absolute; width:200px; height: auto; bottom:0; left:5;">
             <div class="balloon1-left balloon" id="balloon">
@@ -163,6 +165,9 @@
                 </div> 
               </div>
               <div id="ohp"></div>
+              <div id="markmap_container">
+                <svg id="mindmap" width="100%" height="100%"></svg>
+              </div>
             </div>
           </div>
         </td>
@@ -189,50 +194,15 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
   <script src="https://mamewo.ddo.jp/svg_b/node_modules/svg.js/dist/svg.min.js"></script>
   <script src="https://mamewo.ddo.jp/svg_b/js/svg.draw.js"></script>
   <script src="js/board.js"></script>
-  <script>
-    function update_markdown(){
-        var input = $('#markdeep_input').val() + "\n";
-        //console.log(window.markdeep.format(input));
-        $('.markdeep').html(window.markdeep.format(input));  // <----------- magic
-        postprocessMarkdeep();
-    }
-  $(document).ready(function() {
-    "use strict";
-      board_init();
-      $("#ohp").css("width", $("#balloon").css("width"))
-          .css("height", $("#balloon").css("height"));
-
-      document.head.innerHTML = window.markdeep.stylesheet() + document.head.innerHTML;
-      update_markdown();
-      $('#markdeep_input').on("change keyup paste", update_markdown);
-  });
-
-  function postprocessMarkdeep() {
-    // for some reason, markdeep creates an additional, superflous <p> tag right
-    // at the beginning, so let's get rid of that
-    $('.markdeep .md > p:first-child').hide();
-
-    // anchors mess up the spacing, so purge them too
-    $('.markdeep .md a.target').hide();
-
-    // tell mathjax to render math
-    $('.markdeep').each(function() {
-        MathJax.Hub.Queue(["Typeset", MathJax.Hub, $(this).get()]);
-    });
-  }
-  </script>
   <script src="./js/html2canvas.min.js"></script>
 
   <script>
     function capture(){
         var w = $("#frame").width();
         var h = $("#frame").height();
-        $("#target").width(w); 
-        $("#target").height(h);
         
         var config = {
             width: w,
@@ -243,7 +213,7 @@
             var target = document.getElementById("target");
             target.innerHTML = "";
             target.appendChild(canvas);
-            add_svg(canvas);
+            //add_svg(canvas);
         });
     }
     function add_svg(c){
@@ -251,17 +221,12 @@
         var ohp_pos = $("#ohp").offset();
         var frame_pos = $("#frame").offset();
 
-        //console.log("add_svg %d %d", ohp_pos, frame_pos);
-
         var x = ohp_pos.left - frame_pos.left;
         var y = ohp_pos.top - frame_pos.top;
 
         console.log("add_svg %d %d", x, y);
 
         var base64data = btoa(current_svg);
-        //var svg = new window.Blob([base64data], {type: "image/svg+xml;charset=utf-8"});
-        //var DOMURL = window.URL || window.webkitURL || window;
-        //var url = DOMURL.createObjectURL(svg);
         
         var img = new Image();
         img.src = "data:image/svg+xml;base64," + base64data;
@@ -276,7 +241,13 @@
         var target = document.getElementById("target");
         target.appendChild(img);
     }
+
+    var w = $("#frame").width();
+    var h = $("#frame").height();
+    $("#target").width(w); 
+    $("#target").height(h);
   </script>
+  <script src="js/mindmap.browser.js"></script>
    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
