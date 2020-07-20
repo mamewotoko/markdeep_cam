@@ -150,8 +150,8 @@
           <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
           <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
           <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-            <label class="custom-control-label" for="customSwitch1">markdeep mode</label>
+            <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked>
+            <label class="custom-control-label" for="markdeep_mode">markdeep mode</label>
           </div>
           <br><a id="image_download" download="board_and_me.png">イメージ保存</a>
         </td>
@@ -159,9 +159,9 @@
           <div id="frame">
             <img src="image/me.png" style="position: absolute; width:200px; height: auto; bottom:0; left:5;">
             <div class="balloon1-left balloon" id="balloon">
-              <div style="position: relative; height: 100%;">
+              <div id="markdeep_board" style="position: relative; height: 100%;">
                 <div class="markdeep" id="result" style="positon: relative;">
-
+                  
                 </div> 
               </div>
               <div id="ohp"></div>
