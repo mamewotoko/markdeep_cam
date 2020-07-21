@@ -16,7 +16,7 @@ screen to display markdeep (markup language like markdown), mindmap, and svg.
 License
 -------
 
-    Copyright (c) 2012-2020 Takashi Masuyama. All rights reserved.
+    Copyright (c) 2020 Takashi Masuyama. All rights reserved.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
