@@ -7,6 +7,8 @@ screen to display markdeep (markup language like markdown), mindmap, and svg.
 
 ![demo image](image/demo.png)
 
+[demo page](https://mamewotoko.github.io/markdeep_cam/)
+
 * The input markdeeep to right upper textarea.
     * mathjax is supported (i.e. you can write formula with latex syntax)
 * A mindmap is drawn from markdeep when markdeep mode switch is disabled.
