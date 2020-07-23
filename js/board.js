@@ -149,18 +149,24 @@ function board_init(){
 
     document.addEventListener('keydown', function(event){
         //TODO; check focus
-        if($('#markdeep_input').is(':focus')){
+        console.log(document.activeElement);
+        console.log(document.activeElement.type);
+        if($('#markdeep_input').is(':focus')
+           || document.activeElement.type == "text"){
             return;
         }
         console.log(event.key);
         var keyname = event.key;
         var ctrl = event.getModifierState('Control');
+        //
+        
         if(keyname in color_table){
             event.preventDefault();
             stroke_color = color_table[keyname];
             return;
         }
         else if(keyname == 'F'){
+            //check focus
             event.preventDefault();
             normal_mode = !normal_mode;
             update_container(display_mode, normal_mode);
