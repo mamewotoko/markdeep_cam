@@ -18,7 +18,8 @@ function update_markmap(text){
     //map.zoomScale(4);
 }
 
-function update_markdown(){
+//function update_markdown(){
+window.update_markdown = function(){
     var input = $('#markdeep_input').val() + "\n";
     var markdeep_mode = $("#markdeep_mode").is(":checked");
 

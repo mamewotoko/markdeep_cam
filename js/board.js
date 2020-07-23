@@ -168,8 +168,20 @@ function board_init(){
         else if(keyname == 'F'){
             //check focus
             event.preventDefault();
+            //switch
+            var checked = $("#drawing_mode").prop('checked');
+            $("#drawing_mode").prop('checked', !checked);
             normal_mode = !normal_mode;
             update_container(display_mode, normal_mode);
+        }
+        else if(keyname == 'D'){
+            //check focus
+            event.preventDefault();
+            //switch
+            var checked = $("#markdeep_mode").prop('checked');
+            $("#markdeep_mode").prop('checked', !checked);
+            //normal_mode = !normal_mode;
+            update_markdown();
         }
         else if(keyname == 'Q'){
             event.preventDefault();
@@ -191,6 +203,16 @@ function board_init(){
             stroke_width = Math.pow(2, parseInt(keyname));
             return;
         }
+    });
+
+    $("#drawing_mode").change(function (){
+        normal_mode = this.checked;
+        update_container(display_mode, normal_mode);
+    });
+
+    $("#markdeep_mode").change(function (){
+        normal_mode = this.checked;
+        update_container(display_mode, normal_mode);
     });
 
     draw.on('mousedown', pointstart);
