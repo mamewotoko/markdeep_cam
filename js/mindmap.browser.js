@@ -6,7 +6,6 @@ const parse = require('markmap/lib/parse.markdown');
 const transform = require('markmap/lib/transform.headings');
 
 function update_markmap(text){
-    console.log("update_markmap");
     const data = transform(parse(text));
     $("svg#mindmap").empty();
     //TODO clear previsous svg
@@ -24,7 +23,6 @@ function update_markdown(){
     var input = $('#markdeep_input').val() + "\n";
     var markdeep_mode = $("#markdeep_mode").is(":checked");
 
-    console.log("update_markdown " + markdeep_mode);
     if(markdeep_mode){
         $("#markdeep_board").css("display", "block");
         $("#markmap_container").css("display", "none");
@@ -69,6 +67,7 @@ function postprocessMarkdeep() {
         MathJax.Hub.Queue(["Typeset", MathJax.Hub, $(this).get()]);
     });
 }
+
 
 },{"d3":3,"markmap/lib/d3-flextree":4,"markmap/lib/parse.markdown":5,"markmap/lib/transform.headings":6,"markmap/lib/view.mindmap":7}],2:[function(require,module,exports){
 /*!

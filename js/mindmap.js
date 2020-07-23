@@ -3,7 +3,6 @@ require('markmap/lib/d3-flextree');
 const markmap = require('markmap/lib/view.mindmap');
 const parse = require('markmap/lib/parse.markdown');
 const transform = require('markmap/lib/transform.headings');
-const canvg = require('canvg/lib');
 
 function update_markmap(text){
     const data = transform(parse(text));

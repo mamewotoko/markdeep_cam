@@ -178,57 +178,68 @@
   <script src="https://mamewo.ddo.jp/svg_b/node_modules/svg.js/dist/svg.min.js"></script>
   <script src="https://mamewo.ddo.jp/svg_b/js/svg.draw.js"></script>
   <script src="js/board.js"></script>
-  <script src="./js/html2canvas.min.js"></script>
+<!--  <script src="node_modules/canvg/lib/umd.js"></script> -->
+<script>
+//---------
 
-  <script>
-    function capture(){
-        var w = $("#frame").width();
-        var h = $("#frame").height();
-        
-        var config = {
-            width: w,
-            height: h,
-            scrollY: -window.scrollY
-        };
-        html2canvas($("#frame")[0], config).then(canvas => {
-            canvas.id = "captured_frame";
-            var target = document.getElementById("target");
-            target.innerHTML = "";
-            target.appendChild(canvas);
-            //add_svg(canvas);
-        });
-    }
-    function add_svg(c){
-        var current_svg = draw.svg();
-        var ohp_pos = $("#ohp").offset();
-        var frame_pos = $("#frame").offset();
-
-        var x = ohp_pos.left - frame_pos.left;
-        var y = ohp_pos.top - frame_pos.top;
-
-        console.log("add_svg %d %d", x, y);
-
-        var base64data = btoa(current_svg);
-        
-        var img = new Image();
-        img.src = "data:image/svg+xml;base64," + base64data;
-        img.style = "display: none;";
-        
-        img.onload = function(){
-            var context = c.getContext("2d");
-            console.log(img);
-            context.drawImage(img, x, y, $("ohp").width(), $("ohp").height());
-            document.getElementById("image_download").href = c.toDataURL("image/png");      
-        };
-        var target = document.getElementById("target");
-        target.appendChild(img);
-    }
-
+function capture(){
     var w = $("#frame").width();
     var h = $("#frame").height();
-    $("#target").width(w); 
-    $("#target").height(h);
-  </script>
+    
+    var config = {
+        width: w,
+        height: h,
+        scrollY: -window.scrollY
+    };
+    html2canvas($("#frame")[0], config).then(canvas => {
+        canvas.id = "captured_frame";
+        var target = document.getElementById("target");
+        target.innerHTML = "";
+        $("#target").width(w); 
+        $("#target").height(h);
+        
+        target.appendChild(canvas);
+        add_svg(canvas);
+    });
+}
+
+function add_svg(c){
+    var current_svg = draw.svg();
+    var ohp_pos = $("#ohp").offset();
+    var frame_pos = $("#frame").offset();
+
+    var x = ohp_pos.left - frame_pos.left;
+    var y = ohp_pos.top - frame_pos.top;
+    var base64data = btoa(current_svg);
+    
+    var img = new Image();
+    img.width = $("#ohp").width();
+    img.height = $("#ohp").height();
+    img.src = "data:image/svg+xml;base64," + base64data;
+    img.onload = function(){
+        var context = c.getContext("2d");
+        console.log("add_svg %d %d %s", x, y, current_svg);
+        console.log(img);
+        //TODO: image moves to left
+        x += 300;
+        context.drawImage(img, x, y, $("#ohp").width(), $("#ohp").height());
+        document.getElementById("image_download").href = c.toDataURL("image/png");      
+    };
+    //        img.style = "display: none;";
+    var target = document.getElementById("target");
+    target.appendChild(img);
+}
+
+//support firefox... failed
+/* function add_svg2(c){ */
+/*     var context = c.getContext('2d'); */
+/*     var v = canvg.Canvg.fromString(context, draw.svg()); */
+/*     //canvg(c, draw.svg()); */
+/*     v.start(); */
+/* } */
+
+</script>
+  <script src="./js/html2canvas.min.js"></script>
   <script src="js/mindmap.browser.js"></script>
    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
