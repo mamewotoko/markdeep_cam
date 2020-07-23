@@ -46,8 +46,8 @@ function update_markdown(){
 $(document).ready(function() {
     //"use strict";
     board_init();
-    $("#ohp").css("width", $("#balloon").css("width"))
-        .css("height", $("#balloon").css("height"));
+    // $("#ohp").css("width", $("#balloon").css("width"))
+    //     .css("height", $("#balloon").css("height"));
     $("#mindmap").css("width", $("#balloon").css("width"))
         .css("height", $("#balloon").css("height"));
     $("#markdeep_mode").change(update_markdown);
