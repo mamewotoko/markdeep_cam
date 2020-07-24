@@ -5,7 +5,7 @@ Content that I want display to virtual camera of remote meeeting like webex, sla
 
 screen to display markdeep (markup language like markdown), mindmap, and svg.
 
-![demo image](image/demo.png)
+![demo image](image/markdeep_cam_demo.png)
 
 [demo page](https://mamewotoko.github.io/markdeep_cam/)
 
