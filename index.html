@@ -110,15 +110,42 @@
     width: 300px;
 }
 
+#copyright_input {
+    width: 80vw;
+}
 #copyright_container {
     position: absolute;
     bottom: 10;
-    right: 20;
+    right: 40;
     font-size: 24px;
     width: 100%;
     text-align: right;
 }
 
+/* board style */
+.markdeep .xxxxl {
+    font-size: 140px !important;
+}
+
+.markdeep .xxxl {
+    font-size: 120px !important;
+}
+
+.markdeep .xxl {
+    font-size: 100px !important;
+}
+
+.markdeep .xl {
+    font-size: 90px !important;
+}
+
+.markdeep .l {
+    font-size: 70px !important;
+}
+
+.markdeep .m {
+    font-size: 50px !important;
+}
 
 #additional h1 {
     text-align: center;
@@ -191,28 +218,27 @@
       </tr>
   </tbody>
   </table>
-
-  <div id="target">
-  </div>
-
-  <hr>
-  <div id="additional">
     <h2>設定</h2>
     copyright表記: <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
-    <br>人物アイコン(幅 200pxを推奨します): pasteする
+    <br>人物アイコン(幅 200pxを推奨します): 画像をpasteするか、以下の画像をダブルクリックしてください。
     <div id="avatar_list">
-      <img src="image/cat_icon/animal_neko.png" style="width:100px; height: auto;" >
       <img src="image/cat_icon/cat2_1_idea.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/animal_neko.png" style="width:100px; height: auto;" >
       <img src="image/cat_icon/cat3_1_question.png" style="width:100px; height: auto;" >
       <img src="image/cat_icon/cat2_4_think.png" style="width:100px; height: auto;" >
-      <img src="image/cat_icon/cat2_2_surprise.png" style="width:100px; height: auto;" >
       <img src="image/cat_icon/cat2_3_shock.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat2_2_surprise.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat3_3_sleep.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat3_4_tehe.png" style="width:100px; height: auto;" >
       <img src="image/cat_icon/cat3_2_heart.png" style="width:100px; height: auto;" >
     </div>
-<!--
-<img src="image/cat_icon/cat3_3_sleep.png" style="width:100px; height: auto;" >
-<img src="image/cat_icon/cat3_4_tehe.png" style="width:100px; height: auto;" >
--->
+    <h2>撮った画像</h2>
+    <div id="target">
+    </div>
+
+    <hr>
+  <div id="additional">
+
     <h2>サポート状況</h2>
     MacのChromeでは動作する
     <br>MacのFirefoxではSVGの落書きの保存はできない
