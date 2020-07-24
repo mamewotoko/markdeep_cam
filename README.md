@@ -1,7 +1,7 @@
 markdeep cam
 ==============
 
-Content that I want display to virtual camera of remote meeeting like webex, slack and zoom. (with OBS-studio)
+Content that I want display to virtual camera of remote meeeting like webex, slack and zoom. (with [OBS-studio](https://obsproject.com/ja))
 
 screen to display markdeep (markup language like markdown), mindmap, and svg.
 
