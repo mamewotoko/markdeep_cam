@@ -6,11 +6,10 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <style>
     body {
-        margin: 0;
-        padding: 0;
+        padding: 4px;
     }
 
-     #markdeep_input {
+    #markdeep_input {
 /*    #editor_container { */
         /* position: absolute; */
         height: 400px;
@@ -110,11 +109,35 @@
     vertical-align: top;
     width: 300px;
 }
+
+#copyright_container {
+    position: absolute;
+    bottom: 10;
+    right: 20;
+    font-size: 24px;
+    width: 100%;
+    text-align: right;
+}
+
+
+#additional h1 {
+    text-align: center;
+ }
+
+#additional h2 {
+  border-left: #254117 6px solid;
+  border-bottom: #254117 2px solid;
+  padding-left: 4px;
+  margin-bottom: 10px;
+  margin-top: 15px !important;
+}
+
   </style>
   <script src="https://use.fontawesome.com/16164d916e.js"></script>
   <script src="lib/js/ace.min.js"></script>
   <script src="/js/qrcode.js"></script>
   <script src="/js/qrmain.js"></script>
+
 </head>
 <body>
   <table id="main">
@@ -137,7 +160,6 @@
           <br><button class="btn btn-primary" onclick="speech();">読み上げ</button>
           <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
           <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
-          <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
           <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
           <div class="custom-control custom-switch">
             <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked>
@@ -148,22 +170,22 @@
             <label class="custom-control-label" for="drawing_mode">drawing mode (F)</label>
           </div>
           <br><a id="image_download" download="board_and_me.png">イメージ保存</a>
+          <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
         </td>
         <td id="cam_output" class="cam_col" style="position: relative;">
           <div id="ohp"></div>
 
           <div id="frame">
-            <img src="image/youngman_33.png" style="position: absolute; width:200px; height: auto; bottom:0; left:5;">
+            <img id="avatar" src="image/youngman_33.png" style="position: absolute; width:200px; height: auto; bottom:0; left:5;">
             <div class="balloon1-left balloon" id="balloon">
               <div id="markdeep_board" style="height: 100%;">
-                <div class="markdeep" id="result">
-                  
-                </div> 
+                <div class="markdeep" id="result"></div>
               </div>
               <div id="markmap_container">
                 <svg id="mindmap" width="100%" height="100%"></svg>
               </div>
             </div>
+            <div id="copyright_container"><span id="copyright"></span><div>
           </div>
         </td>
       </tr>
@@ -173,21 +195,38 @@
   <div id="target">
   </div>
 
-  <h2>サポート状況</h2>
-  MacのChromeでは動作する
-  <br>MacのFirefoxではSVGの落書きの保存はできない
-  <br>iPadのSafari, Chromeでは落書きの保存が不完全
-
-
-  <h2>参考</h2>
-  <ul>
-    <li><a href="https://casual-effects.com/markdeep/">Markdeep - Causal Effects</a></li>
-    <li><a href="https://gist.github.com/doersino/9dcc636493ff1deb30912ed2efc44891">Preview Markdeep as you're typing (very simple, unstyled proof of concept)</a></li>
-    <li><a href="https://github.com/dundalek/markmap">markmap</a></li>
-    <li><a href="https://mamewo.ddo.jp/svg_b/">svg board</a></li>
-  </ul>
-  「<a href="https://www.irasutoya.com/">いらすとや</a>」さんのイラストを使いました。
   <hr>
+  <div id="additional">
+    <h2>設定</h2>
+    copyright表記: <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
+    <br>人物アイコン(幅 200pxを推奨します): pasteする
+    <div id="avatar_list">
+      <img src="image/cat_icon/animal_neko.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat2_1_idea.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat3_1_question.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat2_4_think.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat2_2_surprise.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat2_3_shock.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat3_2_heart.png" style="width:100px; height: auto;" >
+    </div>
+<!--
+<img src="image/cat_icon/cat3_3_sleep.png" style="width:100px; height: auto;" >
+<img src="image/cat_icon/cat3_4_tehe.png" style="width:100px; height: auto;" >
+-->
+    <h2>サポート状況</h2>
+    MacのChromeでは動作する
+    <br>MacのFirefoxではSVGの落書きの保存はできない
+    <br>iPadのSafari, Chromeでは落書きの保存が不完全
+
+    <h2>参考</h2>
+    <ul>
+      <li><a href="https://casual-effects.com/markdeep/">Markdeep - Causal Effects</a></li>
+      <li><a href="https://gist.github.com/doersino/9dcc636493ff1deb30912ed2efc44891">Preview Markdeep as you're typing (very simple, unstyled proof of concept)</a></li>
+      <li><a href="https://github.com/dundalek/markmap">markmap</a></li>
+      <li><a href="https://mamewo.ddo.jp/svg_b/">svg board</a></li>
+    </ul>
+    「<a href="https://www.irasutoya.com/">いらすとや</a>」さんのイラストを使いました。
+  </div>
   <script>window.markdeepOptions = {mode: 'script'};</script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
@@ -246,6 +285,37 @@ function add_svg(c){
     target.appendChild(img);
 }
 
+  window.addEventListener('paste', function(e){
+      var item = e.clipboardData.items[0];
+      console.log("item");
+      console.log(item);
+      if(!item){
+          return;
+      }
+      if(!item.type.startsWith("image/")){
+          return;
+      }
+      var blob = item.getAsFile();
+      //var img = new Image();
+      var img = $("#avatar")[0];
+      var URLObj = window.URL || window.webkitURL;
+      img.src = URLObj.createObjectURL(blob);
+  });
+  
+  $("#copyright_input").on("keydown", function(e){
+      console.log("keydown" + e.keyCode);
+    if(e.keyCode == 13){
+        //enter is pressed
+        var copyright_text = $("#copyright_input").val();
+        console.log("keydown enter " + copyright_text);
+        $("#copyright").text(copyright_text);
+    }
+  });
+
+  $("#avatar_list img").dblclick(function(){
+      $("#avatar").attr("src", $(this).attr("src"));
+  });
+  
 //support firefox... failed
 /* function add_svg2(c){ */
 /*     var context = c.getContext('2d'); */
