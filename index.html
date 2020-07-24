@@ -113,6 +113,8 @@
   </style>
   <script src="https://use.fontawesome.com/16164d916e.js"></script>
   <script src="lib/js/ace.min.js"></script>
+  <script src="js/qrcode.js"></script>
+  <script src="js/qrmain.js"></script>
 </head>
 <body>
   <table id="main">
@@ -135,6 +137,8 @@
           <br><button class="btn btn-primary" onclick="speech();">読み上げ</button>
           <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
           <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
+          <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
+          <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
           <div class="custom-control custom-switch">
             <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked>
             <label class="custom-control-label" for="markdeep_mode">markdeep mode (D)</label>
@@ -173,7 +177,8 @@
   MacのChromeでは動作する
   <br>MacのFirefoxではSVGの落書きの保存はできない
   <br>iPadのSafari, Chromeでは落書きの保存が不完全
-  
+
+
   <h2>参考</h2>
   <ul>
     <li><a href="https://casual-effects.com/markdeep/">Markdeep - Causal Effects</a></li>
