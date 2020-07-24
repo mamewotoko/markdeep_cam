@@ -240,7 +240,7 @@ function add_svg(c){
         context.drawImage(img, x, y, $("#ohp").width(), $("#ohp").height());
         document.getElementById("image_download").href = c.toDataURL("image/png");      
     };
-    //        img.style = "display: none;";
+    img.style = "display: none;";
     var target = document.getElementById("target");
     target.appendChild(img);
 }
