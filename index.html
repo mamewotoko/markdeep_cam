@@ -238,9 +238,10 @@ function add_svg(c){
         //TODO: image moves to left
         x += 300;
         context.drawImage(img, x, y, $("#ohp").width(), $("#ohp").height());
-        document.getElementById("image_download").href = c.toDataURL("image/png");      
+        document.getElementById("image_download").href = c.toDataURL("image/png");
+        img.parentNode.removeChild(img);
     };
-    img.style = "display: none;";
+    //img.style = "display: none;";
     var target = document.getElementById("target");
     target.appendChild(img);
 }
