@@ -15,6 +15,21 @@ screen to display markdeep (markup language like markdown), mindmap, and svg.
 * You can draw feee hand drawing on the right board. 
     * Shift-F toggles svg mode (mouse event is delivered to text behind svg)
 
+Build
+-----
+
+### setup
+
+```
+sh setup.sh
+```
+
+### compile js (browserify)
+
+```
+sh build.sh
+```
+
 License
 -------
 
