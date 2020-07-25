@@ -227,12 +227,12 @@
       <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
       
       | <input type="color" id="drawing_color" name="drawing_color" value="#FF0000">
-      <button class="btn btn-primary color_button" data-color="red">red</button>
-      <button class="btn btn-primary color_button" data-color="green">green</button>
-      <button class="btn btn-primary color_button" data-color="yellow">yellow</button>
-      <button class="btn btn-primary color_button" data-color="purple">purple</button>
-      <button class="btn btn-primary color_button" data-color="black">black</button>
-      <button class="btn btn-primary color_button" data-color="white">white</button>
+      <button class="color_button" data-color="red">red</button>
+      <button class="color_button" data-color="green">green</button>
+      <button class="color_button" data-color="yellow">yellow</button>
+      <button class="color_button" data-color="purple">purple</button>
+      <button class="color_button" data-color="black">black</button>
+      <button class="color_button" data-color="white">white</button>
       <!-- TOOD: color -->
       <div id="avatar_list">
         <img src="image/cat_icon/cat2_1_idea.png" style="width:100px; height: auto;" >
@@ -289,154 +289,158 @@
         <script src="js/board.js"></script>
         <!--  <script src="node_modules/canvg/lib/umd.js"></script> -->
         <script>
-          function clear_markdeep(){
-              $("#markdeep_input").val("");
-              var e = jQuery.Event("keypress");
-              e.which = 13; //choose the one you want
-              e.keyCode = 13;
-              $("#markdeep_input").trigger(e);
-              var e = jQuery.Event("keyup");
-              e.which = 13; //choose the one you want
-              e.keyCode = 13;
-              $("#markdeep_input").trigger(e);
-          }
+         function clear_markdeep(){
+             $("#markdeep_input").val("");
+             var e = jQuery.Event("keypress");
+             e.which = 13; //choose the one you want
+             e.keyCode = 13;
+             $("#markdeep_input").trigger(e);
+             var e = jQuery.Event("keyup");
+             e.which = 13; //choose the one you want
+             e.keyCode = 13;
+             $("#markdeep_input").trigger(e);
+         }
 
-          function clear_svg(){
-              draw.clear();
-          }
+         function clear_svg(){
+             draw.clear();
+         }
 
-          function clear_all(){
-              clear_markdeep();
-              clear_svg();
-          }
-          
-          function capture(){
-              var w = $("#frame").width();
-              var h = $("#frame").height();
-              
-              var config = {
-                  width: w,
-                  height: h,
-                  scrollY: -window.scrollY
-              };
-              html2canvas($("#frame")[0], config).then(canvas => {
-                  canvas.id = "captured_frame";
-                  var target = document.getElementById("target");
-                  target.innerHTML = "";
-                  $("#target").width(w); 
-                  $("#target").height(h);
-                  
-                  target.appendChild(canvas);
-                  add_svg(canvas);
-              });
-          }
+         function clear_all(){
+             clear_markdeep();
+             clear_svg();
+         }
+         
+         function capture(){
+             var w = $("#frame").width();
+             var h = $("#frame").height();
+             
+             var config = {
+                 width: w,
+                 height: h,
+                 scrollY: -window.scrollY
+             };
+             html2canvas($("#frame")[0], config).then(canvas => {
+                 canvas.id = "captured_frame";
+                 var target = document.getElementById("target");
+                 target.innerHTML = "";
+                 $("#target").width(w); 
+                 $("#target").height(h);
+                 
+                 target.appendChild(canvas);
+                 add_svg(canvas);
+             });
+         }
 
-          function add_svg(c){
-              var current_svg = draw.svg();
-              var ohp_pos = $("#ohp").offset();
-              var frame_pos = $("#frame").offset();
+         function add_svg(c){
+             var current_svg = draw.svg();
+             var ohp_pos = $("#ohp").offset();
+             var frame_pos = $("#frame").offset();
 
-              var x = ohp_pos.left - frame_pos.left;
-              var y = ohp_pos.top - frame_pos.top;
-              var base64data = btoa(current_svg);
-              
-              var img = new Image();
-              img.width = $("#ohp").width();
-              img.height = $("#ohp").height();
-              img.src = "data:image/svg+xml;base64," + base64data;
-              img.onload = function(){
-                  var context = c.getContext("2d");
-                  console.log("add_svg %d %d %s", x, y, current_svg);
-                  console.log(img);
-                  //TODO: image moves to left
-                  x += 300;
-                  context.drawImage(img, x, y, $("#ohp").width(), $("#ohp").height());
-                  document.getElementById("image_download").href = c.toDataURL("image/png");
-                  img.parentNode.removeChild(img);
-              };
-              //img.style = "display: none;";
-              var target = document.getElementById("target");
-              target.appendChild(img);
-          }
+             var x = ohp_pos.left - frame_pos.left;
+             var y = ohp_pos.top - frame_pos.top;
+             var base64data = btoa(current_svg);
+             
+             var img = new Image();
+             img.width = $("#ohp").width();
+             img.height = $("#ohp").height();
+             img.src = "data:image/svg+xml;base64," + base64data;
+             img.onload = function(){
+                 var context = c.getContext("2d");
+                 console.log("add_svg %d %d %s", x, y, current_svg);
+                 console.log(img);
+                 //TODO: image moves to left
+                 x += 300;
+                 context.drawImage(img, x, y, $("#ohp").width(), $("#ohp").height());
+                 document.getElementById("image_download").href = c.toDataURL("image/png");
+                 img.parentNode.removeChild(img);
+             };
+             //img.style = "display: none;";
+             var target = document.getElementById("target");
+             target.appendChild(img);
+         }
 
-          window.addEventListener('paste', function(e){
-              var item = e.clipboardData.items[0];
-              console.log("item");
-              console.log(item);
-              if(!item){
-                  return;
-              }
-              if(!item.type.startsWith("image/")){
-                  return;
-              }
-              var blob = item.getAsFile();
-              //var img = new Image();
-              var img = $("#avatar")[0];
-              var URLObj = window.URL || window.webkitURL;
-              img.src = URLObj.createObjectURL(blob);
-          });
-          
-          $("#copyright_input").on("keydown", function(e){
-              console.log("keydown" + e.keyCode);
-              if(e.keyCode == 13){
-                  //enter is pressed
-                  var copyright_text = $("#copyright_input").val();
-                  console.log("keydown enter " + copyright_text);
-                  $("#copyright").text(copyright_text);
-              }
-          });
+         window.addEventListener('paste', function(e){
+             var item = e.clipboardData.items[0];
+             console.log("item");
+             console.log(item);
+             if(!item){
+                 return;
+             }
+             if(!item.type.startsWith("image/")){
+                 return;
+             }
+             var blob = item.getAsFile();
+             //var img = new Image();
+             var img = $("#avatar")[0];
+             var URLObj = window.URL || window.webkitURL;
+             img.src = URLObj.createObjectURL(blob);
+         });
+         
+         $("#copyright_input").on("keydown", function(e){
+             console.log("keydown" + e.keyCode);
+             if(e.keyCode == 13){
+                 //enter is pressed
+                 var copyright_text = $("#copyright_input").val();
+                 console.log("keydown enter " + copyright_text);
+                 $("#copyright").text(copyright_text);
+             }
+         });
 
-          function init_size(){
-              var win_height = window.innerHeight;
-              var control_height = $("#ui_control").height();
-              var view_height = Math.max(win_height - control_height, 100);
-              console.log("view_height " + view_height);
-              $("#ui_top").height(view_height);
-          }
-          $(window).resize(function(){
-              init_size();
-          });
+         function init_size(){
+             var win_height = window.innerHeight;
+             var control_height = $("#ui_control").height();
+             var view_height = Math.max(win_height - control_height, 100);
+             console.log("view_height " + view_height);
+             $("#ui_top").height(view_height);
+         }
+         $(window).resize(function(){
+             init_size();
+         });
 
-          $(document).ready(function() {
-              init_size();
-          });
-          
-          $("#avatar_list img").dblclick(function(e){
-              e.preventDefault();
-              $("#avatar").attr("src", $(this).attr("src"));
-          });
+         $(document).ready(function() {
+             init_size();
+             var color_table = {
+                 "red": "#ff0000",
+                 "blue": "#0000ff",
+                 "green": "#00ff00",
+                 "pink": "#ff66cc",
+                 "purple": "#692f9c",
+                 "black": "#000000",
+                 "white": "#ffffff",
+                 "orange": "#FFAA00",
+                 "yellow": "#FFFF00"
+             };
+             
+             $(".color_button").each(function(i, e){
+                 $(e).css("background-color",
+                          color_table[$(e).attr("data-color")]);
+             });
 
-          $("#drawing_color").change(function(e){
-              console.log("color changed " + $(this).val());
-              window.stroke_color = $(this).val();
-          });
-          //support firefox... failed
-          /* function add_svg2(c){ */
-          /*     var context = c.getContext('2d'); */
-          /*     var v = canvg.Canvg.fromString(context, draw.svg()); */
-          /*     //canvg(c, draw.svg()); */
-          /*     v.start(); */
-          /* } */
+             $(".color_button").click(function(e){
+                 var color = color_table[$(this).attr("data-color")];
+                 console.log("click " + $(this).attr("data-color") + " " + color);
+                 $("#drawing_color").val(color);
+                 window.stroke_color = color;
+             });
+             
+             $("#avatar_list img").dblclick(function(e){
+                 e.preventDefault();
+                 $("#avatar").attr("src", $(this).attr("src"));
+             });
 
-          var color_table = {
-              "red": "#ff0000",
-              "blue": "#0000ff",
-              "green": "#00ff00",
-              "pink": "#ff66cc",
-              "purple": "#cc8899",
-              "black": "#000000",
-              "white": "#ffffff",
-              "orange": "#FFAA00",
-              "yellow": "#FFFF00"
-          };
-          
-          $(".color_button").css("background-color", color_table[$(this).attr("data-color")]);
-          $(".color_button").click(function(e){
-              var color = color_table[$(this).attr("data-color")];
-              console.log("click " + $(this).attr("data-color") + " " + color);
-              $("#drawing_color").val(color);
-              window.stroke_color = color;
-          });
+             $("#drawing_color").change(function(e){
+                 console.log("color changed " + $(this).val());
+                 window.stroke_color = $(this).val();
+             });
+             //support firefox... failed
+             /* function add_svg2(c){ */
+             /*     var context = c.getContext('2d'); */
+             /*     var v = canvg.Canvg.fromString(context, draw.svg()); */
+             /*     //canvg(c, draw.svg()); */
+             /*     v.start(); */
+             /* } */
+
+         });
         </script>
         <script src="./js/html2canvas.min.js"></script>
         <!--
