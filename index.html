@@ -192,21 +192,7 @@
 ## Where: ___________________
 ## When: ___________________
 </textarea>
-
-          <br><button class="btn btn-primary" onclick="speech();">読み上げ</button>
-          <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
-          <br><button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true">Clear Text</button>
-          <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true">Clear Drawing</button>
-
           <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
-          <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked>
-            <label class="custom-control-label" for="markdeep_mode">markdeep mode (D)</label>
-          </div>
-          <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="drawing_mode" checked>
-            <label class="custom-control-label" for="drawing_mode">drawing mode (F)</label>
-          </div>
         </td>
         <td id="cam_output" class="cam_col" style="position: relative;">
           <div id="ohp"></div>
@@ -227,8 +213,21 @@
       </tr>
   </tbody>
   </table>
-    <h2>設定</h2>
-    copyright表記: <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
+  <h2>設定</h2>
+  <button class="btn btn-primary" onclick="speech();">読み上げ</button>
+  <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
+  <button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true">Clear Text</button>
+  <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true">Clear Drawing</button>
+  <button class="btn btn-primary" id="clear_all" onclick="clear_all();" aria-hidden="true">Clear Both</button>
+  <input type="color" id="drawing_color" name="drawing_color" value="#FF0000">
+  <button class="btn btn-primary color_button" data-color="red">red</button>
+  <button class="btn btn-primary color_button" data-color="green">green</button>
+  <button class="btn btn-primary color_button" data-color="yellow">yellow</button>
+  <button class="btn btn-primary color_button" data-color="purple">purple</button>
+  <button class="btn btn-primary color_button" data-color="black">black</button>
+  <button class="btn btn-primary color_button" data-color="white">white</button>
+<!-- TOOD: color -->
+<br>    copyright表記: <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
     <br>人物アイコン(幅 200pxを推奨します): 画像をpasteするか、以下の画像をダブルクリックしてください。
     <div id="avatar_list">
       <img src="image/cat_icon/cat2_1_idea.png" style="width:100px; height: auto;" >
@@ -270,6 +269,15 @@
       <li>「<a href="https://www.irasutoya.com/">いらすとや</a>」さんのイラストを使いました。</li>
     </ul>
     <hr>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked>
+            <label class="custom-control-label" for="markdeep_mode">markdeep mode (D)</label>
+          </div>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="drawing_mode" checked>
+            <label class="custom-control-label" for="drawing_mode">drawing mode (F)</label>
+          </div>
+    
     <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
     <br>Takashi Masuyama mamewotoko AT gmail.com
     <br><a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a>
@@ -297,6 +305,11 @@
 
     function clear_svg(){
         draw.clear();
+    }
+
+    function clear_all(){
+        clear_markdeep();
+        clear_svg();
     }
     
 function capture(){
@@ -379,15 +392,37 @@ function add_svg(c){
       e.preventDefault();
       $("#avatar").attr("src", $(this).attr("src"));
   });
-  
+
+    $("#drawing_color").change(function(e){
+        console.log("color changed " + $(this).val());
+        window.stroke_color = $(this).val();
+    });
 //support firefox... failed
 /* function add_svg2(c){ */
 /*     var context = c.getContext('2d'); */
 /*     var v = canvg.Canvg.fromString(context, draw.svg()); */
 /*     //canvg(c, draw.svg()); */
 /*     v.start(); */
-/* } */
+    /* } */
 
+        var color_table = {
+            "red": "#ff0000",
+            "blue": "#0000ff",
+            "green": "#00ff00",
+            "pink": "#ff66cc",
+            "purple": "#cc8899",
+            "black": "#000000",
+            "white": "#ffffff",
+            "orange": "#FFAA00;"
+        };
+    
+    $(".color_button").css("background-color", color_table[$(this).attr("data-color")]);
+    $(".color_button").click(function(e){
+        var color = color_table[$(this).attr("data-color")];
+        console.log("click " + $(this).attr("data-color") + " " + color);
+        $("#drawing_color").val(color);
+        window.stroke_color = color;
+    });
 </script>
 <script src="./js/html2canvas.min.js"></script>
 <!--

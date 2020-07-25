@@ -33,7 +33,7 @@ function board_init(){
     var index = 0;
     var last_event = null;
     var point_started = false;
-    var stroke_color = 'green';
+    window.stroke_color = "red";
     var stroke_width = 8;
     var is_fullscreen = true;
     var removed_element = [];
@@ -160,7 +160,7 @@ function board_init(){
         
         if(keyname in color_table){
             event.preventDefault();
-            stroke_color = color_table[keyname];
+            window.stroke_color = color_table[keyname];
             return;
         }
         else if(keyname == 'F'){
