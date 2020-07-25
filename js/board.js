@@ -125,7 +125,7 @@ function board_init(){
         index++;
     }
 
-    function hide_last_element(){
+    window.hide_last_element = function(){
         var last = draw.last();
         removed_element.push(last);
         last.remove();

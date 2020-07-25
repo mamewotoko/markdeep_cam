@@ -191,6 +191,7 @@
       <button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true">Clear Text</button>
       <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true">Clear Drawing</button>
       <br><button class="btn btn-primary" id="clear_all" onclick="clear_all();" aria-hidden="true">Clear</button>
+      <button class="btn btn-primary fa fa-undo" id="undo_drawing" onclick="hide_last_element();" aria-hidden="true"></button>
       <div class="custom-control custom-switch">
         <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked>
         <label class="custom-control-label" for="markdeep_mode">markdeep mode (D)</label>
@@ -231,6 +232,7 @@
       <button class="color_button" data-color="green">green</button>
       <button class="color_button" data-color="yellow">yellow</button>
       <button class="color_button" data-color="purple">purple</button>
+      <button class="color_button" data-color="pink">pink</button>
       <button class="color_button" data-color="black">black</button>
       <button class="color_button" data-color="white">white</button>
       <!-- TOOD: color -->
@@ -309,6 +311,8 @@
              clear_markdeep();
              clear_svg();
          }
+
+         //undo_drawing
          
          function capture(){
              var w = $("#frame").width();
@@ -319,10 +323,11 @@
                  height: h,
                  scrollY: -window.scrollY
              };
+             var target = document.getElementById("target");
+             target.innerHTML = "";
+
              html2canvas($("#frame")[0], config).then(canvas => {
                  canvas.id = "captured_frame";
-                 var target = document.getElementById("target");
-                 target.innerHTML = "";
                  $("#target").width(w); 
                  $("#target").height(h);
                  
@@ -389,7 +394,7 @@
          function init_size(){
              var win_height = window.innerHeight;
              var control_height = $("#ui_control").height();
-             var view_height = Math.max(win_height - control_height + 30, 100);
+             var view_height = Math.max(win_height - control_height + 60, 100);
              console.log("view_height " + view_height);
              $("#ui_top").height(view_height-20);
          }
