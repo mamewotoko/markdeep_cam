@@ -389,7 +389,7 @@
          function init_size(){
              var win_height = window.innerHeight;
              var control_height = $("#ui_control").height();
-             var view_height = Math.max(win_height - control_height, 100);
+             var view_height = Math.max(win_height - control_height + 30, 100);
              console.log("view_height " + view_height);
              $("#ui_top").height(view_height-20);
          }
