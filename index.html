@@ -6,165 +6,165 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./css/qr.css" />
     <style>
-      body {
-          padding: 4px;
-      }
+     body {
+         padding: 4px;
+         touch-action: manipulation;
+     }
 
-      #markdeep_input {
-          height: calc(100% - 120px) !important;
-          width: 300px;
-          font-familiy: monospace;
-          font-size: 18px;
-      }
-      
-      #svg_content {
-          height: 100px;
-      }
+     #markdeep_input {
+         height: calc(100% - 120px) !important;
+         width: 300px;
+         font-familiy: monospace;
+         font-size: 18px;
+     }
+     
+     #svg_content {
+         height: 100px;
+     }
 
-      td {
-          padding: 0.5em;
-      }
+     td {
+         padding: 0.5em;
+     }
 
-      .md p {
-          font-size: inherit;
-          font-weight: normal;
-          margin: 0 0 10px;
-      }
+     .md p {
+         font-size: inherit;
+         font-weight: normal;
+         margin: 0 0 10px;
+     }
 
-      .md h1, .md h2, .md h3 {
-          margin-top: 0;
-          padding-top: 0;
-      }
+     .md h1, .md h2, .md h3 {
+         margin-top: 0;
+         padding-top: 0;
+     }
 
-      .md h1:before, .md h2:before, .md h3:before {
-          display: none;
-      }
+     .md h1:before, .md h2:before, .md h3:before {
+         display: none;
+     }
 
-      #result h1 {
-          font-size: 40px;
-      }
+     #result h1 {
+         font-size: 44px;
+     }
 
-      #result h2 {
-          font-size: 36px;
-      }
+     #result h2 {
+         font-size: 36px;
+     }
 
-      #result h3 {
-          font-size: 30px;
-      }
+     #result h3 {
+         font-size: 30px;
+     }
 
-      #result * {
-          font-size: 26px;
-      }
-      #capture_button { width: 80px; }
-      /* .markdeep { */
-      /*     padding: 10px; */
-      /* } */
-      
-      #main {
-          height: 100%;
-      }
+     #result * {
+         font-size: 26px;
+     }
+     #capture_button { width: 80px; }
+     /* .markdeep { */
+     /*     padding: 10px; */
+     /* } */
+     
+     #main {
+         height: 100%;
+     }
 
-      .cam_col {
-          height: 100%;
-          padding: 0;
-          vertical-align: top;
-      }
+     .cam_col {
+         height: 100%;
+         padding: 0;
+         vertical-align: top;
+     }
 
-      #frame {
-          width: 100%;
-          height: 100%;
-          vertical-align: top;
-          position: relative;
-      }
+     #frame {
+         width: 100%;
+         height: 100%;
+         vertical-align: top;
+         position: relative;
+     }
 
-      .balloon {
-          width: calc(95% - 200px);
-          height: 90%;
-          position: absolute;
-          top: 10px;
-          left: 220px;
+     .balloon {
+         width: calc(95% - 200px);
+         height: 90%;
+         position: absolute;
+         top: 10px;
+         left: 220px;
 
-          display: block;
-          margin: 1.2em 0 10px 10px;
-          padding: 20px;
-          color: #555;
-          overflow-y: hidden;
-          background: #e0edff;
+         display: block;
+         margin: 1.2em 0 10px 10px;
+         padding: 20px;
+         color: #555;
+         overflow-y: hidden;
+         background: #e0edff;
+     }
 
-      }
+     #ohp {
+         position: absolute;
+         top: 0px;
+         left: 0px;
+         width: 100%;
+         height: 100%;
+     }
+     #cam_output {
+         vertical-align: top;
+         width: calc(100vw - 300px);
+     }
+     #cam_input {
+         vertical-align: top;
+         width: 300px;
+     }
 
-      #ohp {
-          position: absolute;
-          top: 0px;
-          left: 0px;
-          width: 100%;
-          height: 100%;
-      }
-      #cam_output {
-          vertical-align: top;
-          width: calc(100vw - 300px);
-      }
-      #cam_input {
-          vertical-align: top;
-          width: 300px;
-      }
+     #copyright_input {
+         width: 80vw;
+     }
+     #copyright_container {
+         position: absolute;
+         bottom: 10px;
+         right: 40px;
+         font-size: 24px;
+         width: 100%;
+         text-align: right;
+     }
 
-      #copyright_input {
-          width: 80vw;
-      }
-      #copyright_container {
-          position: absolute;
-          bottom: 10px;
-          right: 40px;
-          font-size: 24px;
-          width: 100%;
-          text-align: right;
-      }
+     /* board style */
+     .markdeep .xxxxl {
+         font-size: 140px !important;
+     }
 
-      /* board style */
-      .markdeep .xxxxl {
-          font-size: 140px !important;
-      }
+     .markdeep .xxxl {
+         font-size: 120px !important;
+     }
 
-      .markdeep .xxxl {
-          font-size: 120px !important;
-      }
+     .markdeep .xxl {
+         font-size: 100px !important;
+     }
 
-      .markdeep .xxl {
-          font-size: 100px !important;
-      }
+     .markdeep .xl {
+         font-size: 90px !important;
+     }
 
-      .markdeep .xl {
-          font-size: 90px !important;
-      }
+     .markdeep .l {
+         font-size: 70px !important;
+     }
 
-      .markdeep .l {
-          font-size: 70px !important;
-      }
+     .markdeep .m {
+         font-size: 50px !important;
+     }
 
-      .markdeep .m {
-          font-size: 50px !important;
-      }
+     #additional h1 {
+         text-align: center;
+     }
 
-      #additional h1 {
-          text-align: center;
-      }
+     #additional h2 {
+         border-left: #254117 6px solid;
+         border-bottom: #254117 2px solid;
+         padding-left: 4px;
+         margin-bottom: 10px;
+         margin-top: 15px !important;
+     }
 
-      #additional h2 {
-          border-left: #254117 6px solid;
-          border-bottom: #254117 2px solid;
-          padding-left: 4px;
-          margin-bottom: 10px;
-          margin-top: 15px !important;
-      }
-
-      #avatar {
-          position: absolute;
-          width:200px;
-          height: auto;
-          bottom:10px !important;
-          left:5px !important;
-      }
+     #avatar {
+         position: absolute;
+         width:200px;
+         height: auto;
+         bottom:10px !important;
+         left:5px !important;
+     }
     </style>
     <script src="https://use.fontawesome.com/16164d916e.js"></script>
     <!--
@@ -208,7 +208,7 @@
             <div id="frame">
               <img id="avatar" src="image/cat_icon/animal_neko.png">
               <div class="balloon1-left balloon" id="balloon">
-                <div id="markdeep_board" style="height: 100%;">
+                <div id="markdeep_board" style="height: 95%;">
                   <div class="markdeep" id="result"></div>
                 </div>
                 <div id="markmap_container">
@@ -391,7 +391,7 @@
              var control_height = $("#ui_control").height();
              var view_height = Math.max(win_height - control_height, 100);
              console.log("view_height " + view_height);
-             $("#ui_top").height(view_height);
+             $("#ui_top").height(view_height-20);
          }
          $(window).resize(function(){
              init_size();
