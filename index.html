@@ -10,7 +10,10 @@
      body {
          padding: 4px;
      }
-
+     .color_button {
+         width: 50px;
+         height: 25px;
+     }
      #markdeep_input {
          height: calc(100% - 120px) !important;
          width: 300px;
@@ -226,15 +229,17 @@
     <div id="ui_control">
       <button class="btn btn-primary" onclick="speech();">読み上げ</button>
       <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
+      <a id="image_download" download="board_and_me.png">イメージ保存</a>
       
-      | <input type="color" id="drawing_color" name="drawing_color" value="#FF0000">
-      <button class="color_button" data-color="red">red</button>
-      <button class="color_button" data-color="green">green</button>
-      <button class="color_button" data-color="yellow">yellow</button>
-      <button class="color_button" data-color="purple">purple</button>
-      <button class="color_button" data-color="pink">pink</button>
-      <button class="color_button" data-color="black">black</button>
-      <button class="color_button" data-color="white">white</button>
+      | <input type="color" class="color_button" id="drawing_color" name="drawing_color" value="#FF0000">
+      <button class="color_button" data-color="red"></button>
+      <button class="color_button" data-color="green"></button>
+      <button class="color_button" data-color="yellow"></button>
+      <button class="color_button" data-color="purple"></button>
+      <button class="color_button" data-color="pink"></button>
+      <button class="color_button" data-color="blue"></button>
+      <button class="color_button" data-color="black"></button>
+      <button class="color_button" data-color="white"></button>
       <!-- TOOD: color -->
       <div id="avatar_list">
         <img src="image/cat_icon/cat2_1_idea.png" style="width:100px; height: auto;" >
@@ -252,7 +257,7 @@
     </div>
     <div id="additional">
       <h2>撮った画像 <a href="#captured_image"><sup>#</sup></a></h2>
-      <a id="image_download" download="board_and_me.png">イメージ保存</a>
+
       
       <div id="target">
       </div>
