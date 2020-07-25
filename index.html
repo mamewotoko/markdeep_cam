@@ -190,10 +190,11 @@
 ## When: ___________________
 </textarea>
 
-          <br><textarea id="svg_content"></textarea>
           <br><button class="btn btn-primary" onclick="speech();">読み上げ</button>
-          <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
           <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
+          <br><button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true">Clear Text</button>
+          <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true">Clear Drawing</button>
+
           <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
           <div class="custom-control custom-switch">
             <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked>
@@ -203,8 +204,6 @@
             <input type="checkbox" class="custom-control-input" id="drawing_mode" checked>
             <label class="custom-control-label" for="drawing_mode">drawing mode (F)</label>
           </div>
-          <br><a id="image_download" download="board_and_me.png">イメージ保存</a>
-          <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
         </td>
         <td id="cam_output" class="cam_col" style="position: relative;">
           <div id="ohp"></div>
@@ -239,28 +238,37 @@
       <img src="image/cat_icon/cat3_4_tehe.png" style="width:100px; height: auto;" >
       <img src="image/cat_icon/cat3_2_heart.png" style="width:100px; height: auto;" >
     </div>
-    <h2>撮った画像</h2>
+    <h2>撮った画像 <a href="#captured_image"><sup>#</sup></a></h2>
+    <a id="image_download" download="board_and_me.png">イメージ保存</a>
+
     <div id="target">
     </div>
+
+    <!--
+    <h3>おまけSVG画像</h3>
+    <br><textarea id="svg_content"></textarea>
+    <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
+-->
 
     <hr>
   <div id="additional">
 
-    <h2>サポート状況</h2>
+    <h2>サポート状況 <a href="#support"><sup>#</sup></a></h2>
     MacのFirefoxではSVGの落書きの保存はできません
     <br>MacのChromeでは動作します。
     <br>iPadのSafari, Chromeでは動作します。
 
-    <h2>参考</h2>
+    <h2>参考 <a href="#reference"><sup>#</sup></a></h2>
     <ul>
       <li><a href="https://casual-effects.com/markdeep/">Markdeep - Causal Effects</a></li>
       <li><a href="https://gist.github.com/doersino/9dcc636493ff1deb30912ed2efc44891">Preview Markdeep as you're typing (very simple, unstyled proof of concept)</a></li>
       <li><a href="https://github.com/dundalek/markmap">markmap</a></li>
       <li><a href="https://mamewo.ddo.jp/svg_b/">svg board</a></li>
+      <li>「<a href="https://www.irasutoya.com/">いらすとや</a>」さんのイラストを使いました。</li>
     </ul>
-    「<a href="https://www.irasutoya.com/">いらすとや</a>」さんのイラストを使いました。
     <hr>
-    Takashi Masuyama
+    <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
+    <br>Takashi Masuyama mamewotoko AT gmail.com
     <br><a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a>
   </div>
   <script>window.markdeepOptions = {mode: 'script'};</script>
@@ -271,7 +279,23 @@
   <script src="https://mamewo.ddo.jp/svg_b/js/svg.draw.js"></script>
   <script src="js/board.js"></script>
 <!--  <script src="node_modules/canvg/lib/umd.js"></script> -->
-<script>
+  <script>
+    function clear_markdeep(){
+        $("#markdeep_input").val("");
+        var e = jQuery.Event("keypress");
+        e.which = 13; //choose the one you want
+        e.keyCode = 13;
+        $("#markdeep_input").trigger(e);
+        var e = jQuery.Event("keyup");
+        e.which = 13; //choose the one you want
+        e.keyCode = 13;
+        $("#markdeep_input").trigger(e);
+    }
+
+    function clear_svg(){
+        draw.clear();
+    }
+    
 function capture(){
     var w = $("#frame").width();
     var h = $("#frame").height();
@@ -348,7 +372,8 @@ function add_svg(c){
     }
   });
 
-  $("#avatar_list img").dblclick(function(){
+  $("#avatar_list img").dblclick(function(e){
+      e.preventDefault();
       $("#avatar").attr("src", $(this).attr("src"));
   });
   

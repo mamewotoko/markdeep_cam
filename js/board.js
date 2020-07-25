@@ -149,8 +149,6 @@ function board_init(){
 
     document.addEventListener('keydown', function(event){
         //TODO; check focus
-        console.log(document.activeElement);
-        console.log(document.activeElement.type);
         if($('#markdeep_input').is(':focus')
            || document.activeElement.type == "text"){
             return;
@@ -226,7 +224,8 @@ function board_init(){
 }
 
 function speech(){
-    var text = $("#markdeep_input").val();
+    //var text = $("#markdeep_input").val();
+    var text = $("#result").text();
     var msg = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(msg);
 }
