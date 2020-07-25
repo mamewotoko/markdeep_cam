@@ -1,443 +1,457 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="./css/qr.css" />
-  <style>
-    body {
-        padding: 4px;
-    }
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./css/qr.css" />
+    <style>
+      body {
+          padding: 4px;
+      }
 
-    #markdeep_input {
-/*    #editor_container { */
-        /* position: absolute; */
-        height: 400px;
-        width: 300px;
-        font-familiy: monospace;
-        font-size: 24px;
-    }
+      #markdeep_input {
+          height: calc(100% - 120px);
+          width: 300px;
+          font-familiy: monospace;
+          font-size: 24px;
+      }
+      
+      #svg_content {
+          height: 100px;
+      }
 
-    #svg_content {
-        height: 100px;
-    }
+      td {
+          padding: 0.5em;
+      }
 
-    td {
-      padding: 0.5em;
-    }
+      .md p {
+          font-size: inherit;
+          font-weight: normal;
+          margin: 0 0 10px;
+      }
 
-    .md p {
-        font-size: inherit;
-        font-weight: normal;
-        margin: 0 0 10px;
-    }
+      .md h1, .md h2, .md h3 {
+          margin-top: 0;
+          padding-top: 0;
+      }
 
-    .md h1, .md h2, .md h3 {
-        margin-top: 0;
-        padding-top: 0;
-    }
+      .md h1:before, .md h2:before, .md h3:before {
+          display: none;
+      }
 
-    .md h1:before, .md h2:before, .md h3:before {
-        display: none;
-    }
+      #result h1 {
+          font-size: 54px;
+      }
 
-    #result h1 {
-        font-size: 54px;
-    }
+      #result h2 {
+          font-size: 42px;
+      }
 
-    #result h2 {
-        font-size: 42px;
-    }
+      #result h3 {
+          font-size: 38px;
+      }
 
-    #result h3 {
-        font-size: 38px;
-    }
+      #result * {
+          font-size: 34px;
+      }
+      #capture_button { width: 80px; }
+      /* .markdeep { */
+      /*     padding: 10px; */
+      /* } */
+      
+      #main {
+          height: 100%;
+      }
 
-    #result * {
-        font-size: 34px;
-    }
-    #capture_button { width: 80px; }
-    /* .markdeep { */
-    /*     padding: 10px; */
-    /* } */
+      .cam_col {
+          height: 100%;
+          padding: 0;
+          vertical-align: top;
+      }
 
-    #main {
-        height: 50vh;
-    }
+      #frame {
+          width: 100%;
+          height: 100%;
+          vertical-align: top;
+          position: relative;
+      }
 
-    .cam_col {
-        height: 100%;
-        padding: 0;
-        vertical-align: top;
-    }
+      .balloon {
+          width: calc(95% - 200px);
+          height: 90%;
+          position: absolute;
+          top: 10px;
+          left: 220px;
 
-#frame {
-    width: 100%;
-    height: 100%;
-    vertical-align: top;
-    position: relative;
-}
+          display: block;
+          margin: 1.2em 0 10px 10px;
+          padding: 20px;
+          color: #555;
+          overflow-y: hidden;
+          background: #e0edff;
 
-.balloon {
-    width: calc(95% - 200px);
-    height: 90%;
-    position: absolute;
-    top: 10px;
-    left: 220px;
+      }
 
-  display: block;
-  margin: 1.2em 0 10px 10px;
-  padding: 20px;
-  color: #555;
-  overflow-y: hidden;
-  background: #e0edff;
+      #ohp {
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          width: 100%;
+          height: 100%;
+      }
+      #cam_output {
+          vertical-align: top;
+          width: calc(100vw - 300px);
+      }
+      #cam_input {
+          vertical-align: top;
+          width: 300px;
+      }
 
-}
+      #copyright_input {
+          width: 80vw;
+      }
+      #copyright_container {
+          position: absolute;
+          bottom: 10px;
+          right: 40px;
+          font-size: 24px;
+          width: 100%;
+          text-align: right;
+      }
 
-#ohp {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-}
-#cam_output {
-    vertical-align: top;
-    width: calc(100vw - 300px);
-}
-#cam_input {
-    vertical-align: top;
-    width: 300px;
-}
+      /* board style */
+      .markdeep .xxxxl {
+          font-size: 140px !important;
+      }
 
-#copyright_input {
-    width: 80vw;
-}
-#copyright_container {
-    position: absolute;
-    bottom: 10;
-    right: 40;
-    font-size: 24px;
-    width: 100%;
-    text-align: right;
-}
+      .markdeep .xxxl {
+          font-size: 120px !important;
+      }
 
-/* board style */
-.markdeep .xxxxl {
-    font-size: 140px !important;
-}
+      .markdeep .xxl {
+          font-size: 100px !important;
+      }
 
-.markdeep .xxxl {
-    font-size: 120px !important;
-}
+      .markdeep .xl {
+          font-size: 90px !important;
+      }
 
-.markdeep .xxl {
-    font-size: 100px !important;
-}
+      .markdeep .l {
+          font-size: 70px !important;
+      }
 
-.markdeep .xl {
-    font-size: 90px !important;
-}
+      .markdeep .m {
+          font-size: 50px !important;
+      }
 
-.markdeep .l {
-    font-size: 70px !important;
-}
+      #additional h1 {
+          text-align: center;
+      }
 
-.markdeep .m {
-    font-size: 50px !important;
-}
+      #additional h2 {
+          border-left: #254117 6px solid;
+          border-bottom: #254117 2px solid;
+          padding-left: 4px;
+          margin-bottom: 10px;
+          margin-top: 15px !important;
+      }
 
-#additional h1 {
-    text-align: center;
- }
-
-#additional h2 {
-  border-left: #254117 6px solid;
-  border-bottom: #254117 2px solid;
-  padding-left: 4px;
-  margin-bottom: 10px;
-  margin-top: 15px !important;
-}
-
-#avatar {
-    position: absolute;
-    width:200px;
-    height: auto;
-    bottom:10px !important;
-    left:5px !important;
-}
-  </style>
-  <script src="https://use.fontawesome.com/16164d916e.js"></script>
-  <!--
-  <script src="lib/js/ace.min.js"></script>
--->
-  <script src="js/qrcode.js"></script>
-  <script src="js/qrmain.js"></script>
-
-</head>
-<body>
-  <table id="main">
-  <tbody>
-      <tr>
-        <td id="cam_input" class="cam_col">
-          <!-- ace editor -->
-          <!--
-          <div id="editor_container"></div>
--->
-          <textarea id="markdeep_input"># I have five questions!
+      #avatar {
+          position: absolute;
+          width:200px;
+          height: auto;
+          bottom:10px !important;
+          left:5px !important;
+      }
+    </style>
+    <script src="https://use.fontawesome.com/16164d916e.js"></script>
+    <!--
+        <script src="lib/js/ace.min.js"></script>
+        -->
+        <script src="js/qrcode.js"></script>
+        <script src="js/qrmain.js"></script>
+  </head>
+  <body>
+    <div id="ui_top">
+    <table id="main">
+      <tbody>
+        <tr>
+          <td id="cam_input" class="cam_col">
+            <!-- ace editor -->
+            <!-- <div id="editor_container"></div> -->
+            <textarea id="markdeep_input"># I have five questions!
 ## Who: ___________________
 ## Why: ___________________
 ## What: ___________________
 ## Where: ___________________
 ## When: ___________________
-</textarea>
-          <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
-        </td>
-        <td id="cam_output" class="cam_col" style="position: relative;">
-          <div id="ohp"></div>
+            </textarea>
+      <button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true">Clear Text</button>
+      <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true">Clear Drawing</button>
+      <br><button class="btn btn-primary" id="clear_all" onclick="clear_all();" aria-hidden="true">Clear</button>
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked>
+        <label class="custom-control-label" for="markdeep_mode">markdeep mode (D)</label>
+      </div>
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="drawing_mode" checked>
+        <label class="custom-control-label" for="drawing_mode">drawing mode (F)</label>
+      </div>
+            
+            <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
+          </td>
+          <td id="cam_output" class="cam_col" style="position: relative;">
+            <div id="ohp"></div>
 
-          <div id="frame">
-            <img id="avatar" src="image/cat_icon/animal_neko.png">
-            <div class="balloon1-left balloon" id="balloon">
-              <div id="markdeep_board" style="height: 100%;">
-                <div class="markdeep" id="result"></div>
+            <div id="frame">
+              <img id="avatar" src="image/cat_icon/animal_neko.png">
+              <div class="balloon1-left balloon" id="balloon">
+                <div id="markdeep_board" style="height: 100%;">
+                  <div class="markdeep" id="result"></div>
+                </div>
+                <div id="markmap_container">
+                  <svg id="mindmap" width="100%" height="100%"></svg>
+                </div>
               </div>
-              <div id="markmap_container">
-                <svg id="mindmap" width="100%" height="100%"></svg>
-              </div>
+              <div id="copyright_container"><span id="copyright"></span></div>
             </div>
-            <div id="copyright_container"><span id="copyright"></span><div>
-          </div>
-        </td>
-      </tr>
-  </tbody>
-  </table>
-  <h2>設定</h2>
-  <button class="btn btn-primary" onclick="speech();">読み上げ</button>
-  <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
-  <button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true">Clear Text</button>
-  <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true">Clear Drawing</button>
-  <button class="btn btn-primary" id="clear_all" onclick="clear_all();" aria-hidden="true">Clear Both</button>
-  <input type="color" id="drawing_color" name="drawing_color" value="#FF0000">
-  <button class="btn btn-primary color_button" data-color="red">red</button>
-  <button class="btn btn-primary color_button" data-color="green">green</button>
-  <button class="btn btn-primary color_button" data-color="yellow">yellow</button>
-  <button class="btn btn-primary color_button" data-color="purple">purple</button>
-  <button class="btn btn-primary color_button" data-color="black">black</button>
-  <button class="btn btn-primary color_button" data-color="white">white</button>
-<!-- TOOD: color -->
-<br>    copyright表記: <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
-    <br>人物アイコン(幅 200pxを推奨します): 画像をpasteするか、以下の画像をダブルクリックしてください。
-    <div id="avatar_list">
-      <img src="image/cat_icon/cat2_1_idea.png" style="width:100px; height: auto;" >
-      <img src="image/cat_icon/animal_neko.png" style="width:100px; height: auto;" >
-      <img src="image/cat_icon/cat3_1_question.png" style="width:100px; height: auto;" >
-      <img src="image/cat_icon/cat2_4_think.png" style="width:100px; height: auto;" >
-      <img src="image/cat_icon/cat2_3_shock.png" style="width:100px; height: auto;" >
-      <img src="image/cat_icon/cat2_2_surprise.png" style="width:100px; height: auto;" >
-      <img src="image/cat_icon/cat3_3_sleep.png" style="width:100px; height: auto;" >
-      <img src="image/cat_icon/cat3_4_tehe.png" style="width:100px; height: auto;" >
-      <img src="image/cat_icon/cat3_2_heart.png" style="width:100px; height: auto;" >
-    </div>
-    <h2>撮った画像 <a href="#captured_image"><sup>#</sup></a></h2>
-    <a id="image_download" download="board_and_me.png">イメージ保存</a>
-
-    <div id="target">
-    </div>
-
-    <!--
-    <h3>おまけSVG画像</h3>
-    <br><textarea id="svg_content"></textarea>
-    <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
--->
-
+          </td>
+        </tr>
+      </tbody>
+    </table>
     <hr>
-  <div id="additional">
+    <div id="ui_control">
+      <button class="btn btn-primary" onclick="speech();">読み上げ</button>
+      <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
+      
+      | <input type="color" id="drawing_color" name="drawing_color" value="#FF0000">
+      <button class="btn btn-primary color_button" data-color="red">red</button>
+      <button class="btn btn-primary color_button" data-color="green">green</button>
+      <button class="btn btn-primary color_button" data-color="yellow">yellow</button>
+      <button class="btn btn-primary color_button" data-color="purple">purple</button>
+      <button class="btn btn-primary color_button" data-color="black">black</button>
+      <button class="btn btn-primary color_button" data-color="white">white</button>
+      <!-- TOOD: color -->
+      <div id="avatar_list">
+        <img src="image/cat_icon/cat2_1_idea.png" style="width:100px; height: auto;" >
+        <img src="image/cat_icon/animal_neko.png" style="width:100px; height: auto;" >
+        <img src="image/cat_icon/cat3_1_question.png" style="width:100px; height: auto;" >
+        <img src="image/cat_icon/cat2_4_think.png" style="width:100px; height: auto;" >
+        <img src="image/cat_icon/cat2_3_shock.png" style="width:100px; height: auto;" >
+        <img src="image/cat_icon/cat2_2_surprise.png" style="width:100px; height: auto;" >
+        <img src="image/cat_icon/cat3_3_sleep.png" style="width:100px; height: auto;" >
+        <img src="image/cat_icon/cat3_4_tehe.png" style="width:100px; height: auto;" >
+        <img src="image/cat_icon/cat3_2_heart.png" style="width:100px; height: auto;" >
+        <br>↑人物アイコン(幅 200pxを推奨します): 画像をpasteするか、以下の画像をダブルクリックしてください。
+        <br>copyright表記: <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
+      </div>
+    </div>
+    <div id="additional">
+      <h2>撮った画像 <a href="#captured_image"><sup>#</sup></a></h2>
+      <a id="image_download" download="board_and_me.png">イメージ保存</a>
+      
+      <div id="target">
+      </div>
 
-    <h2>サポート状況 <a href="#support"><sup>#</sup></a></h2>
-    MacのFirefoxではSVGの落書きの保存はできません
-    <br>MacのChromeでは動作します。
-    <br>iPadのSafari, Chromeでは動作します。
+      <!--
+           <h3>おまけSVG画像</h3>
+           <br><textarea id="svg_content"></textarea>
+           <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
+      -->
+      
+      <h2>サポート状況 <a href="#support"><sup>#</sup></a></h2>
+      MacのFirefoxではSVGの落書きの保存はできません
+      <br>MacのChromeでは動作します。
+      <br>iPadのSafari, Chromeでは動作します。
+      
+      <h2>参考 <a href="#reference"><sup>#</sup></a></h2>
+      <ul>
+        <li><a href="https://casual-effects.com/markdeep/">Markdeep - Causal Effects</a></li>
+        <li><a href="https://gist.github.com/doersino/9dcc636493ff1deb30912ed2efc44891">Preview Markdeep as you're typing (very simple, unstyled proof of concept)</a></li>
+        <li><a href="https://github.com/dundalek/markmap">markmap</a></li>
+        <li><a href="https://mamewo.ddo.jp/svg_b/">svg board</a></li>
+        <li>「<a href="https://www.irasutoya.com/">いらすとや</a>」さんのイラストを使いました。</li>
+      </ul>
+      <hr>
+      
+      <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
+          <br>Takashi Masuyama mamewotoko AT gmail.com
+          <br><a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a>
+        </div>
+        <script>window.markdeepOptions = {mode: 'script'};</script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script src="https://mamewo.ddo.jp/svg_b/node_modules/svg.js/dist/svg.min.js"></script>
+        <script src="https://mamewo.ddo.jp/svg_b/js/svg.draw.js"></script>
+        <script src="js/board.js"></script>
+        <!--  <script src="node_modules/canvg/lib/umd.js"></script> -->
+        <script>
+          function clear_markdeep(){
+              $("#markdeep_input").val("");
+              var e = jQuery.Event("keypress");
+              e.which = 13; //choose the one you want
+              e.keyCode = 13;
+              $("#markdeep_input").trigger(e);
+              var e = jQuery.Event("keyup");
+              e.which = 13; //choose the one you want
+              e.keyCode = 13;
+              $("#markdeep_input").trigger(e);
+          }
 
-    <h2>参考 <a href="#reference"><sup>#</sup></a></h2>
-    <ul>
-      <li><a href="https://casual-effects.com/markdeep/">Markdeep - Causal Effects</a></li>
-      <li><a href="https://gist.github.com/doersino/9dcc636493ff1deb30912ed2efc44891">Preview Markdeep as you're typing (very simple, unstyled proof of concept)</a></li>
-      <li><a href="https://github.com/dundalek/markmap">markmap</a></li>
-      <li><a href="https://mamewo.ddo.jp/svg_b/">svg board</a></li>
-      <li>「<a href="https://www.irasutoya.com/">いらすとや</a>」さんのイラストを使いました。</li>
-    </ul>
-    <hr>
-          <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked>
-            <label class="custom-control-label" for="markdeep_mode">markdeep mode (D)</label>
-          </div>
-          <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="drawing_mode" checked>
-            <label class="custom-control-label" for="drawing_mode">drawing mode (F)</label>
-          </div>
-    
-    <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
-    <br>Takashi Masuyama mamewotoko AT gmail.com
-    <br><a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a>
-  </div>
-  <script>window.markdeepOptions = {mode: 'script'};</script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-  <script src="https://mamewo.ddo.jp/svg_b/node_modules/svg.js/dist/svg.min.js"></script>
-  <script src="https://mamewo.ddo.jp/svg_b/js/svg.draw.js"></script>
-  <script src="js/board.js"></script>
-<!--  <script src="node_modules/canvg/lib/umd.js"></script> -->
-  <script>
-    function clear_markdeep(){
-        $("#markdeep_input").val("");
-        var e = jQuery.Event("keypress");
-        e.which = 13; //choose the one you want
-        e.keyCode = 13;
-        $("#markdeep_input").trigger(e);
-        var e = jQuery.Event("keyup");
-        e.which = 13; //choose the one you want
-        e.keyCode = 13;
-        $("#markdeep_input").trigger(e);
-    }
+          function clear_svg(){
+              draw.clear();
+          }
 
-    function clear_svg(){
-        draw.clear();
-    }
+          function clear_all(){
+              clear_markdeep();
+              clear_svg();
+          }
+          
+          function capture(){
+              var w = $("#frame").width();
+              var h = $("#frame").height();
+              
+              var config = {
+                  width: w,
+                  height: h,
+                  scrollY: -window.scrollY
+              };
+              html2canvas($("#frame")[0], config).then(canvas => {
+                  canvas.id = "captured_frame";
+                  var target = document.getElementById("target");
+                  target.innerHTML = "";
+                  $("#target").width(w); 
+                  $("#target").height(h);
+                  
+                  target.appendChild(canvas);
+                  add_svg(canvas);
+              });
+          }
 
-    function clear_all(){
-        clear_markdeep();
-        clear_svg();
-    }
-    
-function capture(){
-    var w = $("#frame").width();
-    var h = $("#frame").height();
-    
-    var config = {
-        width: w,
-        height: h,
-        scrollY: -window.scrollY
-    };
-    html2canvas($("#frame")[0], config).then(canvas => {
-        canvas.id = "captured_frame";
-        var target = document.getElementById("target");
-        target.innerHTML = "";
-        $("#target").width(w); 
-        $("#target").height(h);
-        
-        target.appendChild(canvas);
-        add_svg(canvas);
-    });
-}
+          function add_svg(c){
+              var current_svg = draw.svg();
+              var ohp_pos = $("#ohp").offset();
+              var frame_pos = $("#frame").offset();
 
-function add_svg(c){
-    var current_svg = draw.svg();
-    var ohp_pos = $("#ohp").offset();
-    var frame_pos = $("#frame").offset();
+              var x = ohp_pos.left - frame_pos.left;
+              var y = ohp_pos.top - frame_pos.top;
+              var base64data = btoa(current_svg);
+              
+              var img = new Image();
+              img.width = $("#ohp").width();
+              img.height = $("#ohp").height();
+              img.src = "data:image/svg+xml;base64," + base64data;
+              img.onload = function(){
+                  var context = c.getContext("2d");
+                  console.log("add_svg %d %d %s", x, y, current_svg);
+                  console.log(img);
+                  //TODO: image moves to left
+                  x += 300;
+                  context.drawImage(img, x, y, $("#ohp").width(), $("#ohp").height());
+                  document.getElementById("image_download").href = c.toDataURL("image/png");
+                  img.parentNode.removeChild(img);
+              };
+              //img.style = "display: none;";
+              var target = document.getElementById("target");
+              target.appendChild(img);
+          }
 
-    var x = ohp_pos.left - frame_pos.left;
-    var y = ohp_pos.top - frame_pos.top;
-    var base64data = btoa(current_svg);
-    
-    var img = new Image();
-    img.width = $("#ohp").width();
-    img.height = $("#ohp").height();
-    img.src = "data:image/svg+xml;base64," + base64data;
-    img.onload = function(){
-        var context = c.getContext("2d");
-        console.log("add_svg %d %d %s", x, y, current_svg);
-        console.log(img);
-        //TODO: image moves to left
-        x += 300;
-        context.drawImage(img, x, y, $("#ohp").width(), $("#ohp").height());
-        document.getElementById("image_download").href = c.toDataURL("image/png");
-        img.parentNode.removeChild(img);
-    };
-    //img.style = "display: none;";
-    var target = document.getElementById("target");
-    target.appendChild(img);
-}
+          window.addEventListener('paste', function(e){
+              var item = e.clipboardData.items[0];
+              console.log("item");
+              console.log(item);
+              if(!item){
+                  return;
+              }
+              if(!item.type.startsWith("image/")){
+                  return;
+              }
+              var blob = item.getAsFile();
+              //var img = new Image();
+              var img = $("#avatar")[0];
+              var URLObj = window.URL || window.webkitURL;
+              img.src = URLObj.createObjectURL(blob);
+          });
+          
+          $("#copyright_input").on("keydown", function(e){
+              console.log("keydown" + e.keyCode);
+              if(e.keyCode == 13){
+                  //enter is pressed
+                  var copyright_text = $("#copyright_input").val();
+                  console.log("keydown enter " + copyright_text);
+                  $("#copyright").text(copyright_text);
+              }
+          });
 
-  window.addEventListener('paste', function(e){
-      var item = e.clipboardData.items[0];
-      console.log("item");
-      console.log(item);
-      if(!item){
-          return;
-      }
-      if(!item.type.startsWith("image/")){
-          return;
-      }
-      var blob = item.getAsFile();
-      //var img = new Image();
-      var img = $("#avatar")[0];
-      var URLObj = window.URL || window.webkitURL;
-      img.src = URLObj.createObjectURL(blob);
-  });
-  
-  $("#copyright_input").on("keydown", function(e){
-      console.log("keydown" + e.keyCode);
-    if(e.keyCode == 13){
-        //enter is pressed
-        var copyright_text = $("#copyright_input").val();
-        console.log("keydown enter " + copyright_text);
-        $("#copyright").text(copyright_text);
-    }
-  });
+          function init_size(){
+              var win_height = window.innerHeight;
+              var control_height = $("#ui_control").height();
+              var view_height = Math.max(win_height - control_height, 100);
+              console.log("view_height " + view_height);
+              $("#ui_top").height(view_height);
+          }
+          $(window).resize(function(){
+              init_size();
+          });
 
-  $("#avatar_list img").dblclick(function(e){
-      e.preventDefault();
-      $("#avatar").attr("src", $(this).attr("src"));
-  });
+          $(document).ready(function() {
+              init_size();
+          });
+          
+          $("#avatar_list img").dblclick(function(e){
+              e.preventDefault();
+              $("#avatar").attr("src", $(this).attr("src"));
+          });
 
-    $("#drawing_color").change(function(e){
-        console.log("color changed " + $(this).val());
-        window.stroke_color = $(this).val();
-    });
-//support firefox... failed
-/* function add_svg2(c){ */
-/*     var context = c.getContext('2d'); */
-/*     var v = canvg.Canvg.fromString(context, draw.svg()); */
-/*     //canvg(c, draw.svg()); */
-/*     v.start(); */
-    /* } */
+          $("#drawing_color").change(function(e){
+              console.log("color changed " + $(this).val());
+              window.stroke_color = $(this).val();
+          });
+          //support firefox... failed
+          /* function add_svg2(c){ */
+          /*     var context = c.getContext('2d'); */
+          /*     var v = canvg.Canvg.fromString(context, draw.svg()); */
+          /*     //canvg(c, draw.svg()); */
+          /*     v.start(); */
+          /* } */
 
-        var color_table = {
-            "red": "#ff0000",
-            "blue": "#0000ff",
-            "green": "#00ff00",
-            "pink": "#ff66cc",
-            "purple": "#cc8899",
-            "black": "#000000",
-            "white": "#ffffff",
-            "orange": "#FFAA00;"
-        };
-    
-    $(".color_button").css("background-color", color_table[$(this).attr("data-color")]);
-    $(".color_button").click(function(e){
-        var color = color_table[$(this).attr("data-color")];
-        console.log("click " + $(this).attr("data-color") + " " + color);
-        $("#drawing_color").val(color);
-        window.stroke_color = color;
-    });
-</script>
-<script src="./js/html2canvas.min.js"></script>
-<!--
-  <script>
-    var editor = ace.edit("editor_container");
-    editor.setOptions({
-        fontFamily: "monospace",
-        fontSize: "20px"
-    });
-    $("#editor_container textarea")[0].id = "markdeep_input";
-  </script>
--->
-  <script src="js/mindmap.browser.js"></script>
-   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-</body>
+          var color_table = {
+              "red": "#ff0000",
+              "blue": "#0000ff",
+              "green": "#00ff00",
+              "pink": "#ff66cc",
+              "purple": "#cc8899",
+              "black": "#000000",
+              "white": "#ffffff",
+              "orange": "#FFAA00",
+              "yellow": "#FFFF00"
+          };
+          
+          $(".color_button").css("background-color", color_table[$(this).attr("data-color")]);
+          $(".color_button").click(function(e){
+              var color = color_table[$(this).attr("data-color")];
+              console.log("click " + $(this).attr("data-color") + " " + color);
+              $("#drawing_color").val(color);
+              window.stroke_color = color;
+          });
+        </script>
+        <script src="./js/html2canvas.min.js"></script>
+        <!--
+            <script>
+              var editor = ace.edit("editor_container");
+              editor.setOptions({
+              fontFamily: "monospace",
+              fontSize: "20px"
+              });
+              $("#editor_container textarea")[0].id = "markdeep_input";
+            </script>
+            -->
+            <script src="js/mindmap.browser.js"></script>
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  </body>
 </html>
