@@ -9,6 +9,8 @@ screen to display markdeep (markup language like markdown), mindmap, and svg.
 
 ![demo image](image/demo_ace.png)
 
+![demo image with formula](image/markdeep_cam_demo.png)
+
 
 * The input markdeeep to right upper textarea.
     * mathjax is supported (i.e. you can write formula with latex syntax)
