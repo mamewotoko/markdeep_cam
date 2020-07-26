@@ -21,15 +21,14 @@ function update_markmap(text){
 
 //function update_markdown(){
 window.update_markdown = function(){
-    var input = $('#markdeep_input').val() + "\n";
+    //var input = $('#markdeep_input').val() + "\n";
+    var input = window.editor.getValue() + "\n";
     var markdeep_mode = $("#markdeep_mode").is(":checked");
 
     if(markdeep_mode){
         $("#markdeep_board").css("display", "block");
         $("#markmap_container").css("display", "none");
 
-        // TODO: clear markdeep?
-        //console.log(window.markdeep.format(input));
         $('.markdeep').html(window.markdeep.format(input));  // <----------- magic
         postprocessMarkdeep();
     }
