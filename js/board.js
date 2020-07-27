@@ -144,7 +144,9 @@ function board_init(){
 
     document.addEventListener('keydown', function(event){
         //TODO; check focus
-        if($('#markdeep_input').is(':focus')
+        //if($('#markdeep_input').is(':focus')
+        
+        if(editor.isFocused()
            || document.activeElement.type == "text"){
             return;
         }
