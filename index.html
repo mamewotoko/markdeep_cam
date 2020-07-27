@@ -494,6 +494,7 @@ multi-column layouts
      $(document).ready(function() {
          window.editor = ace.edit("markdeep_input");
          editor.setTheme("ace/theme/twilight");
+         editor.setKeyboardHandler("ace/keyboard/emacs");
          editor.session.setMode("ace/mode/markdown");
          
          init_size();
