@@ -11,11 +11,13 @@ screen to display markdeep (markup language like markdown), mindmap, and svg.
 
 ![demo image with formula](image/markdeep_cam_demo.png)
 
+![demo image with drawing](image/drawing.png)
+
 
 * The input markdeeep to right upper textarea.
     * mathjax is supported (i.e. you can write formula with latex syntax)
 * A mindmap is drawn from markdeep when markdeep mode switch is disabled.
-* You can draw feee hand drawing on the right board. 
+* You can draw feee hand drawing on the right board.
     * Shift-F toggles svg mode (mouse event is delivered to text behind svg)
 
 Build
@@ -60,6 +62,6 @@ Reference
 * [Bookmarklet OHP](https://mamewo.ddo.jp/bookmarklet_ohp.html)
 
 ----
-Takashi Masuyama < mamewotoko@gmail.com >  
+Takashi Masuyama < mamewotoko@gmail.com >
 
 https://mamewo.ddo.jp/
