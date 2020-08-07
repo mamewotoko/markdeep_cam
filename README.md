@@ -58,7 +58,7 @@ Reference
 
 * [markdeep](https://casual-effects.com/markdeep/)
 * [dundalek/markmap](https://github.com/dundalek/markmap)
-* [svg_board](https://casual-effects.com/markdeep/)
+* [svg_board](https://mamewo.ddo.jp/svg_b/note.html)
 * [Bookmarklet OHP](https://mamewo.ddo.jp/bookmarklet_ohp.html)
 
 ----
