@@ -140,12 +140,13 @@ function board_init(){
         }
         var container = document.getElementById(ohp_id);
         container.style = style;
+        $("#ohp").height($("#ui_top").height());
     }
 
     document.addEventListener('keydown', function(event){
         //TODO; check focus
         //if($('#markdeep_input').is(':focus')
-        
+
         if(editor.isFocused()
            || document.activeElement.type == "text"){
             return;
@@ -154,7 +155,7 @@ function board_init(){
         var keyname = event.key;
         var ctrl = event.getModifierState('Control');
         //
-        
+
         if(keyname in color_table){
             event.preventDefault();
             window.stroke_color = color_table[keyname];
