@@ -63,11 +63,16 @@
      #result * {
          font-size: 26px;
      }
+
+     .diagram text {
+         font-size: 14px !important;
+     }
+
      #capture_button { width: 80px; }
      /* .markdeep { */
      /*     padding: 10px; */
      /* } */
-     
+
      #main {
          height: 100%;
      }
@@ -185,15 +190,15 @@
           <td id="cam_input" class="cam_col">
             <!-- ace editor -->
             <!-- <div id="editor_container"></div> -->
-            <pre id="markdeep_input"># To become a Helthy cat
+            <pre id="markdeep_input"># To become a healthy cat
 
 1. sleep
 2. eat
 3. play
 4. drink water
 </pre>
-            
-            <!-- 
+
+            <!--
             <textarea id="markdeep_input" rows="12"># I have five questions!
 ## Who: ____________
 ## Why: ____________
@@ -214,7 +219,7 @@
         <input type="checkbox" class="custom-control-input" id="drawing_mode" checked>
         <label class="custom-control-label" for="drawing_mode">drawing mode (F)</label>
       </div>
-            
+
             <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
           </td>
           <td id="cam_output" class="cam_col" style="position: relative;">
@@ -241,7 +246,7 @@
       <button class="btn btn-primary" onclick="speech();">読み上げ</button>
       <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
       <a id="image_download" download="board_and_me.png">イメージ保存</a>
-      
+
       | <input type="color" class="color_button" id="drawing_color" name="drawing_color" value="#FF0000">
       <button class="color_button" data-color="red"></button>
       <button class="color_button" data-color="green"></button>
@@ -269,7 +274,7 @@
     <div id="additional">
       <h2>撮った画像 <a href="#captured_image"><sup>#</sup></a></h2>
 
-      
+
       <div id="target">
       </div>
 
@@ -278,15 +283,15 @@
            <br><textarea id="svg_content"></textarea>
            <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
       -->
-      
+
       <h2>サポート状況 <a href="#support"><sup>#</sup></a></h2>
       MacのFirefoxではSVGの落書きの保存はできません
       <br>MacのChromeでは動作します。
       <br>iPadのSafari, Chromeでは動作します。
-      
+
       <h2>テンプレート <a href="#template"><sup>#</sup></a></h2>
       <h3>表<a href="#table"><sup>#</sup></a></h3>
-      <pre class="template">|1|2|3|4|5|6|7| 8|9| 
+      <pre class="template">|1|2|3|4|5|6|7| 8|9|
 |-|-|-|-|-|-|-|-| -|
 |1|2|3|4|5|6|7|8|9|
 |1|2|3|4|5|6|7|8|9|
@@ -333,7 +338,7 @@ How: ではどうすればよいか? &lt;br&gt;&lt;br&gt;&lt;hr&gt;
 
 <h3>段組みレイアウト</h3>
 <pre class="template">
-# 段組みレイアウト 
+# 段組みレイアウト
 
 multi-column layouts
 
@@ -365,7 +370,7 @@ multi-column layouts
       <li><a href="https://ace.c9.io/">Ace</a>
         <br>Copyright (c) 2010, Ajax.org B.V. All rights reserved.</li>
       <hr>
-      
+
       <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
       <br>Takashi Masuyama mamewotoko AT gmail.com
       <br><a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a>
@@ -401,11 +406,11 @@ multi-column layouts
      }
 
      //undo_drawing
-     
+
      function capture(){
          var w = $("#frame").width();
          var h = $("#frame").height();
-         
+
          var config = {
              width: w,
              height: h,
@@ -416,9 +421,9 @@ multi-column layouts
 
          html2canvas($("#frame")[0], config).then(canvas => {
              canvas.id = "captured_frame";
-             $("#target").width(w); 
+             $("#target").width(w);
              $("#target").height(h);
-             
+
              target.appendChild(canvas);
              add_svg(canvas);
          });
@@ -432,7 +437,7 @@ multi-column layouts
          var x = ohp_pos.left - frame_pos.left;
          var y = ohp_pos.top - frame_pos.top;
          var base64data = btoa(current_svg);
-         
+
          var img = new Image();
          img.width = $("#ohp").width();
          img.height = $("#ohp").height();
@@ -468,7 +473,7 @@ multi-column layouts
          var URLObj = window.URL || window.webkitURL;
          img.src = URLObj.createObjectURL(blob);
      });
-     
+
      $("#copyright_input").on("keydown", function(e){
          console.log("keydown" + e.keyCode);
          if(e.keyCode == 13){
@@ -485,7 +490,7 @@ multi-column layouts
          var view_height = Math.max(win_height - control_height + 60, 100);
          console.log("view_height " + view_height);
          $("#ui_top").height(view_height-20);
-         editor.resize();        
+         editor.resize();
      }
      $(window).resize(function(){
          init_size();
@@ -496,10 +501,10 @@ multi-column layouts
          editor.setTheme("ace/theme/twilight");
          editor.setKeyboardHandler("ace/keyboard/emacs");
          editor.session.setMode("ace/mode/markdown");
-         
+
          init_size();
          //window.scrollTo(0, 0);
-         
+
          var color_table = {
              "red": "#ff0000",
              "blue": "#0000ff",
@@ -511,7 +516,7 @@ multi-column layouts
              "orange": "#FFAA00",
              "yellow": "#FFFF00"
          };
-         
+
          $(".color_button").each(function(i, e){
              $(e).css("background-color",
                       color_table[$(e).attr("data-color")]);
@@ -523,7 +528,7 @@ multi-column layouts
              $("#drawing_color").val(color);
              window.stroke_color = color;
          });
-         
+
          $("#avatar_list img").dblclick(function(e){
              e.preventDefault();
              $("#avatar").attr("src", $(this).attr("src"));
@@ -557,7 +562,7 @@ multi-column layouts
             <script src="js/mindmap.browser.js"></script>
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-<!-- 
+<!--
             <script src="lib/js/ace.js" type="text/javascript" charset="utf-8"></script>
             -->
             <script src="./lib/js/ace-build/src-min-noconflict/ace.js"></script>
