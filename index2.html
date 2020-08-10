@@ -226,25 +226,7 @@
 
       <a href="#output_head" id="input_head">output</a>
       | <a href="#template">template</a>
-
-      <pre id="markdeep_input"># To become a healthy cat
-
-1. sleep
-2. eat
-3. play
-4. drink water
-</pre>
-
-            <!--
-            <textarea id="markdeep_input" rows="12"># I have five questions!
-## Who: ____________
-## Why: ____________
-## What: ___________
-## Where: __________
-## When: ___________
-            </textarea>
-           -->
-            <button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true">Clear Text</button>
+      <button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true">Clear Text</button>
       <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true">Clear Drawing</button>
       <button class="btn btn-primary" id="clear_all" onclick="clear_all();" aria-hidden="true">Clear</button>
       <button class="btn btn-primary" onclick="speech();">読み上げ</button>
@@ -264,8 +246,28 @@
         <br>↑人物アイコン(幅 200pxを推奨します): 画像をpasteするか、以下の画像をダブルクリックしてください。
         <br>copyright表記: <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
       </div>
+
     </div>
-            <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
+
+      <pre id="markdeep_input"># To become a healthy cat
+
+1. sleep
+2. eat
+3. play
+4. drink water
+</pre>
+
+            <!--
+            <textarea id="markdeep_input" rows="12"># I have five questions!
+## Who: ____________
+## Why: ____________
+## What: ___________
+## Where: __________
+## When: ___________
+            </textarea>
+           -->
+
+            <!-- The Modal --><div id="myModal" class="modal" style="z-index:2000;">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
 
     <div id="additional">
       <h2>撮った画像 <a href="#captured_image"><sup>#</sup></a></h2>
@@ -364,6 +366,7 @@ multi-column layouts
         <li><a href="https://mamewo.ddo.jp/svg_b/">svg board</a></li>
         <li>「<a href="https://www.irasutoya.com/">いらすとや</a>」さんのイラストを使いました。</li>
       </ul>
+
       <h2>使用したライブラリ</h2>
       <li><a href="https://ace.c9.io/">Ace</a>
         <br>Copyright (c) 2010, Ajax.org B.V. All rights reserved.</li>
@@ -383,15 +386,8 @@ multi-column layouts
     <!--  <script src="node_modules/canvg/lib/umd.js"></script> -->
     <script>
      function clear_markdeep(){
-         $("#markdeep_input").val("");
-         var e = jQuery.Event("keypress");
-         e.which = 13; //choose the one you want
-         e.keyCode = 13;
-         $("#markdeep_input").trigger(e);
-         var e = jQuery.Event("keyup");
-         e.which = 13; //choose the one you want
-         e.keyCode = 13;
-         $("#markdeep_input").trigger(e);
+         window.editor.setValue("");
+         window.update_markdown();
      }
 
      function clear_svg(){
@@ -537,27 +533,9 @@ multi-column layouts
              console.log("color changed " + $(this).val());
              window.stroke_color = $(this).val();
          });
-         //support firefox... failed
-         /* function add_svg2(c){ */
-         /*     var context = c.getContext('2d'); */
-         /*     var v = canvg.Canvg.fromString(context, draw.svg()); */
-         /*     //canvg(c, draw.svg()); */
-         /*     v.start(); */
-         /* } */
-
      });
     </script>
         <script src="./js/html2canvas.min.js"></script>
-        <!--
-            <script>
-              var editor = ace.edit("editor_container");
-              editor.setOptions({
-              fontFamily: "monospace",
-              fontSize: "20px"
-              });
-              $("#editor_container textarea")[0].id = "markdeep_input";
-            </script>
-            -->
             <script src="js/mindmap.browser.js"></script>
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
