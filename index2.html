@@ -198,8 +198,7 @@
       </div>
 
       <div id="output_control">
-      <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
-      | <input type="color" class="color_button" id="drawing_color" name="drawing_color" value="#FF0000">
+        <input type="color" class="color_button" id="drawing_color" name="drawing_color" value="#FF0000">
       <button class="color_button" data-color="red"></button>
       <button class="color_button" data-color="green"></button>
       <button class="color_button" data-color="yellow"></button>
@@ -208,6 +207,8 @@
       <button class="color_button" data-color="blue"></button>
       <button class="color_button" data-color="black"></button>
       <button class="color_button" data-color="white"></button>
+      <br>
+      <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
       | <a id="image_download" download="board_and_me.png">イメージ保存</a>
       | <button class="btn btn-primary fa fa-undo" id="undo_drawing" onclick="hide_last_element();" aria-hidden="true"></button>
       <br> <a href="#input_head">input</a>
