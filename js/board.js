@@ -3,8 +3,8 @@ var normal_mode = true;
 var display_mode = true;
 var guide_mode = true;
 var border_width = 4; //px
-var normal_container_style = 'border-bottom: solid 10px #D2691E; z-index:1000;'
-var transp_container_style = 'border-bottom: solid 10px transparent; pointer-events: none; touch-events:none;'
+var normal_container_style = 'border-bottom: solid 5px #D2691E; z-index:1000;'
+var transp_container_style = 'border-bottom: solid 5px transparent; pointer-events: none; touch-events:none;'
 var container = document.getElementById(ohp_id);
 container.style = normal_container_style;
 

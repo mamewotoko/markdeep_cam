@@ -49,19 +49,19 @@
      }
 
      #result h1 {
-         font-size: 44px;
+         font-size: 38px;
      }
 
      #result h2 {
-         font-size: 36px;
+         font-size: 32px;
      }
 
      #result h3 {
-         font-size: 30px;
+         font-size: 28px;
      }
 
      #result * {
-         font-size: 26px;
+         font-size: 24px;
      }
 
      .diagram text {
@@ -209,8 +209,9 @@
       <button class="color_button" data-color="black"></button>
       <button class="color_button" data-color="white"></button>
       | <a id="image_download" download="board_and_me.png">イメージ保存</a>
-      | <a href="#input_head">input</a>
+      | <button class="btn btn-primary fa fa-undo" id="undo_drawing" onclick="hide_last_element();" aria-hidden="true"></button>
       </div>
+      <a href="#input_head">input</a>
       <hr>
       <div class="custom-control custom-switch" style="display:inline-block !important;">
         <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked/>
@@ -220,6 +221,7 @@
         <input type="checkbox" class="custom-control-input" id="drawing_mode" checked/>
         <label class="custom-control-label" for="drawing_mode">drawing mode (F)</label>
       </div>
+
 
       <a href="#output_head" id="input_head">output</a>
       | <a href="#template">template</a>
@@ -244,7 +246,6 @@
             <button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true">Clear Text</button>
       <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true">Clear Drawing</button>
       <button class="btn btn-primary" id="clear_all" onclick="clear_all();" aria-hidden="true">Clear</button>
-      <button class="btn btn-primary fa fa-undo" id="undo_drawing" onclick="hide_last_element();" aria-hidden="true"></button>
       <button class="btn btn-primary" onclick="speech();">読み上げ</button>
 
     <div id="ui_control">
