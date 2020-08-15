@@ -193,7 +193,7 @@ function board_init(){
         }
         //console.log(event.key);
         var keyname = event.key;
-        var ctrl = event.getModifierState('Control');
+        var ctrl = event.getModifierState('Control') || event.metaKey;
         //
 
         if(keyname in color_table){
@@ -224,12 +224,13 @@ function board_init(){
             display_mode = !display_mode;
             update_container(display_mode, normal_mode);
         }
-        else if(event.ctrlKey && (event.code == 'KeyZ' || keyname == '/')){
+        else if(ctrl && (event.code == 'KeyZ' || keyname == '/')){
             event.preventDefault();
             //ctrl-z
             hide_last_element();
         }
-        else if(event.ctrlKey && event.keyCode == 46){
+        else if(ctrl && (event.kevent == 8 || event.keyCode == 46)){
+            //Backspace or Delete
             //delete, clear svg
             event.preventDefault();
             draw.clear();
