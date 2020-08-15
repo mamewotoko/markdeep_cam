@@ -112,10 +112,11 @@ function board_init(){
                 scrollX = event.touches[0].clientX;
                 scrollY = event.touches[0].clientY;
                 var sign = -1;
+                var scale = 2;
                 if ($("scroll_check").prop("checked")){
                     sign = 1;
                 }
-                window.scrollBy(sign*diffX, sign*diffY);
+                window.scrollBy(sign*scale*diffX, sign*scale*diffY);
             }
             scrolling = true;
             point_started = false;
