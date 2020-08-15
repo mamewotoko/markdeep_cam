@@ -7,6 +7,10 @@ var normal_container_style = 'border-bottom: solid 5px #D2691E; z-index:1000;'
 var transp_container_style = 'border-bottom: solid 5px transparent; pointer-events: none; touch-events:none;'
 var container = document.getElementById(ohp_id);
 container.style = normal_container_style;
+//scroll by 2 finger
+var scrolling = false;
+var scrollX = 0;
+var scrollY = 0;
 
 var draw = SVG(ohp_id);
 
@@ -89,6 +93,23 @@ function board_init(){
     }
 
     function pointmove(event){
+        //multiple fingers
+        if('touches' in event && 1 < event.touches.length){
+            if(scrolling){
+                var diffX = event.touches[0].clientX - scrollX;
+                var diffY = event.touches[0].clientY - scrollY;
+                scrollX = event.touches[0].clientX;
+                scrollY = event.touches[0].clientY;
+                var sign = -1;
+                if ($("scroll_check").prop("checked")){
+                    sign = 1;
+                }
+                window.scrollBy(sign*diffX, sign*diffY);
+            }
+            scrolling = true;
+            point_started = false;
+            return;
+        }
         //not left click
         if('button' in event && event.button != 0){
             point_started = false;
