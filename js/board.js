@@ -72,6 +72,7 @@ function board_init(){
                 shapes[index].draw('cancel');
                 drawing = false;
             }
+            event.preventDefault();
             return;
         }
         if('touches' in event){
@@ -122,6 +123,7 @@ function board_init(){
                 shapes[index].draw('cancel');
                 drawing = false;
             }
+            event.preventDefault();
             return;
         }
         //not left click
