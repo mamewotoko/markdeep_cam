@@ -9,6 +9,7 @@ var container = document.getElementById(ohp_id);
 container.style = normal_container_style;
 //scroll by 2 finger
 var scrolling = false;
+var drawing = false;
 var scrollX = 0;
 var scrollY = 0;
 
@@ -67,6 +68,9 @@ function board_init(){
             point_started = false;
             scrollX = event.touches[0].clientX;
             scrollY = event.touches[0].clientY;
+            if(drawing){
+                shapes[index].draw('cancel');
+            }
             return;
         }
         if('touches' in event){
@@ -108,6 +112,9 @@ function board_init(){
             }
             scrolling = true;
             point_started = false;
+            if(drawing){
+                shapes[index].draw('cancel');
+            }
             return;
         }
         //not left click
@@ -124,6 +131,7 @@ function board_init(){
         }
         event.preventDefault();
         last_event = event;
+        drawing = true;
         shapes[index].draw('point', event)
     }
 
