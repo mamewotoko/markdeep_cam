@@ -70,6 +70,7 @@ function board_init(){
             scrollY = event.touches[0].clientY;
             if(drawing){
                 shapes[index].draw('cancel');
+                drawing = false;
             }
             return;
         }
@@ -119,6 +120,7 @@ function board_init(){
             point_started = false;
             if(drawing){
                 shapes[index].draw('cancel');
+                drawing = false;
             }
             return;
         }
@@ -148,6 +150,7 @@ function board_init(){
         if(!point_started){
             return;
         }
+        drawing = false;
         point_started = false;
         event.preventDefault();
         shapes[index].draw('stop', last_event);
