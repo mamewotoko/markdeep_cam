@@ -86,6 +86,10 @@ function board_init(){
             point_started = false;
             return;
         }
+        if(drawing){
+            //end previous drawing
+            shapes[index].draw('point', last_event);
+        }
         point_started = true;
         event.preventDefault();
         var sh = get_draw_object();
@@ -94,6 +98,7 @@ function board_init(){
         last_event = event;
         var snap = 1;
         shapes[index].draw('point', event);
+        drawing = true;
     }
 
     function pointmove(event){
