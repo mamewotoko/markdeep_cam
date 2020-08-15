@@ -193,7 +193,8 @@ function board_init(){
         }
         //console.log(event.key);
         var keyname = event.key;
-        var ctrl = event.getModifierState('Control') || event.metaKey;
+        //Ctrl or Cmd
+        var ctrl = event.getModifierState('Control') || (event.keyCode == 91);
         //
 
         if(keyname in color_table){
