@@ -193,9 +193,7 @@ function board_init(){
         }
         //console.log(event.key);
         var keyname = event.key;
-        //Ctrl or Cmd
-        var ctrl = event.getModifierState('Control') || (keyname == "[");
-        //
+        var ctrl = event.getModifierState('Control');
 
         if(keyname in color_table){
             event.preventDefault();
