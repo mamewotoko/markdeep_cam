@@ -230,7 +230,7 @@ function board_init(){
             //ctrl-z
             hide_last_element();
         }
-        else if(ctrl && (event.kevent == 8 || event.keyCode == 46)){
+        else if(ctrl && (event.keyCode == 8 || event.keyCode == 46)){
             //Backspace or Delete
             //delete, clear svg
             event.preventDefault();
