@@ -10,3 +10,12 @@ Gallery
 ```
 
 ![](3d.png)
+
+## Webcam (WebRTC)
+
+```
+<video id="gum" style="width:960px; height:540px;" playsinline autoplay muted></video>
+<script> init_camera();  </script>
+```
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OlxxHuKqoog" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
