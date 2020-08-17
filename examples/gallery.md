@@ -18,4 +18,4 @@ Gallery
 <script> init_camera();  </script>
 ```
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/OlxxHuKqoog" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![](https://img.youtube.com/vi/OlxxHuKqoog)](https://youtu.be/OlxxHuKqoog)
