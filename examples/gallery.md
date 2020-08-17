@@ -19,3 +19,32 @@ Gallery
 ```
 
 [![](https://img.youtube.com/vi/OlxxHuKqoog/0.jpg)](https://youtu.be/OlxxHuKqoog)
+
+
+## Mindmap (markmap)
+
+```
+# Nihon-shoku (Japanese food)
+## Fish
+### Sushi
+#### Nigiri
+#### Futomaki
+#### Hosomaki
+### Sashimi
+### Unagi
+## Meet
+### Chiken
+#### Yakitori
+#### Oyako-don
+### Beef
+#### Gyudon
+### Pork
+#### Shogayaki
+#### Tonkatsu
+## Noodles
+### Soba
+### Udon
+### Ramen
+```
+
+![](mindmap.png)
