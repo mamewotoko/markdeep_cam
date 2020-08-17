@@ -18,4 +18,4 @@ Gallery
 <script> init_camera();  </script>
 ```
 
-[![](https://img.youtube.com/vi/OlxxHuKqoog)](https://youtu.be/OlxxHuKqoog)
+[![](https://img.youtube.com/vi/OlxxHuKqoog/0.jpg)](https://youtu.be/OlxxHuKqoog)
