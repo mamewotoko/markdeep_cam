@@ -9,7 +9,6 @@
     <style>
      body {
     padding: 4px;
-    padding-right: 20px;
     margin-right: 20px;
      }
      .color_button {
@@ -230,7 +229,7 @@ function preventDoubleTapZoom(event) {
             <div class="markdeep" id="result"></div>
           </div>
           <div id="markmap_container">
-            <svg id="mindmap" width="90%" height="100%" onclick="this.focus();"></svg>
+            <svg id="mindmap" width="90%" height="100%" onclick="document.activeElement.blur();"></svg>
           </div>
         </div>
         <div id="copyright_container"><span id="copyright"></span></div>
@@ -246,8 +245,6 @@ function preventDoubleTapZoom(event) {
       <button class="color_button" data-color="blue"></button>
       <button class="color_button" data-color="black"></button>
       <button class="color_button" data-color="white"></button>
-      <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
-      | <a id="image_download" download="board_and_me.png">イメージ保存</a>
       | <button class="btn btn-primary fa fa-undo" id="undo_drawing" onclick="hide_last_element();" aria-hidden="true" ontouchstart="preventDoubleTapZoom();"></button>
       | <a href="#input_head">input</a>
       <span class="custom-control custom-switch" style="display: inline-block !important;">
@@ -258,13 +255,14 @@ function preventDoubleTapZoom(event) {
         <input type="checkbox" class="custom-control-input" id="drawing_mode" checked/>
         <label class="custom-control-label" for="drawing_mode">drawing (F)</label>
       </span>
-      <a href="#output_head" id="input_head">output</a>
-      | <a href="#template">template</a>
-      <button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true">Clear Text</button>
+      <br><button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true">Clear Text</button>
       <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true">Clear Drawing</button>
       <button class="btn btn-primary" id="clear_all" onclick="clear_all();" aria-hidden="true">Clear</button>
       <button class="btn btn-primary" onclick="speech();">読み上げ</button>
-
+      <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
+      <a id="image_download" download="board_and_me.png">イメージ保存</a>
+      | <a href="#output_head" id="input_head">output</a>
+      <a href="#template">template</a>
       </div>
 
       <hr>
