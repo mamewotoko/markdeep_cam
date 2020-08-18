@@ -178,48 +178,11 @@
          left:5px !important;
      }
      </style>
-     <script>
-// Ensure touches occur rapidly
-const delay = 500
-// Sequential touches must be in close vicinity
-const minZoomTouchDelta = 10
-
-// Track state of the last touch
-let lastTapAt = 0
-let lastClientX = 0
-let lastClientY = 0
-
-function preventDoubleTapZoom(event) {
-  // Exit early if this involves more than one finger (e.g. pinch to zoom)
-  if (event.touches.length > 1) {
-    return
-  }
-
-  const tapAt = new Date().getTime()
-  const timeDiff = tapAt - lastTapAt
-  const { clientX, clientY } = event.touches[0]
-  const xDiff = Math.abs(lastClientX - clientX)
-  const yDiff = Math.abs(lastClientY - clientY)
-  if (
-    xDiff < minZoomTouchDelta &&
-    yDiff < minZoomTouchDelta &&
-    event.touches.length === 1 &&
-    timeDiff < delay
-  ) {
-    event.preventDefault()
-    // Trigger a fake click for the tap we just prevented
-    event.target.click()
-  }
-  lastClientX = clientX
-  lastClientY = clientY
-  lastTapAt = tapAt
-}
-     </script>
     <script src="https://use.fontawesome.com/16164d916e.js"></script>
-        <script src="js/qrcode.js"></script>
-        <script src="js/qrmain.js"></script>
-  </head>
-  <body id="output_head">
+    <script src="js/qrcode.js"></script>
+    <script src="js/qrmain.js"></script>
+    </head>
+    <body id="output_head">
     <div id="ui_top">
       <div id="ohp"></div>
       <div id="frame">
@@ -229,6 +192,7 @@ function preventDoubleTapZoom(event) {
             <div class="markdeep" id="result"></div>
           </div>
           <div id="markmap_container">
+          <!-- TODO: remove focus from ace editor when other element is clicked -->
             <svg id="mindmap" width="90%" height="100%" onclick="document.activeElement.blur();"></svg>
           </div>
         </div>
@@ -245,7 +209,7 @@ function preventDoubleTapZoom(event) {
       <button class="color_button" data-color="blue"></button>
       <button class="color_button" data-color="black"></button>
       <button class="color_button" data-color="white"></button>
-      | <button class="btn btn-primary fa fa-undo" id="undo_drawing" onclick="hide_last_element();" aria-hidden="true" ontouchstart="preventDoubleTapZoom();"></button>
+      | <button class="btn btn-primary fa fa-undo" id="undo_drawing" onclick="hide_last_element();" aria-hidden="true"></button>
       | <a href="#input_head">input</a>
       <span class="custom-control custom-switch" style="display: inline-block !important;">
         <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked/>
@@ -266,14 +230,14 @@ function preventDoubleTapZoom(event) {
       </div>
 
       <hr>
-    <div id="ui_control">
+      <div id="ui_control">
       <!-- TOOD: color -->
                  <div id="avatar_list">
 
-        <img src="image/cat_icon/cat2_1_idea.png" style="width:100px; height: auto;" >
-        <img src="image/cat_icon/animal_neko.png" style="width:100px; height: auto;" >
-        <img src="image/cat_icon/cat3_1_question.png" style="width:100px; height: auto;" >
-        <img src="image/cat_icon/cat2_4_think.png" style="width:100px; height: auto;" >
+                 <img src="image/cat_icon/cat2_1_idea.png" style="width:100px; height: auto;" >
+                 <img src="image/cat_icon/animal_neko.png" style="width:100px; height: auto;" >
+                 <img src="image/cat_icon/cat3_1_question.png" style="width:100px; height: auto;" >
+                 <img src="image/cat_icon/cat2_4_think.png" style="width:100px; height: auto;" >
         <img src="image/cat_icon/cat2_3_shock.png" style="width:100px; height: auto;" >
         <img src="image/cat_icon/cat2_2_surprise.png" style="width:100px; height: auto;" >
         <img src="image/cat_icon/cat3_3_sleep.png" style="width:100px; height: auto;" >
