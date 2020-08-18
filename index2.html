@@ -273,12 +273,6 @@
       <div id="target">
       </div>
 
-      <!--
-           <h3>おまけSVG画像</h3>
-           <br><textarea id="svg_content"></textarea>
-           <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
-      -->
-
       <h2>サポート状況 <a href="#support"><sup>#</sup></a></h2>
       MacのFirefoxではSVGの落書きの保存はできません
       <br>MacのChromeでは動作します。
@@ -389,7 +383,6 @@ function init_camera(){
             //echoCancellation: {exact: hasEchoCancellation}
         },
         video: {
-
         }
     };
     console.log('Using media constraints:', constraints);
@@ -397,32 +390,37 @@ function init_camera(){
 }
 </script>
 
-      <h2>参考 <a href="#reference"><sup>#</sup></a></h2>
-      <ul>
-        <li><a href="https://casual-effects.com/markdeep/">Markdeep - Causal Effects</a></li>
-        <li><a href="https://gist.github.com/doersino/9dcc636493ff1deb30912ed2efc44891">Preview Markdeep as you're typing (very simple, unstyled proof of concept)</a></li>
-        <li><a href="https://github.com/dundalek/markmap">markmap</a></li>
-        <li><a href="https://mamewo.ddo.jp/svg_b/">svg board</a></li>
-        <li>「<a href="https://www.irasutoya.com/">いらすとや</a>」さんのイラストを使いました。</li>
-      </ul>
+<h2>他のレイアウト <a href="#other_layout"><sup>#</sup></a></h2>
+<a href="index.html">左側にエディタを出す</a>
+<br><a href="index2.html">下にスクロールしたところにエディタを出す</a>
 
-      <h2>使用したライブラリ</h2>
-      <li><a href="https://ace.c9.io/">Ace</a>
-        <br>Copyright (c) 2010, Ajax.org B.V. All rights reserved.</li>
-      <hr>
+<h2>参考 <a href="#reference"><sup>#</sup></a></h2>
+<ul>
+<li><a href="https://casual-effects.com/markdeep/">Markdeep - Causal Effects</a></li>
+<li><a href="https://gist.github.com/doersino/9dcc636493ff1deb30912ed2efc44891">Preview Markdeep as you&#39;re typing (very simple, unstyled proof of concept)</a></li>
+                                                                                                            <li><a href="https://github.com/dundalek/markmap">markmap</a></li>
+                                                                                                            <li><a href="https://mamewo.ddo.jp/svg_b/">svg board</a></li>
+                                                                                                            <li>「<a href="https://www.irasutoya.com/">いらすとや</a>」さんのイラストを使いました。</li>
+                                                                                                            </ul>
 
-      <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
+        <h2>使用したライブラリ</h2>
+        <a href="https://ace.c9.io/">Ace</a>
+        <br>Copyright (c) 2010, Ajax.org B.V. All rights reserved.
+
+                                         <hr>
+
+                                         <a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
       <br>Takashi Masuyama mamewotoko AT gmail.com
       <br><a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a>
-    </div>
-    <script>window.markdeepOptions = {mode: 'script'};</script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-    <script src="https://mamewo.ddo.jp/svg_b/node_modules/svg.js/dist/svg.min.js"></script>
-    <script src="https://mamewo.ddo.jp/svg_b/js/svg.draw.js"></script>
-    <script src="js/board.js"></script>
-    <!--  <script src="node_modules/canvg/lib/umd.js"></script> -->
+
+      <script>window.markdeepOptions = {mode: 'script'};</script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+      <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="https://mamewo.ddo.jp/svg_b/node_modules/svg.js/dist/svg.min.js"></script>
+      <script src="https://mamewo.ddo.jp/svg_b/js/svg.draw.js"></script>
+      <script src="js/board.js"></script>
+      <!--  <script src="node_modules/canvg/lib/umd.js"></script> -->
     <script>
      function clear_markdeep(){
          window.editor.setValue("");
