@@ -38,7 +38,7 @@ function board_init(){
     var index = 0;
     var last_event = null;
     var point_started = false;
-    window.stroke_color = "red";
+    window.stroke_color = "black";
     var stroke_width = 8;
     var is_fullscreen = true;
     var removed_element = [];

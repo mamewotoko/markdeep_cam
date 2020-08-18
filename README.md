@@ -16,6 +16,14 @@ screen to display markdeep (markup language like markdown), mindmap, and svg.
 
 ![demo image with drawing](image/drawing.png)
 
+insert other pages with iframe
+
+![demo image with iframe](examples/3d.png)
+
+mindmap mode
+
+![demo image with mindmap](examples/mindmap.png)
+
 
 * The input markdeeep to right upper textarea.
     * mathjax is supported (i.e. you can write formula with latex syntax)
