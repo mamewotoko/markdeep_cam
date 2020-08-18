@@ -235,7 +235,6 @@ function preventDoubleTapZoom(event) {
       </div>
 
       <div id="output_control">
-        <input type="color" class="color_button" id="drawing_color" name="drawing_color" value="#000000">
       <button class="color_button" data-color="red"></button>
       <button class="color_button" data-color="green"></button>
       <button class="color_button" data-color="yellow"></button>
@@ -244,7 +243,6 @@ function preventDoubleTapZoom(event) {
       <button class="color_button" data-color="blue"></button>
       <button class="color_button" data-color="black"></button>
       <button class="color_button" data-color="white"></button>
-      <br>
       <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
       | <a id="image_download" download="board_and_me.png">イメージ保存</a>
       | <button class="btn btn-primary fa fa-undo" id="undo_drawing" onclick="hide_last_element();" aria-hidden="true" ontouchstart="preventDoubleTapZoom();"></button>
@@ -257,10 +255,6 @@ function preventDoubleTapZoom(event) {
         <input type="checkbox" class="custom-control-input" id="drawing_mode" checked/>
         <label class="custom-control-label" for="drawing_mode">drawing (F)</label>
       </span>
-
-      </div>
-      <hr>
-
       <a href="#output_head" id="input_head">output</a>
       | <a href="#template">template</a>
       <button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true">Clear Text</button>
@@ -268,6 +262,9 @@ function preventDoubleTapZoom(event) {
       <button class="btn btn-primary" id="clear_all" onclick="clear_all();" aria-hidden="true">Clear</button>
       <button class="btn btn-primary" onclick="speech();">読み上げ</button>
 
+      </div>
+
+      <hr>
     <div id="ui_control">
       <!-- TOOD: color -->
       <div id="avatar_list">
@@ -280,6 +277,10 @@ function preventDoubleTapZoom(event) {
         <img src="image/cat_icon/cat3_3_sleep.png" style="width:100px; height: auto;" >
         <img src="image/cat_icon/cat3_4_tehe.png" style="width:100px; height: auto;" >
         <img src="image/cat_icon/cat3_2_heart.png" style="width:100px; height: auto;" >
+
+        <img src="image/remote_work/mimi_sumasu_man2.png" style="width:100px; height: auto;" >
+        <img src="image/remote_work/computer_error_bluescreen.png" style="width:100px; height: auto;" >
+
         <br>↑人物アイコン(幅 200pxを推奨します): 画像をpasteするか、以下の画像をダブルクリックしてください。
         <br>copyright表記: <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
       </div>
