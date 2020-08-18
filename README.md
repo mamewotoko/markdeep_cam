@@ -28,7 +28,7 @@ mindmap mode
 * The input markdeeep to right upper textarea.
     * mathjax is supported (i.e. you can write formula with latex syntax)
 * A mindmap is drawn from markdeep when markdeep mode switch is disabled.
-* You can draw feee hand drawing on the right board.
+* You can draw free-hand drawing on the right board.
     * Shift-F toggles svg mode (mouse event is delivered to text behind svg)
 
 Build
