@@ -24,7 +24,6 @@ mindmap mode
 
 ![demo image with mindmap](examples/mindmap.png)
 
-
 * The input markdeeep to right upper textarea.
     * mathjax is supported (i.e. you can write formula with latex syntax)
 * A mindmap is drawn from markdeep when markdeep mode switch is disabled.
@@ -45,6 +44,13 @@ sh setup.sh
 ```
 sh build.sh
 ```
+
+Example
+-------
+
+![](markdeep_cam.png)  <video src="https://youtu.be/DnQBxVAb0Hg" markdown="0"></video>
+
+![](obs-studio.png)
 
 License
 -------
