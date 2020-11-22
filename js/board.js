@@ -47,7 +47,7 @@ function board_init(){
         stroke: 'green',
         'stroke-width': 4,
         'fill-opacity': 0,
-        'stroke-opacity': 0.75,
+        'stroke-opacity': 1,
     };
 
     function get_draw_object() {

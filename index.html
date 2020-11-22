@@ -7,8 +7,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./css/qr.css" />
     <style>
+    :root {
+    --editor-width: 400px;
+         /*background: #e0edff; */
+    --balloon-color: #00FF00;
+    --balloon-text-color: black;
+    --background-color: #00FF00;
+    }
      body {
-         padding: 4px;
+         padding: 0px;
      }
      .color_button {
          width: 50px;
@@ -18,9 +25,10 @@
      .template {
          border: solid 1px black;
      }
+
      #markdeep_input {
          height: calc(100% - 120px) !important;
-         width: 300px;
+         width: var(--editor-width);
          font-familiy: monospace;
          font-size: 18px;
      }
@@ -48,30 +56,11 @@
          display: none;
      }
 
-     #result h1 {
-         font-size: 44px;
-     }
-
-     #result h2 {
-         font-size: 36px;
-     }
-
-     #result h3 {
-         font-size: 30px;
-     }
-
-     #result * {
-         font-size: 26px;
-     }
-
      .diagram text {
          font-size: 14px !important;
      }
 
      #capture_button { width: 80px; }
-     /* .markdeep { */
-     /*     padding: 10px; */
-     /* } */
 
      #main {
          height: 100%;
@@ -91,18 +80,17 @@
      }
 
      .balloon {
-         width: calc(95% - 200px);
+         width: calc(100% - 230px);
          height: 90%;
          position: absolute;
-         top: 10px;
-         left: 220px;
+         top: 5px;
+         right: 5px;
 
          display: block;
-         margin: 1.2em 0 10px 10px;
          padding: 20px;
-         color: #555;
+         color: var(--balloon-text-color);
          overflow-y: hidden;
-         background: #e0edff;
+         background: var(--balloon-color);
      }
 
      #ohp {
@@ -112,13 +100,18 @@
          width: 100%;
          height: 100%;
      }
-     #cam_output {
-         vertical-align: top;
-         width: calc(100vw - 300px);
-     }
      #cam_input {
          vertical-align: top;
-         width: 300px;
+         width: var(--editor-width) !important;
+     }
+
+     #cam_output {
+         --width: calc(100vw - var(--editor-width));
+         vertical-align: top;
+         width: var(--width);
+         height: calc(var(--width) * 0.5625);
+         right: 0;
+         background: var(--background-color);
      }
 
      #copyright_input {
@@ -128,22 +121,43 @@
          position: absolute;
          bottom: 10px;
          right: 40px;
-         font-size: 24px;
+         font-size: 32px;
          width: 100%;
          text-align: right;
      }
 
-     /* board style */
-     .markdeep .xxxxl {
-         font-size: 140px !important;
+     .markdeep * {
+         -webkit-text-stroke-width: 3px;
+         -webkit-text-stroke-color: white;
      }
 
-     .markdeep .xxxl {
-         font-size: 120px !important;
+     .word {
+         font-size: 70px;
+         font-weight: bold;
      }
+
+     /* board style */
+     .slide h1 {
+         font-size: 60px !important;
+     }
+
+     .slide h2 {
+         font-size: 55px !important;
+     }
+
+     .slide h3 {
+         font-size: 50px !important;
+     }
+
+     .slide * {
+         font-size: 45px !important;
+         font-weight: bold;
+     }
+
+     /*******/
 
      .markdeep .xxl {
-         font-size: 100px !important;
+         font-size: 80px !important;
      }
 
      .markdeep .xl {
@@ -174,8 +188,8 @@
          position: absolute;
          width:200px;
          height: auto;
-         bottom:10px !important;
-         left:5px !important;
+         bottom:0px !important;
+         padding-left:30px !important;
      }
     </style>
     <script src="https://use.fontawesome.com/16164d916e.js"></script>
@@ -229,7 +243,7 @@
               <img id="avatar" src="image/cat_icon/animal_neko.png">
               <div class="balloon1-left balloon" id="balloon">
                 <div id="markdeep_board" style="height: 95%;">
-                  <div class="markdeep" id="result"></div>
+                  <div class="markdeep word" id="result"></div>
                 </div>
                 <div id="markmap_container">
                   <svg id="mindmap" width="100%" height="100%"></svg>
