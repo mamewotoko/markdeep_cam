@@ -48,14 +48,14 @@ sh build.sh
 Example
 -------
 
-* Input1: markdeep_cam
-* Input2: video
+##  Input1: markdeep_cam
+![](doc/markdeep_cam.png)
 
-* Output: composed video
-  * user can enter caption
+## Input2: video file
+  [![](http://img.youtube.com/vi/DnQBxVAb0Hg/0.jpg)](https://youtu.be/DnQBxVAb0Hg)
 
-![](doc/markdeep_cam.png) [![](http://img.youtube.com/vi/DnQBxVAb0Hg/0.jpg)]](https://youtu.be/DnQBxVAb0Hg)
-
+# Output: composed video = Input1 + Input2
+* user can enter caption
 ![](doc/obs-studio.png)
 
 License
