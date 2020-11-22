@@ -48,7 +48,13 @@ sh build.sh
 Example
 -------
 
-![](doc/markdeep_cam.png)  <video src="https://youtu.be/DnQBxVAb0Hg" markdown="0"></video>
+* Input1: markdeep_cam
+* Input2: video
+
+* Output: composed video
+  * user can enter caption
+
+![](doc/markdeep_cam.png) [![](http://img.youtube.com/vi/DnQBxVAb0Hg/0.jpg)]](https://youtu.be/DnQBxVAb0Hg)
 
 ![](doc/obs-studio.png)
 
