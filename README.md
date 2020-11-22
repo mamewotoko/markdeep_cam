@@ -48,9 +48,9 @@ sh build.sh
 Example
 -------
 
-![](markdeep_cam.png)  <video src="https://youtu.be/DnQBxVAb0Hg" markdown="0"></video>
+![](doc/markdeep_cam.png)  <video src="https://youtu.be/DnQBxVAb0Hg" markdown="0"></video>
 
-![](obs-studio.png)
+![](doc/obs-studio.png)
 
 License
 -------
