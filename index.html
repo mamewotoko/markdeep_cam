@@ -243,7 +243,7 @@
               <img id="avatar" src="image/cat_icon/animal_neko.png">
               <div class="balloon1-left balloon" id="balloon">
                 <div id="markdeep_board" style="height: 95%;">
-                  <div class="markdeep word" id="result"></div>
+                  <div class="markdeep slide" id="result"></div>
                 </div>
                 <div id="markmap_container">
                   <svg id="mindmap" width="100%" height="100%"></svg>
@@ -270,6 +270,12 @@
       <button class="color_button" data-color="blue"></button>
       <button class="color_button" data-color="black"></button>
       <button class="color_button" data-color="white"></button>
+      |
+      <button class="color_button" style="border: 5px solid #00FF00;" onclick="set_bg('#00FF00')"></button>
+      <button class="color_button" style="border: 5px solid #0000FF;" onclick="set_bg('#0000FF')"></button>
+      <button class="color_button" style="border: 5px solid #FF00FF;" onclick="set_bg('#FF00FF')"></button>
+      <button class="color_button" style="border: 5px solid #FFFFFF;" onclick="set_bg('#FFFFFF')"></button>
+      <button class="color_button" style="border: 5px solid #000000;" onclick="set_bg('#000000')"></button>
       <!-- TOOD: color -->
       <div id="avatar_list">
         <img src="image/cat_icon/cat2_1_idea.png" style="width:100px; height: auto;" >
@@ -284,7 +290,8 @@
         <br>↑人物アイコン(幅 200pxを推奨します): 画像をpasteするか、以下の画像をダブルクリックしてください。
         <br>copyright表記: <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
       </div>
-    </div>
+      </div>
+      <div style="display: none;">
     <div id="additional">
       <h2>撮った画像 <a href="#captured_image"><sup>#</sup></a></h2>
 
@@ -435,6 +442,7 @@ function init_camera(){
       <br>Takashi Masuyama mamewotoko AT gmail.com
       <br><a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a>
     </div>
+</div>
     <script>window.markdeepOptions = {mode: 'script'};</script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
@@ -556,6 +564,11 @@ function init_camera(){
          init_size();
      });
 
+     function set_bg(color){
+          $(":root").css("--balloon-color", color);
+          $(":root").css("--background-color", color);
+     }
+
      $(document).ready(function() {
          window.editor = ace.edit("markdeep_input");
          editor.setTheme("ace/theme/twilight");
@@ -598,6 +611,8 @@ function init_camera(){
              console.log("color changed " + $(this).val());
              window.stroke_color = $(this).val();
          });
+
+
          //support firefox... failed
          /* function add_svg2(c){ */
          /*     var context = c.getContext('2d'); */
