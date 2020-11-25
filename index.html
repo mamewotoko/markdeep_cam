@@ -8,11 +8,12 @@
     <link rel="stylesheet" type="text/css" href="./css/qr.css" />
     <style>
     :root {
-    --editor-width: 400px;
+    --editor-width: 25vw;
          /*background: #e0edff; */
     --balloon-color: #00FF00;
     --balloon-text-color: black;
     --background-color: #00FF00;
+    --output-width: calc(100vw - var(--editor-width));
     }
      body {
          padding: 0px;
@@ -27,7 +28,7 @@
      }
 
      #markdeep_input {
-         height: calc(100% - 120px) !important;
+         height: calc(100% - 150px) !important;
          width: var(--editor-width);
          font-familiy: monospace;
          font-size: 18px;
@@ -100,22 +101,25 @@
          width: 100%;
          height: 100%;
      }
+
      #cam_input {
          vertical-align: top;
          width: var(--editor-width) !important;
      }
 
+     .output {
+     }
+
      #cam_output {
-         --width: calc(100vw - var(--editor-width));
          vertical-align: top;
-         width: var(--width);
-         height: calc(var(--width) * 0.5625);
+         width: var(--output-width);
+         height: calc(var(--output-width) * 0.5625);
          right: 0;
          background: var(--background-color);
      }
 
      #copyright_input {
-         width: 80vw;
+         width: 95%;
      }
      #copyright_container {
          position: absolute;
@@ -127,8 +131,8 @@
      }
 
      .markdeep * {
-         -webkit-text-stroke-width: 3px;
-         -webkit-text-stroke-color: white;
+/*         -webkit-text-stroke-width: 3px;
+         -webkit-text-stroke-color: white; */
      }
 
      .word {
@@ -188,8 +192,8 @@
          position: absolute;
          width:200px;
          height: auto;
-         bottom:0px !important;
-         padding-left:30px !important;
+         bottom: -2px !important;
+        /* padding-left:30px !important; */
      }
     </style>
     <script src="https://use.fontawesome.com/16164d916e.js"></script>
@@ -225,6 +229,8 @@
       <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true">Clear Drawing</button>
       <br><button class="btn btn-primary" id="clear_all" onclick="clear_all();" aria-hidden="true">Clear</button>
       <button class="btn btn-primary fa fa-undo" id="undo_drawing" onclick="hide_last_element();" aria-hidden="true"></button>
+      <br><input type="text" id="copyright_input" placeholder="credit, copyright" value="">
+
       <div class="custom-control custom-switch">
         <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked>
         <label class="custom-control-label" for="markdeep_mode">markdeep mode (D)</label>
@@ -237,9 +243,9 @@
             <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
           </td>
           <td id="cam_output" class="cam_col" style="position: relative;">
-            <div id="ohp"></div>
+            <div id="ohp" class="output"></div>
 
-            <div id="frame">
+            <div id="frame" class="output">
               <img id="avatar" src="image/cat_icon/animal_neko.png">
               <div class="balloon1-left balloon" id="balloon">
                 <div id="markdeep_board" style="height: 95%;">
@@ -288,7 +294,6 @@
         <img src="image/cat_icon/cat3_4_tehe.png" style="width:100px; height: auto;" >
         <img src="image/cat_icon/cat3_2_heart.png" style="width:100px; height: auto;" >
         <br>↑人物アイコン(幅 200pxを推奨します): 画像をpasteするか、以下の画像をダブルクリックしてください。
-        <br>copyright表記: <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
       </div>
       </div>
       <div style="display: none;">
