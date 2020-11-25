@@ -203,7 +203,7 @@
      #ui_top {
          height: calc(100vh - 220px);
      }
-    </style>
+     </style>
     <script src="https://use.fontawesome.com/16164d916e.js"></script>
         <script src="js/qrcode.js"></script>
         <script src="js/qrmain.js"></script>
@@ -292,15 +292,15 @@
       <button class="color_button" style="border: 5px solid #000000;" onclick="set_bg('#000000')"></button>
       <!-- TOOD: color -->
       <div id="avatar_list">
-        <img src="image/cat_icon/cat2_1_idea.png" style="width:100px; height: auto;" >
-        <img src="image/cat_icon/animal_neko.png" style="width:100px; height: auto;" >
-        <img src="image/cat_icon/cat3_1_question.png" style="width:100px; height: auto;" >
-        <img src="image/cat_icon/cat2_4_think.png" style="width:100px; height: auto;" >
-        <img src="image/cat_icon/cat2_3_shock.png" style="width:100px; height: auto;" >
-        <img src="image/cat_icon/cat2_2_surprise.png" style="width:100px; height: auto;" >
-        <img src="image/cat_icon/cat3_3_sleep.png" style="width:100px; height: auto;" >
-        <img src="image/cat_icon/cat3_4_tehe.png" style="width:100px; height: auto;" >
-        <img src="image/cat_icon/cat3_2_heart.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat2_1_idea.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/animal_neko.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat3_1_question.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat2_4_think.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat2_3_shock.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat2_2_surprise.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat3_3_sleep.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat3_4_tehe.png" style="width:100px; height: auto;" >
+      <img src="image/cat_icon/cat3_2_heart.png" style="width:100px; height: auto;" >
         <!--
         <br>↑人物アイコン(幅 200pxを推奨します): 画像をpasteするか、以下の画像をダブルクリックしてください。
                                                       -->
@@ -466,6 +466,10 @@ function init_camera(){
     <script src="https://mamewo.ddo.jp/svg_b/js/svg.draw.js"></script>
     <script src="js/board.js"></script>
     <!--  <script src="node_modules/canvg/lib/umd.js"></script> -->
+
+   <script src="js/controller.js"></script>
+
+
     <script>
      function clear_markdeep(){
          $("#markdeep_input").val("");
@@ -584,6 +588,11 @@ function init_camera(){
           $(":root").css("--background-color", color);
      }
 
+     function select_avatar(i){
+         var img = $("#avatar_list img")[i];
+         $("#avatar").attr("src", $(img).attr("src"));
+     }
+
      $(document).ready(function() {
          window.editor = ace.edit("markdeep_input");
          editor.setTheme("ace/theme/twilight");
@@ -639,6 +648,7 @@ function init_camera(){
      });
     </script>
         <script src="./js/html2canvas.min.js"></script>
+
         <!--
             <script>
               var editor = ace.edit("editor_container");
