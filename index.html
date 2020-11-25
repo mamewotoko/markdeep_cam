@@ -18,6 +18,10 @@
      body {
          padding: 0px;
      }
+     hr {
+         margin-top: 5px;
+         margin-bottom: 5px;
+     }
      .color_button {
          width: 50px;
          height: 25px;
@@ -28,7 +32,7 @@
      }
 
      #markdeep_input {
-         height: calc(100% - 150px) !important;
+         height: calc(100% - 200px) !important;
          width: var(--editor-width);
          font-familiy: monospace;
          font-size: 18px;
@@ -195,6 +199,10 @@
          bottom: -2px !important;
         /* padding-left:30px !important; */
      }
+
+     #ui_top {
+         height: calc(100vh - 220px);
+     }
     </style>
     <script src="https://use.fontawesome.com/16164d916e.js"></script>
         <script src="js/qrcode.js"></script>
@@ -293,7 +301,9 @@
         <img src="image/cat_icon/cat3_3_sleep.png" style="width:100px; height: auto;" >
         <img src="image/cat_icon/cat3_4_tehe.png" style="width:100px; height: auto;" >
         <img src="image/cat_icon/cat3_2_heart.png" style="width:100px; height: auto;" >
+        <!--
         <br>↑人物アイコン(幅 200pxを推奨します): 画像をpasteするか、以下の画像をダブルクリックしてください。
+                                                      -->
       </div>
       </div>
       <div style="display: none;">
@@ -562,7 +572,7 @@ function init_camera(){
          var control_height = $("#ui_control").height();
          var view_height = Math.max(win_height - control_height + 60, 100);
          console.log("view_height " + view_height);
-         $("#ui_top").height(view_height-20);
+         // $("#ui_top").height(view_height-220);
          editor.resize();
      }
      $(window).resize(function(){
