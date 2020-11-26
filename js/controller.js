@@ -1,10 +1,65 @@
 
 function buttonPressed(b) {
-  if (typeof(b) == "object") {
-    return b.pressed;
-  }
-  return b == 1.0;
+    if (typeof(b) == "object") {
+        return b.pressed;
+    }
+    return b == 1.0;
 }
+
+//ps3
+var L1 = 4;
+var R1 = 5;
+var L2 = 6;
+var R2 = 7;
+var UP = 12;
+var DOWN = 13;
+var LEFT = 14;
+var RIGHT = 15;
+var CROSS = 0;
+var CIRCLE = 1;
+var RECTANGLE = 2;
+var TRIANGLE = 3;
+
+var ps3 = {
+    vender_id: 0x054c,
+    product_id: 0x0268,
+
+    handle: function(gp){
+        var l2 = buttonPressed(gp.buttons[L2]);
+        var l1 = buttonPressed(gp.buttons[L1]);
+        //console.log(l1, l2, gp.buttons[L2], gp.buttons[L1]);
+        if(l1 && l2 && buttonPressed(gp.buttons[UP])){
+            select_avatar(7);
+        }
+        else if(l1 && l2 && buttonPressed(gp.buttons[RIGHT])){
+            select_avatar(8);
+        }
+        else if(l2 && buttonPressed(gp.buttons[UP])){
+            select_avatar(0);
+        }
+        else if(l2 && buttonPressed(gp.buttons[RIGHT])){
+            select_avatar(1);
+        }
+        else if(l2 && buttonPressed(gp.buttons[DOWN])){
+            select_avatar(2);
+        }
+        else if(l2 && buttonPressed(gp.buttons[LEFT])){
+            select_avatar(3);
+        }
+        else if(l1 && buttonPressed(gp.buttons[UP])){
+            select_avatar(4);
+        }
+        else if(l1 && buttonPressed(gp.buttons[RIGHT])){
+            select_avatar(5);
+        }
+        else if(l1 && buttonPressed(gp.buttons[DOWN])){
+            select_avatar(5);
+        }
+        else if(l1 && buttonPressed(gp.buttons[LEFT])){
+            select_avatar(6);
+        }
+    }
+};
 
 var sega = {
 
@@ -98,8 +153,8 @@ var sega = {
 };
 
 function find_handler(gp){
-    //var handler_list = [ps3, sega];
-    var handler_list = [sega];
+    var handler_list = [ps3, sega];
+    //var handler_list = [sega];
     for(var i = 0; i < handler_list.length; i++){
         var vender_id = handler_list[i].vender_id.toString(16);
         var product_id = handler_list[i].product_id.toString(16);
@@ -152,7 +207,6 @@ function render() {
     if(handler != null){
         handler.handle(gp);
     }
-    //console.log(camera.position.x+","+camera.position.y+","+camera.position.z)
     requestAnimationFrame(render);
 }
 render();
