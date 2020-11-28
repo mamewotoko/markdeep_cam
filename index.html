@@ -284,6 +284,7 @@
               <option value="text">Text</option>
               <option value="background">Background</option>
               <option value="board">Board</option>
+              <option value="background+board">Background &amp; Board</option>
             </select>
           </div>
           <div class="col-10 form-inline">
@@ -642,6 +643,10 @@
                    $(":root").css("--background-color", color);
                }
                else if(color_target == "board"){
+                   $(":root").css("--balloon-color", color);
+               }
+               else if(color_target == "background+board"){
+                   $(":root").css("--background-color", color);
                    $(":root").css("--balloon-color", color);
                }
            });
