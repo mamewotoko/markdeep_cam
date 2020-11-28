@@ -184,11 +184,10 @@ function board_init(){
     }
 
     document.addEventListener('keydown', function(event){
-        if(editor.isFocused()
+        if(window.editor.isFocused()
            || document.activeElement.type == "text"){
             return;
         }
-        //console.log(event.key);
         var keyname = event.key;
         var ctrl = event.getModifierState('Control');
 
@@ -199,7 +198,7 @@ function board_init(){
         }
         else if(keyname == 'i'){
             event.preventDefault();
-            editor.focus();
+            window.editor.focus();
             return;
         }
         else if(keyname == 'F'){
@@ -264,6 +263,7 @@ function board_init(){
 }
 
 function speech(){
+    //var text = $("#markdeep_input").val();
     var text = $("#result").text();
     var msg = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(msg);
