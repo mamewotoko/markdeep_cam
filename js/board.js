@@ -184,9 +184,6 @@ function board_init(){
     }
 
     document.addEventListener('keydown', function(event){
-        //TODO; check focus
-        //if($('#markdeep_input').is(':focus')
-
         if(editor.isFocused()
            || document.activeElement.type == "text"){
             return;
@@ -198,6 +195,11 @@ function board_init(){
         if(keyname in color_table){
             event.preventDefault();
             window.stroke_color = color_table[keyname];
+            return;
+        }
+        else if(keyname == 'i'){
+            event.preventDefault();
+            editor.focus();
             return;
         }
         else if(keyname == 'F'){
@@ -262,7 +264,6 @@ function board_init(){
 }
 
 function speech(){
-    //var text = $("#markdeep_input").val();
     var text = $("#result").text();
     var msg = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(msg);
