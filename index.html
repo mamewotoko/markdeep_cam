@@ -13,6 +13,7 @@
      :root {
          --editor-width: 25vw;
          /*background: #e0edff; */
+         --init-pen-color: #FFFFFF;
          --balloon-color: #000000;
          --balloon-text-color: #FFFFFF;
          --background-color: #FFFFFF;
@@ -272,7 +273,7 @@
               <!-- ace editor -->
               <!-- <div id="editor_container"></div> -->
               <pre id="markdeep_input">Cats!
-</pre>
+              </pre>
               <!--
                    <textarea id="markdeep_input" rows="12"># I have five questions!
                    ## Who: ____________
@@ -332,15 +333,15 @@
 
             <input type="color" class="color_button" id="drawing_color" name="drawing_color" value="#FF0000" />
           </div>
-            <button class="col-1 color_button" data-color="red"></button>
-            <button class="col-1 color_button" data-color="yellow"></button>
-            <button class="col-1 color_button" data-color="pink"></button>
-            <button class="col-1 color_button" data-color="purple"></button>
-            <button class="col-1 color_button" data-color="green"></button>
-            <button class="col-1 color_button" data-color="blue"></button>
-            <button class="col-1 color_button" data-color="black"></button>
-            <button class="col-1 color_button" data-color="white"></button>
-            <!-- TOOD: color -->
+          <button class="col-1 color_button" data-color="red"></button>
+          <button class="col-1 color_button" data-color="yellow"></button>
+          <button class="col-1 color_button" data-color="pink"></button>
+          <button class="col-1 color_button" data-color="purple"></button>
+          <button class="col-1 color_button" data-color="green"></button>
+          <button class="col-1 color_button" data-color="blue"></button>
+          <button class="col-1 color_button" data-color="black"></button>
+          <button class="col-1 color_button" data-color="white"></button>
+          <!-- TOOD: color -->
         </div>
         <div id="avatar_list">
           <img src="image/cat_icon/cat2_1_idea.png" style="width:100px; height: auto;" >
@@ -521,6 +522,7 @@
 
 
       <script>
+       var init_pen_width = 4;
        function clear_markdeep(){
            $("#markdeep_input").val("");
            window.editor.setValue("");
@@ -556,16 +558,13 @@
 
            html2canvas($("#frame")[0], config).then(canvas => {
                canvas.id = "captured_frame";
-               $("#target").width(w);
-               $("#target").height(h);
-
                target.appendChild(canvas);
-               add_svg(canvas);
+               add_svg(canvas, w, h);
            });
        }
 
-       function add_svg(c){
-           var current_svg = draw.svg();
+       function add_svg(c, width, height){
+           var current_svg = draw.size(width, height).svg();
            var ohp_pos = $("#ohp").offset();
            var frame_pos = $("#frame").offset();
 
@@ -574,18 +573,20 @@
            var base64data = btoa(current_svg);
 
            var img = new Image();
-           img.width = $("#ohp").width();
-           img.height = $("#ohp").height();
+           img.width = width;
+           img.height = height;
+           console.log("offset ", ohp_pos, frame_pos, width, height)
+
            img.src = "data:image/svg+xml;base64," + base64data;
            img.onload = function(){
                var context = c.getContext("2d");
-               console.log("add_svg %d %d %s", x, y, current_svg);
-               console.log(img);
                //TODO: image moves to left
-               x += 300;
+               //x += 300;
                context.drawImage(img, x, y, $("#ohp").width(), $("#ohp").height());
                document.getElementById("image_download").href = c.toDataURL("image/png");
-               img.parentNode.removeChild(img);
+               //img.parentNode.removeChild(img);
+               //debug
+               $("body").append(img);
            };
            //img.style = "display: none;";
            var target = document.getElementById("target");
@@ -594,8 +595,6 @@
 
        window.addEventListener('paste', function(e){
            var item = e.clipboardData.items[0];
-           console.log("item");
-           console.log(item);
            if(!item){
                return;
            }
@@ -649,6 +648,7 @@
 
            init_size();
            //window.scrollTo(0, 0);
+           board_init($(":root").css("--init-pen-color"), init_pen_width);
 
            var color_table = {
                "red": "#ff0000",
@@ -732,9 +732,6 @@
           <script src="js/mindmap.browser.js"></script>
           <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
           <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-          <!--
-              <script src="lib/js/ace.js" type="text/javascript" charset="utf-8"></script>
-              -->
-              <script src="./lib/js/ace-build/src-min-noconflict/ace.js"></script>
+          <script src="./lib/js/ace-build/src-min-noconflict/ace.js"></script>
   </body>
 </html>

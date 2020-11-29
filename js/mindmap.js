@@ -43,9 +43,6 @@ window.update_markdown = function(){
 }
 $(document).ready(function() {
     //"use strict";
-    board_init();
-    // $("#ohp").css("width", $("#balloon").css("width"))
-    //     .css("height", $("#balloon").css("height"));
     $("#mindmap").css("width", $("#balloon").css("width"))
         .css("height", $("#balloon").css("height"));
     $("#markdeep_mode").change(update_markdown);
@@ -58,13 +55,12 @@ function postprocessMarkdeep() {
     // for some reason, markdeep creates an additional, superflous <p> tag right
     // at the beginning, so let's get rid of that
     $('.markdeep .md > p:first-child').hide();
-    
+
     // anchors mess up the spacing, so purge them too
     $('.markdeep .md a.target').hide();
-    
+
     // tell mathjax to render math
     $('.markdeep').each(function() {
         MathJax.Hub.Queue(["Typeset", MathJax.Hub, $(this).get()]);
     });
 }
-

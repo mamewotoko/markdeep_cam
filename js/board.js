@@ -20,7 +20,7 @@ function save_svg(){
     $('#svg_content').val(current_svg);
 }
 
-function board_init(){
+function board_init(init_pen_color, init_stroke_width){
     var shapes = [];
     var color_table = {
         'R': 'red',
@@ -38,14 +38,14 @@ function board_init(){
     var index = 0;
     var last_event = null;
     var point_started = false;
-    window.stroke_color = "black";
-    var stroke_width = 8;
+    window.stroke_color = init_pen_color;
+    var stroke_width = init_stroke_width;
     var is_fullscreen = true;
     var removed_element = [];
 
     var option = {
         stroke: 'green',
-        'stroke-width': 4,
+        'stroke-width': init_stroke_width,
         'fill-opacity': 0,
         'stroke-opacity': 1,
     };
