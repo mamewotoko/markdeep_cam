@@ -112,6 +112,7 @@
      }
 
      .output {
+         margin-bottom: 10px;
      }
 
      #cam_output {
@@ -149,7 +150,20 @@
          height: 2px;
          background-color: var(--balloon-text-color);
      }
+
+     .caption {
+         font-size: 60px !important;
+         height: 35%;
+         position: absolute;
+         line-height: 1.1;
+         margin-bottom: 5px !important;
+         bottom: 5px;
+     }
+
      /* board style */
+     .slide {
+         height: 95%;
+     }
      .slide h1 {
          font-size: 60px !important;
      }
@@ -169,24 +183,37 @@
 
      /*******/
 
+     .xxxl {
+         height: 95%;
+     }
      .xxxl * {
          font-size: 300px !important;
      }
 
+     .xxl {
+         height: 95%;
+     }
      .xxl * {
          font-size: 180px !important;
      }
 
+     .xl {
+         height: 95%;
+     }
      .xl * {
          font-size: 120px !important;
      }
-     
+
+     .l {
+         height: 95%;
+     }
      .l * {
          font-size: 70px !important;
      }
 
      .markdeep .m {
          font-size: 50px !important;
+         height: 95%;
      }
 
      #additional h1 {
@@ -228,8 +255,8 @@
               <div id="frame" class="output">
                 <img id="avatar" src="image/cat_icon/animal_neko.png">
                 <div class="balloon1-left balloon" id="balloon">
-                  <div id="markdeep_board" style="height: 95%;">
-                    <div class="markdeep xxxl" id="result"></div>
+                  <div id="markdeep_board" class="caption">
+                    <div class="markdeep" id="result"></div>
                   </div>
                   <div id="markmap_container">
                     <svg id="mindmap" width="100%" height="100%"></svg>
@@ -276,11 +303,12 @@
           </tr>
         </tbody>
       </table>
-      <hr>
+
       <div id="ui_control">
         <div class="form-inline">
           <div class="col-1 form-inline">
             <select class="form-control" id="balloon_style" name="balloon_style">
+              <option value="caption">caption</option>
               <option value="slide">slide</option>
               <option value="l">l</option>
               <option value="xl">xl</option>
@@ -642,11 +670,10 @@
            $("#balloon_style").change(function(e){
                console.log("balloon_style is changed");
                var new_style = $(this).val();
-               $("#result").removeClass();
-               $("#result").addClass("markdeep");
-               $("#result").addClass(new_style);
+               $("#markdeep_board").removeClass();
+               $("#markdeep_board").addClass(new_style);
            })
-           
+
            $(".color_button").click(function(e){
                var color = color_table[$(this).attr("data-color")];
                console.log("click " + $(this).attr("data-color") + " " + color);
