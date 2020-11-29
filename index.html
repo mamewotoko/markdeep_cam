@@ -220,6 +220,11 @@
          height: 95%;
      }
 
+     .markdeep .s {
+         font-size: 20px !important;
+         height: 95%;
+     }
+
      #additional h1 {
          text-align: center;
      }
@@ -272,8 +277,7 @@
             <td id="cam_input" class="cam_col">
               <!-- ace editor -->
               <!-- <div id="editor_container"></div> -->
-              <pre id="markdeep_input">Cats!
-              </pre>
+              <pre id="markdeep_input">Cats!</pre>
               <!--
                    <textarea id="markdeep_input" rows="12"># I have five questions!
                    ## Who: ____________
@@ -314,8 +318,10 @@
             <select class="form-control" id="balloon_style" name="balloon_style">
               <option value="caption">caption</option>
               <option value="slide">slide</option>
-              <option value="l">l</option>
-              <option value="xl">xl</option>
+              <option value="s">small</option>
+              <option value="m">middle</option>
+              <option value="l">large</option>
+              <option value="xl">xlarge</option>
               <option value="xxl" selected>xxl</option>
               <option value="xxxl">xxxl</option>
             </select>
@@ -344,18 +350,15 @@
           <!-- TOOD: color -->
         </div>
         <div id="avatar_list">
-          <img src="image/cat_icon/cat2_1_idea.png" style="width:100px; height: auto;" >
-          <img src="image/cat_icon/animal_neko.png" style="width:100px; height: auto;" >
-          <img src="image/cat_icon/cat3_1_question.png" style="width:100px; height: auto;" >
-          <img src="image/cat_icon/cat2_4_think.png" style="width:100px; height: auto;" >
-          <img src="image/cat_icon/cat2_3_shock.png" style="width:100px; height: auto;" >
-          <img src="image/cat_icon/cat2_2_surprise.png" style="width:100px; height: auto;" >
-          <img src="image/cat_icon/cat3_3_sleep.png" style="width:100px; height: auto;" >
-          <img src="image/cat_icon/cat3_4_tehe.png" style="width:100px; height: auto;" >
-          <img src="image/cat_icon/cat3_2_heart.png" style="width:100px; height: auto;" >
-          <!--
-               <br>↑人物アイコン(幅 200pxを推奨します): 画像をpasteするか、以下の画像をダブルクリックしてください。
-          -->
+          <img src="image/cat_icon/cat2_1_idea.png" style="width:90px; height: auto;" >
+          <img src="image/cat_icon/animal_neko.png" style="width:90px; height: auto;" >
+          <img src="image/cat_icon/cat3_1_question.png" style="width:90px; height: auto;" >
+          <img src="image/cat_icon/cat2_4_think.png" style="width:90px; height: auto;" >
+          <img src="image/cat_icon/cat2_3_shock.png" style="width:90px; height: auto;" >
+          <img src="image/cat_icon/cat2_2_surprise.png" style="width:90px; height: auto;" >
+          <img src="image/cat_icon/cat3_3_sleep.png" style="width:90px; height: auto;" >
+          <img src="image/cat_icon/cat3_4_tehe.png" style="width:90px; height: auto;" >
+          <img src="image/cat_icon/cat3_2_heart.png" style="width:90px; height: auto;" >
         </div>
       </div>
       <div id="target">
@@ -519,8 +522,6 @@
       <script src="js/board.js"></script>
       <!--  <script src="node_modules/canvg/lib/umd.js"></script> -->
       <script src="js/controller.js"></script>
-
-
       <script>
        var init_pen_width = 4;
        var debug = false;
@@ -585,9 +586,6 @@
                //TODO: image moves to left
                context.drawImage(img, x, y, width, height);
                document.getElementById("image_download").href = canvas.toDataURL("image/png");
-               //img.parentNode.removeChild(img);
-               //$("#target").css("display", "none");
-               //$("target").empty();
                if(!debug){
                    var target = document.getElementById("target");
                    target.innerHTML = "";
@@ -623,9 +621,9 @@
        function init_size(){
            var win_height = window.innerHeight;
            var control_height = $("#ui_control").height();
-           var view_height = Math.max(win_height - control_height + 60, 100);
+           var view_height = Math.max(win_height - control_height, 100);
            console.log("view_height " + view_height);
-           // $("#ui_top").height(view_height-220);
+           $("#ui_top").height(view_height);
            editor.resize();
        }
        $(window).resize(function(){
@@ -720,20 +718,9 @@
        });
       </script>
       <script src="./js/html2canvas.min.js"></script>
-
-      <!--
-          <script>
-            var editor = ace.edit("editor_container");
-            editor.setOptions({
-            fontFamily: "monospace",
-            fontSize: "20px"
-            });
-            $("#editor_container textarea")[0].id = "markdeep_input";
-          </script>
-          -->
-          <script src="js/mindmap.browser.js"></script>
-          <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-          <script src="./lib/js/ace-build/src-min-noconflict/ace.js"></script>
+      <script src="js/mindmap.browser.js"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+      <script src="./lib/js/ace-build/src-min-noconflict/ace.js"></script>
   </body>
 </html>
