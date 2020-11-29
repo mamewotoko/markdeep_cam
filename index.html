@@ -523,6 +523,8 @@
 
       <script>
        var init_pen_width = 4;
+       var debug = false;
+
        function clear_markdeep(){
            $("#markdeep_input").val("");
            window.editor.setValue("");
@@ -563,7 +565,7 @@
            });
        }
 
-       function add_svg(c, width, height){
+       function add_svg(canvas, width, height){
            var current_svg = draw.size(width, height).svg();
            var ohp_pos = $("#ohp").offset();
            var frame_pos = $("#frame").offset();
@@ -579,18 +581,18 @@
 
            img.src = "data:image/svg+xml;base64," + base64data;
            img.onload = function(){
-               var context = c.getContext("2d");
+               var context = canvas.getContext("2d");
                //TODO: image moves to left
-               //x += 300;
-               context.drawImage(img, x, y, $("#ohp").width(), $("#ohp").height());
-               document.getElementById("image_download").href = c.toDataURL("image/png");
+               context.drawImage(img, x, y, width, height);
+               document.getElementById("image_download").href = canvas.toDataURL("image/png");
                //img.parentNode.removeChild(img);
-               //debug
-               $("body").append(img);
+               //$("#target").css("display", "none");
+               //$("target").empty();
+               if(!debug){
+                   var target = document.getElementById("target");
+                   target.innerHTML = "";
+               }
            };
-           //img.style = "display: none;";
-           var target = document.getElementById("target");
-           target.appendChild(img);
        }
 
        window.addEventListener('paste', function(e){
