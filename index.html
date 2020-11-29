@@ -521,12 +521,10 @@
       <script>
        function clear_markdeep(){
            $("#markdeep_input").val("");
-           var e = jQuery.Event("keypress");
-           e.which = 13; //choose the one you want
-           e.keyCode = 13;
-           $("#markdeep_input").trigger(e);
+           window.editor.setValue("");
            var e = jQuery.Event("keyup");
-           e.which = 13; //choose the one you want
+           //press enter
+           e.which = 13;
            e.keyCode = 13;
            $("#markdeep_input").trigger(e);
        }
