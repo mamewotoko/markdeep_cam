@@ -579,8 +579,8 @@
            var ohp_pos = $("#ohp").offset();
            var frame_pos = $("#frame").offset();
 
-           var x = ohp_pos.left - frame_pos.left;
-           var y = ohp_pos.top - frame_pos.top;
+           //var x = ohp_pos.left - frame_pos.left;
+           //var y = ohp_pos.top - frame_pos.top;
            var base64data = btoa(current_svg);
 
            var img = new Image();
@@ -592,7 +592,7 @@
            img.onload = function(){
                var context = canvas.getContext("2d");
                //TODO: image moves to left
-               context.drawImage(img, x, y, width, height);
+               context.drawImage(img, 0, 0, width, height);
                document.getElementById("image_download").href = canvas.toDataURL("image/png");
                if(!debug){
                    var target = document.getElementById("target");
