@@ -119,6 +119,7 @@
      .avatar_select {
          width: calc(var(--editor-width)*0.15);
          height: auto;
+     }
      .output {
          margin-bottom: 10px;
      }
@@ -189,7 +190,6 @@
      }
 
      /*******/
-
      .xxxl {
          height: 95%;
      }
@@ -313,8 +313,8 @@
                     <option value="slide">slide</option>
                     <option value="l">l</option>
                     <option value="xl">xl</option>
-                    <option value="xxl" selected>xxl</option>
-                    <option value="xxxl">xxxl</option>
+                    <option value="xxl">xxl</option>
+                    <option value="xxxl" selected>xxxl</option>
                   </select>
                 </div>
 
@@ -366,7 +366,7 @@
               <br><button class="btn btn-primary" onclick="speech();">読み上げ</button>
               <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
               <a id="image_download" download="board_and_me.png">イメージ保存</a>
-
+              <br><a href="index.html">layout1</a> | <a href="index2.html">layout2</a> | <a href="index3.html">layout3</a>
 
               <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
             </td>
@@ -374,7 +374,6 @@
         </tbody>
       </table>
 <hr>
-<a href="index.html">layout1</a> | <a href="index2.html">layout2</a> | <a href="index3.html">layout3</a>
       <div style="display: none;">
         <div id="additional">
           <h2>撮った画像 <a href="#captured_image"><sup>#</sup></a></h2>
@@ -678,9 +677,10 @@
                         color_table[$(e).attr("data-color")]);
            });
 
+
            $("#balloon_style").change(function(e){
-               console.log("balloon_style is changed");
                var new_style = $(this).val();
+               console.log("balloon_style is changed " + new_style);
                $("#markdeep_board").removeClass();
                $("#markdeep_board").addClass(new_style);
            })
@@ -717,6 +717,10 @@
                console.log("color changed " + $(this).val());
                window.stroke_color = $(this).val();
            });
+
+           
+           $("#markdeep_board").removeClass();
+           $("#markdeep_board").addClass($("#balloon_style").val());
 
            //support firefox... failed
            /* function add_svg2(c){ */
