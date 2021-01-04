@@ -76,6 +76,9 @@ var sega = {
 
     vender_id: 0xca3,
     product_id: 0x0024,
+    current: 0,
+    pressed_time: 0,
+    
     up_pressed: function(gp){
         //Firefox
         return Math.abs(gp.axes[this.UP_DOWN_AXES] - (-1)) < 0.001;
@@ -113,42 +116,69 @@ var sega = {
 
     //default handler
     handle: function(gp){
+        //console.log(Date.now()-this.pressed_time);
+        var pressed_time_thres_ms = 500;
+        //hide, left, normal, large
+        
         if(this.a_pressed(gp) && this.x_pressed(gp)){
             //select 6
-            select_avatar(6);
+            this.current = 6;
         }
         else if(this.b_pressed(gp) && this.y_pressed(gp)){
             //select 7
-            select_avatar(7);
+            this.current = 7;
         }
         else if(this.c_pressed(gp) && this.z_pressed(gp)){
             //select 8
-            select_avatar(8);
+            this.current = 8;
         }
         else if(this.x_pressed(gp)){
             //select 0
-            select_avatar(0);
+            if(this.current == 6 && Date.now() - this.pressed_time < pressed_time_thres_ms) {
+                return;
+            }
+            this.current = 0;
         }
         else if(this.y_pressed(gp)){
             //select 1
-            select_avatar(1);
+            if(this.current == 7 && Date.now() - this.pressed_time < pressed_time_thres_ms) {
+                return;
+            }
+            this.current = 1;
         }
         else if(this.z_pressed(gp)){
             //select 2
-            select_avatar(2);
+            if(this.current == 8 && Date.now() - this.pressed_time < pressed_time_thres_ms) {
+                return;
+            }
+            this.current = 2;
         }
         else if(this.a_pressed(gp)){
+            if(this.current == 6 && Date.now() - this.pressed_time < pressed_time_thres_ms) {
+                return;
+            }
             //select 3
-            select_avatar(3);
+            this.current = 3;
         }
         else if(this.b_pressed(gp)){
+            if(this.current == 7 && Date.now() - this.pressed_time < pressed_time_thres_ms) {
+                return;
+            }
             //select 4
-            select_avatar(4);
+            this.current = 4;
         }
         else if(this.c_pressed(gp)){
+            if(this.current == 8 && Date.now() - this.pressed_time < pressed_time_thres_ms) {
+                return;
+            }
             //select 5
-            select_avatar(5);
+            this.current = 5;
         }
+        else {
+            return;
+        }
+        select_avatar(this.current);
+        this.pressed_time = Date.now();
     }
 };
 
