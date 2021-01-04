@@ -2,7 +2,10 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./css/qr.css" />
@@ -10,6 +13,7 @@
      :root {
          --editor-width: 25vw;
          /*background: #e0edff; */
+         --init-pen-color: #FFFFFF;
          --balloon-color: #000000;
          --balloon-text-color: #FFFFFF;
          --background-color: #FFFFFF;
@@ -115,6 +119,8 @@
      .avatar_select {
          width: calc(var(--editor-width)*0.15);
          height: auto;
+     .output {
+         margin-bottom: 10px;
      }
      #cam_output {
          vertical-align: top;
@@ -130,8 +136,8 @@
 
      #copyright_container {
          position: absolute;
-         bottom: 10px;
-         right: 40px;
+         bottom: 5px;
+         right: 45px;
          font-size: 32px;
          width: 100%;
          text-align: right;
@@ -151,7 +157,20 @@
          height: 2px;
          background-color: var(--balloon-text-color);
      }
+
+     .caption {
+         font-size: 60px !important;
+         height: 35%;
+         position: absolute;
+         line-height: 1.1;
+         margin-bottom: 5px !important;
+         bottom: 5px;
+     }
+
      /* board style */
+     .slide {
+         height: 95%;
+     }
      .slide h1 {
          font-size: 60px !important;
      }
@@ -171,24 +190,42 @@
 
      /*******/
 
+     .xxxl {
+         height: 95%;
+     }
      .xxxl * {
          font-size: 300px !important;
      }
 
+     .xxl {
+         height: 95%;
+     }
      .xxl * {
          font-size: 180px !important;
      }
 
+     .xl {
+         height: 95%;
+     }
      .xl * {
          font-size: 120px !important;
      }
-     
+
+     .l {
+         height: 95%;
+     }
      .l * {
          font-size: 70px !important;
      }
 
      .markdeep .m {
          font-size: 50px !important;
+         height: 95%;
+     }
+
+     .markdeep .s {
+         font-size: 20px !important;
+         height: 95%;
      }
 
      #additional h1 {
@@ -228,10 +265,10 @@
               <div id="ohp" class="output"></div>
 
               <div id="frame" class="output">
-                <img id="avatar" src="image/cat_icon/animal_neko.png">
+                <img id="avatar" src="image/cat_icon/cat1_smile.png">
                 <div class="balloon1-left balloon" id="balloon">
-                  <div id="markdeep_board" style="height: 95%;">
-                    <div class="markdeep xxxl" id="result"></div>
+                  <div id="markdeep_board" class="caption">
+                    <div class="markdeep" id="result"></div>
                   </div>
                   <div id="markmap_container">
                     <svg id="mindmap" width="100%" height="100%"></svg>
@@ -243,8 +280,7 @@
             <td id="cam_input" class="cam_col">
               <!-- ace editor -->
               <!-- <div id="editor_container"></div> -->
-              <pre id="markdeep_input">Cats!
-</pre>
+              <pre id="markdeep_input">Cats!</pre>
               <!--
                    <textarea id="markdeep_input" rows="12"># I have five questions!
                    ## Who: ____________
@@ -339,15 +375,10 @@
       </table>
 <hr>
 <a href="index.html">layout1</a> | <a href="index2.html">layout2</a> | <a href="index3.html">layout3</a>
-
-
       <div style="display: none;">
         <div id="additional">
           <h2>撮った画像 <a href="#captured_image"><sup>#</sup></a></h2>
 
-
-          <div id="target">
-          </div>
 
           <!--
                <h3>おまけSVG画像</h3>
@@ -473,7 +504,7 @@
           <h2>参考 <a href="#reference"><sup>#</sup></a></h2>
           <ul>
             <li><a href="https://casual-effects.com/markdeep/">Markdeep - Causal Effects</a></li>
-            <li><a href="https://gist.github.com/doersino/9dcc636493ff1deb30912ed2efc44891">Preview Markdeep as you're typing (very simple, unstyled proof of concept)</a></li>
+            <li><a href="https://gist.github.com/doersino/9dcc636493ff1deb30912ed2efc44891">Preview Markdeep as you are typing (very simple, unstyled proof of concept)</a></li>
             <li><a href="https://github.com/dundalek/markmap">markmap</a></li>
             <li><a href="https://mamewo.ddo.jp/svg_b/">svg board</a></li>
             <li>「<a href="https://www.irasutoya.com/">いらすとや</a>」さんのイラストを使いました。</li>
@@ -501,19 +532,17 @@
       <script src="https://mamewo.ddo.jp/svg_b/js/svg.draw.js"></script>
       <script src="js/board.js"></script>
       <!--  <script src="node_modules/canvg/lib/umd.js"></script> -->
-
       <script src="js/controller.js"></script>
-
-
       <script>
+       var init_pen_width = 4;
+       var debug = false;
+
        function clear_markdeep(){
            $("#markdeep_input").val("");
-           var e = jQuery.Event("keypress");
-           e.which = 13; //choose the one you want
-           e.keyCode = 13;
-           $("#markdeep_input").trigger(e);
+           window.editor.setValue("");
            var e = jQuery.Event("keyup");
-           e.which = 13; //choose the one you want
+           //press enter
+           e.which = 13;
            e.keyCode = 13;
            $("#markdeep_input").trigger(e);
        }
@@ -543,46 +572,40 @@
 
            html2canvas($("#frame")[0], config).then(canvas => {
                canvas.id = "captured_frame";
-               $("#target").width(w);
-               $("#target").height(h);
-
                target.appendChild(canvas);
-               add_svg(canvas);
+               add_svg(canvas, w, h);
            });
        }
 
-       function add_svg(c){
-           var current_svg = draw.svg();
+       function add_svg(canvas, width, height){
+           var current_svg = draw.size(width, height).svg();
            var ohp_pos = $("#ohp").offset();
            var frame_pos = $("#frame").offset();
 
-           var x = ohp_pos.left - frame_pos.left;
-           var y = ohp_pos.top - frame_pos.top;
+           //var x = ohp_pos.left - frame_pos.left;
+           //var y = ohp_pos.top - frame_pos.top;
            var base64data = btoa(current_svg);
 
            var img = new Image();
-           img.width = $("#ohp").width();
-           img.height = $("#ohp").height();
+           img.width = width;
+           img.height = height;
+           console.log("offset ", ohp_pos, frame_pos, width, height)
+
            img.src = "data:image/svg+xml;base64," + base64data;
            img.onload = function(){
-               var context = c.getContext("2d");
-               console.log("add_svg %d %d %s", x, y, current_svg);
-               console.log(img);
+               var context = canvas.getContext("2d");
                //TODO: image moves to left
-               x += 300;
-               context.drawImage(img, x, y, $("#ohp").width(), $("#ohp").height());
-               document.getElementById("image_download").href = c.toDataURL("image/png");
-               img.parentNode.removeChild(img);
+               context.drawImage(img, 0, 0, width, height);
+               document.getElementById("image_download").href = canvas.toDataURL("image/png");
+               if(!debug){
+                   var target = document.getElementById("target");
+                   target.innerHTML = "";
+               }
            };
-           //img.style = "display: none;";
-           var target = document.getElementById("target");
-           target.appendChild(img);
        }
 
        window.addEventListener('paste', function(e){
            var item = e.clipboardData.items[0];
-           console.log("item");
-           console.log(item);
            if(!item){
                return;
            }
@@ -609,9 +632,9 @@
        function init_size(){
            var win_height = window.innerHeight;
            var control_height = $("#ui_control").height();
-           var view_height = Math.max(win_height - control_height + 60, 100);
+           var view_height = Math.max(win_height - control_height, 100);
            console.log("view_height " + view_height);
-           // $("#ui_top").height(view_height-220);
+           $("#ui_top").height(view_height);
            editor.resize();
        }
        $(window).resize(function(){
@@ -636,6 +659,7 @@
 
            init_size();
            //window.scrollTo(0, 0);
+           board_init($(":root").css("--init-pen-color"), init_pen_width);
 
            var color_table = {
                "red": "#ff0000",
@@ -657,11 +681,10 @@
            $("#balloon_style").change(function(e){
                console.log("balloon_style is changed");
                var new_style = $(this).val();
-               $("#result").removeClass();
-               $("#result").addClass("markdeep");
-               $("#result").addClass(new_style);
+               $("#markdeep_board").removeClass();
+               $("#markdeep_board").addClass(new_style);
            })
-           
+
            $(".color_button").click(function(e){
                var color = color_table[$(this).attr("data-color")];
                console.log("click " + $(this).attr("data-color") + " " + color);
@@ -706,23 +729,9 @@
        });
       </script>
       <script src="./js/html2canvas.min.js"></script>
-
-      <!--
-          <script>
-            var editor = ace.edit("editor_container");
-            editor.setOptions({
-            fontFamily: "monospace",
-            fontSize: "20px"
-            });
-            $("#editor_container textarea")[0].id = "markdeep_input";
-          </script>
-          -->
-          <script src="js/mindmap.browser.js"></script>
-          <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-          <!--
-              <script src="lib/js/ace.js" type="text/javascript" charset="utf-8"></script>
-              -->
-              <script src="./lib/js/ace-build/src-min-noconflict/ace.js"></script>
+      <script src="js/mindmap.browser.js"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+      <script src="./lib/js/ace-build/src-min-noconflict/ace.js"></script>
   </body>
 </html>
