@@ -329,7 +329,7 @@
                   </select>
                 </div>
               </div>
-              
+
               <div class="form-inline">
                 <div class="col-2 form-inline">
                   <input type="color" class="color_button" id="drawing_color" name="drawing_color" value="#FF0000" />
@@ -362,7 +362,7 @@
           -->
         </div>
       </div>
-              
+
               <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
               <br><button class="btn btn-primary" onclick="speech();">読み上げ</button>
               <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
@@ -567,12 +567,12 @@
                height: h,
                scrollY: -window.scrollY
            };
-           var target = document.getElementById("target");
-           target.innerHTML = "";
+           //var target = document.getElementById("target");
+           //target.innerHTML = "";
 
            html2canvas($("#frame")[0], config).then(canvas => {
                canvas.id = "captured_frame";
-               target.appendChild(canvas);
+               //target.appendChild(canvas);
                add_svg(canvas, w, h);
            });
        }
@@ -719,7 +719,7 @@
                window.stroke_color = $(this).val();
            });
 
-           
+
            $("#markdeep_board").removeClass();
            $("#markdeep_board").addClass($("#balloon_style").val());
 
