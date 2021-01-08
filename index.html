@@ -340,7 +340,7 @@
                   <button class="transparent_button" data-color="transparent">transparent</button>
                 </div>
               </div>
-              
+
               <div class="form-inline">
                 <div class="col-2 form-inline">
                   <input type="color" class="color_button" id="drawing_color" name="drawing_color" value="#FF0000" />
@@ -373,7 +373,7 @@
           -->
         </div>
       </div>
-              
+
               <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
               <br><button class="btn btn-primary" onclick="speech();">読み上げ</button>
               <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
@@ -593,6 +593,7 @@
                height: h,
                scrollY: -window.scrollY
            };
+
            var target = document.getElementById("target");
            if(target != null){
                target.innerHTML = "";
@@ -752,7 +753,7 @@
                window.stroke_color = $(this).val();
            });
 
-           
+
            $("#markdeep_board").removeClass();
            $("#markdeep_board").addClass($("#balloon_style").val());
 
