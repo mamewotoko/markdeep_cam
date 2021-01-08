@@ -41,6 +41,10 @@
          border: solid 1px black;
      }
 
+     .rotate {
+         transform: rotate(180deg);
+     }
+
      #markdeep_input {
          height: calc(100% - 500px) !important;
          width: var(--editor-width);
@@ -276,7 +280,7 @@
                 <div class="balloon1-left balloon" id="balloon">
                   <div id="markdeep_board" class="caption balloon_padding">
                     <div sytle="position: relative;">
-                      <video id="gum" style="transform: rotate(180deg);" playsinline autoplay muted>ビデオデータを送信することありません。一時的な録画をクライアント側で行います。</video>
+                      <video id="gum" playsinline autoplay muted>ビデオデータを送信することありません。一時的な録画をクライアント側で行います。</video>
                       <div class="markdeep balloon_padding" id="result" style="position: absolute; top: 0; left: 0; z-index: 1;"></div>
                     </div>
                     <!-- TODO: tab -->
@@ -399,6 +403,12 @@
 
     <div class="select">
         <label for="videoSource" class="col-4" style="display: inline-block;">Video source: </label><select id="videoSource" class="form-control" style="display: inline; width: 50%;"></select>
+    </div>
+    <div>
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="gum_rotate">
+        <label class="custom-control-label" for="gum_rotate">rotate camera</label>
+      </div>
     </div>
 </div>
       <div style="display: none;">
