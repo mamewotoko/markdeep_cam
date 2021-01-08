@@ -252,6 +252,16 @@ function board_init(init_pen_color, init_stroke_width){
         update_container(display_mode, normal_mode);
     });
 
+    $("#gum_rotate").change(function (){
+        var rotate = this.checked;
+        if(rotate){
+            $("#gum").addClass("rotate");
+        }
+        else {
+            $("#gum").removeClass("rotate");
+        }
+    });
+    
     draw.on('mousedown', pointstart);
     draw.on('touchstart', pointstart);
 
