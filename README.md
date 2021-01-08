@@ -8,6 +8,10 @@ markdeep cam
 
 Content that I want display to virtual camera of remote meeeting like webex, slack and zoom. (with [OBS-studio](https://obsproject.com/ja))
 
+draw, write text on web camera input.
+
+![web camera demo](with_camera.png)
+
 screen to display markdeep (markup language like markdown), mindmap, and svg.
 
 ![zoom demo image](image/emacs_markdeep_cam.png)
@@ -75,11 +79,13 @@ License
     See the License for the specific language governing permissions and
     limitations under the License.
 
+### Third-party sources
 
 Reference
 ----------
 
 * [markdeep](https://casual-effects.com/markdeep/)
+* [webrtc/samples](https://github.com/webrtc/samples)
 * [dundalek/markmap](https://github.com/dundalek/markmap)
 * [svg_board](https://mamewo.ddo.jp/svg_b/note.html)
 * [Bookmarklet OHP](https://mamewo.ddo.jp/bookmarklet_ohp.html)

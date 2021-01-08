@@ -27,11 +27,6 @@
          margin-top: 5px;
          margin-bottom: 5px;
      }
-
-     .transparent_button {
-         width: 150px;
-         height: 25px;
-     }
      .color_button {
          width: 50px;
          height: 25px;
@@ -95,10 +90,6 @@
          position: relative;
      }
 
-     .balloon_padding {
-         padding: 10px;
-     }
-
      .balloon {
          width: calc(100% - 230px);
          height: 90%;
@@ -107,6 +98,7 @@
          right: 5px;
 
          display: block;
+         padding: 20px;
          color: var(--balloon-text-color);
          overflow-y: hidden;
          background: var(--balloon-color);
@@ -151,6 +143,11 @@
          font-size: 32px;
          width: 100%;
          text-align: right;
+     }
+
+     .markdeep * {
+         /*         -webkit-text-stroke-width: 3px;
+            -webkit-text-stroke-color: white; */
      }
 
      .word {
@@ -236,9 +233,6 @@
          text-align: center;
      }
 
-     #markdeep_board {
-         padding: 10px;
-     }
      #additional h2 {
          border-left: #254117 6px solid;
          border-bottom: #254117 2px solid;
@@ -263,7 +257,7 @@
     <script src="js/qrcode.js"></script>
     <script src="js/qrmain.js"></script>
   </head>
-  <body onload="init_camera();">   
+  <body>
     <div id="ui_top">
       <table id="main">
         <tbody>
@@ -274,12 +268,8 @@
               <div id="frame" class="output">
                 <img id="avatar" src="image/cat_icon/cat1_smile.png">
                 <div class="balloon1-left balloon" id="balloon">
-                  <div id="markdeep_board" class="caption balloon_padding">
-                    <div sytle="position: relative;">
-                      <video id="gum" style="transform: rotate(180deg);" playsinline autoplay muted>ビデオデータを送信することありません。一時的な録画をクライアント側で行います。</video>
-                      <div class="markdeep balloon_padding" id="result" style="position: absolute; top: 0; left: 0; z-index: 1;"></div>
-                    </div>
-                    <!-- TODO: tab -->
+                  <div id="markdeep_board" class="caption">
+                    <div class="markdeep" id="result"></div>
                   </div>
                   <div id="markmap_container">
                     <svg id="mindmap" width="100%" height="100%"></svg>
@@ -337,7 +327,6 @@
                     <option value="board">Board</option>
                     <option value="background+board">Bg Total</option>
                   </select>
-                  <button class="transparent_button" data-color="transparent">transparent</button>
                 </div>
               </div>
               
@@ -378,7 +367,7 @@
               <br><button class="btn btn-primary" onclick="speech();">読み上げ</button>
               <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
               <a id="image_download" download="board_and_me.png">イメージ保存</a>
-              <br><a href="index.html">layout1</a> | <a href="index2.html">layout2</a> | <a href="index3.html">layout3</a> | <a href="index.html">layout4</a>
+              <br><a href="index.html">layout1</a> | <a href="index2.html">layout2</a> | <a href="index3.html">layout3</a>
 
               <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
             </td>
@@ -386,21 +375,6 @@
         </tbody>
       </table>
 <hr>
-<span id="errorMsg"></span>
-<div style="width: 50%;">
-  <div class="select">
-<!--    
-        <label for="audioSource" class="col-4" style="display: inline-block;">Audio input source: </label><select id="audioSource" class="form-control" style="display: inline; width: 50%;"></select>
-    </div>
-    <div class="select">
-        <label for="audioOutput" class="col-4" style="display: inline-block;">Audio output destination: </label><select id="audioOutput" class="form-control" style="display: inline; width: 50%;"></select>
-    </div>
--->
-
-    <div class="select">
-        <label for="videoSource" class="col-4" style="display: inline-block;">Video source: </label><select id="videoSource" class="form-control" style="display: inline; width: 50%;"></select>
-    </div>
-</div>
       <div style="display: none;">
         <div id="additional">
           <h2>撮った画像 <a href="#captured_image"><sup>#</sup></a></h2>
@@ -594,15 +568,11 @@
                scrollY: -window.scrollY
            };
            var target = document.getElementById("target");
-           if(target != null){
-               target.innerHTML = "";
-           }
+           target.innerHTML = "";
 
            html2canvas($("#frame")[0], config).then(canvas => {
                canvas.id = "captured_frame";
-               if(target != null){
-                   target.appendChild(canvas);
-               }
+               target.appendChild(canvas);
                add_svg(canvas, w, h);
            });
        }
@@ -629,9 +599,7 @@
                document.getElementById("image_download").href = canvas.toDataURL("image/png");
                if(!debug){
                    var target = document.getElementById("target");
-                   if(target != null){
-                       target.innerHTML = "";
-                   }
+                   target.innerHTML = "";
                }
            };
        }
@@ -702,8 +670,7 @@
                "black": "#000000",
                "white": "#ffffff",
                "orange": "#FFAA00",
-               "yellow": "#FFFF00",
-               "transparent": "transparent"
+               "yellow": "#FFFF00"
            };
 
            $(".color_button").each(function(i, e){
@@ -763,16 +730,13 @@
            /*     //canvg(c, draw.svg()); */
            /*     v.start(); */
            /* } */
+
        });
-        // $(window).load(function(){
-        //     init_camera();
-        // });
       </script>
       <script src="./js/html2canvas.min.js"></script>
       <script src="js/mindmap.browser.js"></script>
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
       <script src="./lib/js/ace-build/src-min-noconflict/ace.js"></script>
-<script src="js/camera_select.js" async></script>
   </body>
 </html>
