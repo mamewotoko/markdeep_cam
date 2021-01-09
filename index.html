@@ -497,46 +497,6 @@
                 [段組みレイアウトの使用](https://developer.mozilla.org/ja/docs/Web/Guide/CSS/Using_multi-column_layouts)
           </pre>
 
-          <h3>webcam<a href="#webcam"><sup>#</sup></a></h3>
-
-          <pre class="template">  &lt;video id="gum" playsinline autoplay muted&gt;&lt;/video&gt;
-                &lt;script&gt; init_camera();  &lt;/script&gt;
-          </pre>
-
-          <!-- webcam用コンテンツ -->
-          <script>
-           function handleSuccess(stream) {
-               console.log('getUserMedia() got stream:', stream);
-               window.stream = stream;
-
-               const gumVideo = document.querySelector('video#gum');
-               gumVideo.srcObject = stream;
-           }
-
-           async function init(constraints) {
-               try {
-                   const stream = await navigator.mediaDevices.getUserMedia(constraints);
-                   handleSuccess(stream);
-               } catch (e) {
-                   console.log('navigator.getUserMedia error:', e);
-               }
-           }
-
-           function init_camera(){
-               //const hasEchoCancellation = document.querySelector('#echoCancellation').checked;
-               const constraints = {
-                   audio: {
-                       //echoCancellation: {exact: hasEchoCancellation}
-                   },
-                   video: {
-
-                   }
-               };
-               console.log('Using media constraints:', constraints);
-               init(constraints);
-           }
-          </script>
-
           <h2>参考 <a href="#reference"><sup>#</sup></a></h2>
           <ul>
             <li><a href="https://casual-effects.com/markdeep/">Markdeep - Causal Effects</a></li>
