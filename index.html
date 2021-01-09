@@ -267,7 +267,7 @@
     <script src="js/qrcode.js"></script>
     <script src="js/qrmain.js"></script>
   </head>
-  <body onload="init_camera();">   
+  <body>
     <div id="ui_top">
       <table id="main">
         <tbody>
@@ -659,6 +659,15 @@
            editor.session.setMode("ace/mode/markdown");
 
            init_size();
+
+           //initialize mindmap
+           $("#mindmap").css("width", $("#balloon").css("width"))
+                        .css("height", $("#balloon").css("height"));
+           $("#markdeep_mode").change(update_markdown);
+           document.head.innerHTML = window.markdeep.stylesheet() + document.head.innerHTML;
+           update_markdown();
+           $('#markdeep_input').on("change keyup paste", update_markdown);
+           
            //window.scrollTo(0, 0);
            board_init($(":root").css("--init-pen-color"), init_pen_width);
 
@@ -733,9 +742,6 @@
            /*     v.start(); */
            /* } */
        });
-        // $(window).load(function(){
-        //     init_camera();
-        // });
       </script>
       <script src="./js/html2canvas.min.js"></script>
       <script src="js/mindmap.browser.js"></script>
