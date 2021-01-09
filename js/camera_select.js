@@ -79,12 +79,13 @@ navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
 function gotStream(stream) {
     window.stream = stream; // make stream available to console
     videoElement.srcObject = stream;
-    var width = videoElement.parentElement.offsetWidth;
+    //var width = videoElement.parentElement.offsetWidth;
+    //var height = videoElement.parentElement.offsetHeight;
     //TODO; get camera aspect ratio
-    var height = width * 3.0/4.0;
-    videoElement.width = width;
-    videoElement.height = height;
-        // Refresh button list in case labels have become available
+    ///var height = width * 3.0/4.0;
+    //videoElement.width = width;
+    //videoElement.height = height;
+    // Refresh button list in case labels have become available
     return navigator.mediaDevices.enumerateDevices();
 }
 
