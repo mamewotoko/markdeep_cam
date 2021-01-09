@@ -41,15 +41,6 @@ window.update_markdown = function(){
     }
 
 }
-$(document).ready(function() {
-    //"use strict";
-    $("#mindmap").css("width", $("#balloon").css("width"))
-        .css("height", $("#balloon").css("height"));
-    $("#markdeep_mode").change(update_markdown);
-    document.head.innerHTML = window.markdeep.stylesheet() + document.head.innerHTML;
-    update_markdown();
-    $('#markdeep_input').on("change keyup paste", update_markdown);
-});
 
 function postprocessMarkdeep() {
     // for some reason, markdeep creates an additional, superflous <p> tag right
