@@ -39,6 +39,7 @@ function gotDevices(deviceInfos) {
       const opt = document.createElement('option');
       opt.value = "none";
       opt.text = "none";
+      opt.selected = "selected";
       select.prepend(opt);
   });
 }
