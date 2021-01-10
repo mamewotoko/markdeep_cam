@@ -90,7 +90,7 @@ function board_init(init_pen_color, init_stroke_width){
         }
         if(drawing){
             //end previous drawing
-            shapes[index].draw('point', last_event);
+            shapes[index].draw('stop', last_event);
         }
         point_started = true;
         event.preventDefault();
