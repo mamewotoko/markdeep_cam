@@ -39,7 +39,7 @@ function gotDevices(deviceInfos) {
       const option = document.createElement('option');
       option.value = "none";
       option.text = "none";
-      select.prependChild(option);
+      select.prepend(option);
   });
 }
 
