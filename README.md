@@ -2,6 +2,7 @@ markdeep cam
 ==============
 
 * [demo page (normal) ](https://mamewotoko.github.io/markdeep_cam/)
+  * ![demo ohp style](./with_camera.png)
 * [demo page (pro) ](https://mamewotoko.github.io/markdeep_cam/pro.html)
 * [demo page for smartphone](https://mamewotoko.github.io/markdeep_cam/index2.html)
 
