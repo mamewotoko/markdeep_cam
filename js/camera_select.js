@@ -13,30 +13,37 @@ const videoSelect = document.querySelector('select#videoSource');
 const selectors = [videoSelect];
 
 function gotDevices(deviceInfos) {
-  // Handles being called several times to update labels. Preserve values.
-  const values = selectors.map(select => select.value);
-  selectors.forEach(select => {
-    while (select.firstChild) {
-      select.removeChild(select.firstChild);
-    }
-  });
+    // Handles being called several times to update labels. Preserve values.
+    const values = selectors.map(select => select.value);
+    selectors.forEach(select => {
+        while (select.firstChild) {
+            select.removeChild(select.firstChild);
+        }
+    });
    
-  for (let i = 0; i !== deviceInfos.length; ++i) {
-    const deviceInfo = deviceInfos[i];
-    const option = document.createElement('option');
-    option.value = deviceInfo.deviceId;
-    if (deviceInfo.kind === 'videoinput') {
-      option.text = deviceInfo.label || `camera ${videoSelect.length + 1}`;
-      videoSelect.appendChild(option);
-    } else {
-      console.log('Some other kind of source/device: ', deviceInfo);
+    for (let i = 0; i !== deviceInfos.length; ++i) {
+        const deviceInfo = deviceInfos[i];
+        const option = document.createElement('option');
+        option.value = deviceInfo.deviceId;
+        if (deviceInfo.kind === 'videoinput') {
+            option.text = deviceInfo.label || `camera ${videoSelect.length + 1}`;
+            videoSelect.appendChild(option);
+        } else {
+            console.log('Some other kind of source/device: ', deviceInfo);
+        }
     }
-  }
-  selectors.forEach((select, selectorIndex) => {
-      if (Array.prototype.slice.call(select.childNodes).some(n => n.value === values[selectorIndex])) {
-          select.value = values[selectorIndex];
-      }
-  });
+    selectors.forEach((select, selectorIndex) => {
+        //TODO: remember last setting
+        const opt = document.createElement('option');
+        opt.value = "none";
+        opt.text = "none";
+        select.prepend(opt);
+
+        //select previous selected camera
+        if (Array.prototype.slice.call(select.childNodes).some(n => n.value === values[selectorIndex])) {
+            select.value = values[selectorIndex];
+        }
+    });
 }
 
 function gotStream(stream) {
@@ -75,16 +82,7 @@ function start() {
 function enumerateDevices(){
     navigator.mediaDevices.enumerateDevices()
         .then(gotDevices)
-        .catch(handleError);
-    
-    selectors.forEach((select, selectorIndex) => {
-        //TODO: remember last setting
-        const opt = document.createElement('option');
-        opt.value = "none";
-        opt.text = "none";
-        opt.selected = "selected";
-        select.prepend(opt);
-    });
+        .catch(handleError);  
 }
 
 videoSelect.onchange = start;
