@@ -20,14 +20,7 @@ function gotDevices(deviceInfos) {
       select.removeChild(select.firstChild);
     }
   });
-
-  selectors.forEach(select => {
-    const option = document.createElement('option');
-      option.value = "none";
-      option.text = "none";
-      select.appendChild(option);
-  });
-    
+   
   for (let i = 0; i !== deviceInfos.length; ++i) {
     const deviceInfo = deviceInfos[i];
     const option = document.createElement('option');
@@ -42,7 +35,11 @@ function gotDevices(deviceInfos) {
   selectors.forEach((select, selectorIndex) => {
       if (Array.prototype.slice.call(select.childNodes).some(n => n.value === values[selectorIndex])) {
           select.value = values[selectorIndex];
-    }
+      }
+      const option = document.createElement('option');
+      option.value = "none";
+      option.text = "none";
+      select.prependChild(option);
   });
 }
 
