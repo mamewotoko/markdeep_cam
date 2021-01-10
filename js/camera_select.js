@@ -36,10 +36,10 @@ function gotDevices(deviceInfos) {
       if (Array.prototype.slice.call(select.childNodes).some(n => n.value === values[selectorIndex])) {
           select.value = values[selectorIndex];
       }
-      const option = document.createElement('option');
-      option.value = "none";
-      option.text = "none";
-      select.prepend(option);
+      const opt = document.createElement('option');
+      opt.value = "none";
+      opt.text = "none";
+      select.prepend(opt);
   });
 }
 
