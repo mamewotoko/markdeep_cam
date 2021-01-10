@@ -14,7 +14,7 @@
 
     <style>
      :root {
-         --editor-width: 25vw;
+         --editor-width: 20vw;
          /*background: #e0edff; */
          --init-pen-color: #FFFFFF;
          --balloon-color: #000000;
@@ -132,7 +132,7 @@
      }
 
      .avatar_select {
-         width: calc(var(--editor-width)*0.18);
+         width: calc(var(--editor-width)*0.3);
          height: auto;
      }
      .output {
@@ -278,7 +278,10 @@
       <nav id="cam_input" class="drawer-nav cam_col" role="navigation">
         <div class="drawer-menu">
           <div class="select">
-            <label for="videoSource" class="col-4" style="display: inline-block;">Video source: </label><select id="videoSource" class="form-control" style="display: inline; width: 50%;"></select>
+            <label for="videoSource" style="display: inline-block;">Video source: </label>
+            <select id="videoSource" class="form-control" style="display: inline; width: 50%;">
+              <option value="none" selected>None</option>
+            </select>
           </div>
           <div>
             <div class="custom-control custom-switch">
@@ -305,9 +308,9 @@
             </div>
             
             <div class="form-inline" style="display: inline;">
-              <label class="custom-control-label" for="balloon_style">Font size</label>
+              <label class="custom-control-label" for="balloon_style" style="display: inline  !important;">Font size</label>
               
-              <select class="form-control" id="balloon_style" name="balloon_style">
+              <select class="form-control" id="balloon_style" name="balloon_style" style="display: inline !important;">
                 <option value="slide">slide</option>
                 <option value="l">l</option>
                 <option value="xl">xl</option>
@@ -318,9 +321,9 @@
           </div>
 
           <div class="form-inline" style="display: inline;">
-            <label class="custom-control-label" for="color_target">Change color</label>
+            <label class="custom-control-label" for="color_target" style="display: inline !important;">Change color</label>
 
-            <select class="form-control" id="color_target" name="color_target" style="display: inline;">
+            <select class="form-control" id="color_target" name="color_target" style="display: inline !important;">
               <option value="pen">Pen</option>
               <option value="text">Text</option>
               <option value="background">Bg</option>
