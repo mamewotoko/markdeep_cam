@@ -60,7 +60,7 @@ Example
 License
 -------
 
-    Copyright (c) 2020 Takashi Masuyama. All rights reserved.
+    Copyright (c) 2020-2021 Takashi Masuyama. All rights reserved.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -76,12 +76,13 @@ License
 
 ### Third-party sources
 
+* [webrtc/samples](https://github.com/webrtc/samples)
+* [dundalek/markmap](https://github.com/dundalek/markmap)
+
 Reference
 ----------
 
 * [markdeep](https://casual-effects.com/markdeep/)
-* [webrtc/samples](https://github.com/webrtc/samples)
-* [dundalek/markmap](https://github.com/dundalek/markmap)
 * [svg_board](https://mamewo.ddo.jp/svg_b/note.html)
 * [Bookmarklet OHP](https://mamewo.ddo.jp/bookmarklet_ohp.html)
 
