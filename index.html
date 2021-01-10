@@ -257,7 +257,7 @@
          position: absolute;
          width:200px;
          height: auto;
-         bottom: -2px !important;
+         bottom: 0;
          /* padding-left:30px !important; */
      }
 
@@ -352,24 +352,15 @@
             <img class="avatar_select" src="image/cat_icon/animal_quiz_neko_batsu.png" >
             <img class="avatar_select" src="image/cat_icon/cat3_2_heart.png" >
           </div>
-          <span id="errorMsg"></span>
-          <div class="select">
-            <label for="videoSource" class="col-4" style="display: inline-block;">Video source: </label><select id="videoSource" class="form-control" style="display: inline; width: 50%;"></select>
-          </div>
-          <div>
-            <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="gum_rotate">
-              <label class="custom-control-label" for="gum_rotate">rotate camera</label>
-            </div>
-          </div>
           <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
           <br>
           <button class="btn btn-primary" onclick="speech();">読み上げ</button>
           <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
           <a id="image_download" download="board_and_me.png">イメージ保存</a>
-      
+          
           <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
           <br><a href="index.html">layout1</a> | <a href="index2.html">layout2</a> | <a href="index3.html">layout3</a> | <a href="index.html">layout4</a>
+          <span id="errorMsg">No Error</span>
         </div>
       </nav>
     </header>
