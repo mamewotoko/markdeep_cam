@@ -370,8 +370,6 @@
             <img class="avatar_select" src="image/cat_icon/animal_quiz_neko_batsu.png" >
             <img class="avatar_select" src="image/cat_icon/cat3_2_heart.png" >
           </div>
-          <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
-          <br>
           <button class="btn btn-primary" onclick="speech();">読み上げ</button>
           <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
           <a id="image_download" download="board_and_me.png">イメージ保存</a>
@@ -401,7 +399,7 @@
                 <svg id="mindmap" width="100%" height="100%"></svg>
               </div>
             </div>
-            <div id="copyright_container"><span id="copyright"></span></div>
+            <div id="copyright_container" contenteditable="true">Formatted by <a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a><a href=""></a></div>
           </div>
         </div>
         <div id="markdeep_input_container" style="position: absolute; right: 0; top: 0;">
@@ -521,16 +519,6 @@
            var img = $("#avatar")[0];
            var URLObj = window.URL || window.webkitURL;
            img.src = URLObj.createObjectURL(blob);
-       });
-
-       $("#copyright_input").on("keydown", function(e){
-           console.log("keydown" + e.keyCode);
-           if(e.keyCode == 13){
-               //enter is pressed
-               var copyright_text = $("#copyright_input").val();
-               console.log("keydown enter " + copyright_text);
-               $("#copyright").text(copyright_text);
-           }
        });
 
        function init_size(){
