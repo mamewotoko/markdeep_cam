@@ -36,17 +36,8 @@ function gotDevices(deviceInfos) {
       if (Array.prototype.slice.call(select.childNodes).some(n => n.value === values[selectorIndex])) {
           select.value = values[selectorIndex];
       }
-      const opt = document.createElement('option');
-      opt.value = "none";
-      opt.text = "none";
-      opt.selected = "selected";
-      select.prepend(opt);
   });
 }
-
-navigator.mediaDevices.enumerateDevices()
-    .then(gotDevices)
-    .catch(handleError);
 
 function gotStream(stream) {
     window.stream = stream; // make stream available to console
@@ -65,9 +56,9 @@ function start() {
         });
     }
     const videoSource = videoSelect.value;
-    console.log(`video source ${videoSource}`);
     if(videoSource == "none"){
         videoElement.style.display = "none";
+        return;
     }
     else {
         videoElement.style.display = "block";
@@ -81,6 +72,22 @@ function start() {
         .catch(handleError);
 }
 
+function enumerateDevices(){
+    navigator.mediaDevices.enumerateDevices()
+        .then(gotDevices)
+        .catch(handleError);
+    
+    selectors.forEach((select, selectorIndex) => {
+        //TODO: remember last setting
+        const opt = document.createElement('option');
+        opt.value = "none";
+        opt.text = "none";
+        opt.selected = "selected";
+        select.prepend(opt);
+    });
+}
+
 videoSelect.onchange = start;
 
-start();
+enumerateDevices();
+//start();
