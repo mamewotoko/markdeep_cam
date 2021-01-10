@@ -2,9 +2,9 @@ var ohp_id = 'ohp';
 var normal_mode = true;
 var display_mode = true;
 var guide_mode = true;
-var border_width = 4; //px
-var normal_container_style = 'border: solid 5px #D2691E; z-index:1000;'
-var transp_container_style = 'border: solid 5px transparent; pointer-events: none; touch-events:none;'
+var border_width = 5;
+var normal_container_style = `border: solid 4px #D2691E; z-index:1000;`
+var transp_container_style = `border: solid 4px transparent; pointer-events: none; touch-events:none;`
 var container = document.getElementById(ohp_id);
 container.style = normal_container_style;
 //scroll by 2 finger
@@ -183,6 +183,14 @@ function board_init(init_pen_color, init_stroke_width){
         $("#ohp").height($("#ui_top").height());
     }
 
+    //TODO move definition
+    function update_fontsize(){
+        var new_style = $("#balloon_style").val();
+        console.log("balloon_style is changed " + new_style);
+        $("#markdeep_board").removeClass();
+        $("#markdeep_board").addClass(new_style);
+    }
+    
     document.addEventListener('keydown', function(event){
         if(window.editor.isFocused()
            || document.activeElement.type == "text"){
@@ -190,10 +198,30 @@ function board_init(init_pen_color, init_stroke_width){
         }
         var keyname = event.key;
         var ctrl = event.getModifierState('Control');
+        console.log("keyname " + keyname);
+        if(keyname == "+"){
+            console.log("enlarge font");
+            $("#balloon_style option:selected").next().attr("selected", "selected");
+            update_fontsize();
+            return;
+        }
+        else if(keyname == "-"){
+            console.log("small font");
+            $("#balloon_style option:selected").prev().attr("selected", "selected");
+            update_fontsize();
+            return;
+        }
+        
+        //TODO move keybind of ace editor
 
         if(keyname in color_table){
             event.preventDefault();
             window.stroke_color = color_table[keyname];
+            return;
+        }
+        else if(keyname === "Escape"){
+            event.preventDefault();
+            $(".drawer").drawer("toggle");
             return;
         }
         else if(keyname == 'i'){
@@ -273,7 +301,6 @@ function board_init(init_pen_color, init_stroke_width){
 }
 
 function speech(){
-    //var text = $("#markdeep_input").val();
     var text = $("#result").text();
     var msg = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(msg);

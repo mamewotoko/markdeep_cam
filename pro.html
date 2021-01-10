@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="./css/qr.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.2.0/iscroll.js"></script>
     <link rel="stylesheet" type="text/css" href="./dist/css/drawer.css" />
-
+    <title>pro</title>
     <style>
      :root {
          --editor-width: 20vw;
@@ -20,10 +20,14 @@
          --balloon-color: #000000;
          --balloon-text-color: #FFFFFF;
          --background-color: #FFFFFF;
-         --output-width: calc(100vw - var(--editor-width));
+         /* minus border....*/
+         --output-width: 100vw - 10px;
+         /* boardjs */
+         --board-border-width: 4px;
 
-         --output-height: calc(var(--output-width) * 0.5625);
-         --editor-height: var(--output-height);
+         /*--output-height: min(calc(var(--output-width) * 0.5625), 100vh);*/
+         /*--output-height: 80vh;*/
+         /*--editor-height: var(--output-height);*/
      }
      body {
          padding: 0px;
@@ -80,10 +84,6 @@
 
      #capture_button { width: 80px; }
 
-     #main {
-         height: 100%;
-     }
-
      .cam_col {
          height: 100%;
          padding: 0;
@@ -101,6 +101,11 @@
          /*padding: 10px;*/
      }
 
+     #markdeep_input_container {
+         position: absolute;
+         left: calc(-1 * var(--editor-width));
+         top: 0;
+     }
      .balloon {
          width: calc(100% - 230px);
          height: 90%;
@@ -141,7 +146,6 @@
      #cam_output {
          vertical-align: top;
          width: var(--output-width);
-         height: calc(var(--output-width) * 0.5625);
          right: 0;
          background: var(--background-color);
      }
@@ -255,18 +259,14 @@
          width:200px;
          height: auto;
          bottom: 0;
-         /* padding-left:30px !important; */
-     }
-
-     #ui_top {
-         height: 100%;
      }
 
      .drawer-menu {
          margin-left: 5px;
      }
 
-     
+     .drawer-menu,
+     .drawer-nav,
      .drawer-hamburger {
          z-index: 1010;
      }
@@ -274,16 +274,17 @@
      .md pre {
          color: var(--balloon-text-color) !important;
      }
+
     </style>
     <script src="https://use.fontawesome.com/16164d916e.js"></script>
     <script src="js/qrcode.js"></script>
     <script src="js/qrmain.js"></script>
   </head>
   <body class="drawer drawer--right">
-    <header role="banner">
+    <header role="banner" style="z-index: 100;">
       <button type="button" class="drawer-toggle drawer-hamburger" >
         <span class="sr-only">toggle navigation</span>
-        <span class="drawer-hamburger-icon"></span>
+        <span class="drawer-hamburger-icon" style="z-index: 100;"></span>
       </button>
       <nav id="cam_input" class="drawer-nav cam_col" role="navigation">
         <div class="drawer-menu">
@@ -392,6 +393,7 @@
             <div class="balloon1-left balloon" id="balloon">
               <div id="markdeep_board" class="caption balloon_padding">
                 <div sytle="position: relative;">
+                  <!-- TOOD: keep aspect ratio of original video -->
                   <video id="gum" style="display: none; width: 100%; height: 100%;" controls playsinline autoplay muted>ビデオデータを送信することありません。一時的な録画をクライアント側で行います。</video>
                   <div class="markdeep balloon_padding" id="result" style="position: absolute; top: 0; left: 0; z-index: 1;"></div>
                 </div>
@@ -404,7 +406,7 @@
             <div id="copyright_container"><span id="copyright"></span></div>
           </div>
         </div>
-        <div id="markdeep_input_container" style="position: absolute; right: 0; top: 0;">
+        <div id="markdeep_input_container" >
           <pre id="markdeep_input"></pre>
         </div>
       </div>
@@ -419,7 +421,7 @@
          <br>Takashi Masuyama mamewotoko AT gmail.com
          <br><a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a>
          </div>
-       - -->
+-->
       <script>window.markdeepOptions = {mode: 'script'};</script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
       <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
@@ -535,13 +537,11 @@
 
        function init_size(){
            var win_height = window.innerHeight;
-           var control_height = $("#ui_control").height();
-           var view_height = Math.max(win_height - control_height, 100);
-           $("#ui_top").height(view_height);
+           $("#ui_top").height(Math.min(win_height, window.innerWidth * 0.5625));
            editor.resize();
        }
-       $(window).resize(function(){
-           init_size();
+        $(window).resize(function(){
+            init_size();
        });
 
        function set_bg(color){
@@ -560,6 +560,7 @@
            editor.setKeyboardHandler("ace/keyboard/emacs");
            editor.session.setMode("ace/mode/markdown");
 
+           // Then we set the value in the --vh custom property to the root of the document
            init_size();
            $(".drawer").drawer();
 
@@ -591,14 +592,12 @@
                         color_table[$(e).attr("data-color")]);
            });
 
-           window.update_fontsize = function(){
+
+           $("#balloon_style").change(function(e){
                var new_style = $(this).val();
                console.log("balloon_style is changed " + new_style);
                $("#markdeep_board").removeClass();
                $("#markdeep_board").addClass(new_style);
-           }
-           $("#balloon_style").change(function(e){
-               update_fontsize();
            })
 
            $(".color_button").click(function(e){

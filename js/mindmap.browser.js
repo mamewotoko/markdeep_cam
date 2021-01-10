@@ -23,13 +23,15 @@ function update_markmap(text){
 window.update_markdown = function(){
     //var input = $('#markdeep_input').val() + "\n";
     var input = window.editor.getValue() + "\n";
+    var input = input.replace(/<script.*?>/, "").replace("</script>", "");
+
     var markdeep_mode = $("#markdeep_mode").is(":checked");
 
     if(markdeep_mode){
         $("#markdeep_board").css("display", "block");
         $("#markmap_container").css("display", "none");
 
-        $('.markdeep').html(window.markdeep.format(input));  // <----------- magic
+        $('.markdeep').html(window.markdeep.format(input));
         postprocessMarkdeep();
     }
     else {

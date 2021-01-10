@@ -1,13 +1,9 @@
 markdeep cam
 ==============
 
-[demo page](https://mamewotoko.github.io/markdeep_cam/)
-
-[demo page for smartphone](https://mamewotoko.github.io/markdeep_cam/index2.html)
-
-draw, write text on web camera input.
-
-![web camera demo](doc/with_camera.png)
+* [demo page (normal) ](https://mamewotoko.github.io/markdeep_cam/)
+* [demo page (pro) ](https://mamewotoko.github.io/markdeep_cam/pro.html)
+* [demo page for smartphone](https://mamewotoko.github.io/markdeep_cam/index2.html)
 
 Content that I want display to virtual camera of remote meeeting like webex, slack and zoom. (with [OBS-studio](https://obsproject.com/ja))
 
