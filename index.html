@@ -21,6 +21,9 @@
          --balloon-text-color: #FFFFFF;
          --background-color: #FFFFFF;
          --output-width: calc(100vw - var(--editor-width));
+
+         --output-height: calc(var(--output-width) * 0.5625);
+         --editor-height: var(--output-height);
      }
      body {
          padding: 0px;
@@ -31,12 +34,8 @@
          margin-bottom: 5px;
      }
 
-     .transparent_button {
-         width: 150px;
-         height: 25px;
-     }
      .color_button {
-         width: 50px;
+         width: 30%;
          height: 25px;
      }
 
@@ -49,7 +48,7 @@
      }
 
      #markdeep_input {
-         height: calc(100% - 500px) !important;
+         height: var(--editor-height);
          width: var(--editor-width);
          font-familiy: monospace;
          font-size: 18px;
@@ -57,10 +56,6 @@
 
      #svg_content {
          height: 100px;
-     }
-
-     td {
-         padding: 0.5em;
      }
 
      .md p {
@@ -125,6 +120,10 @@
          left: 0px;
          width: 100%;
          height: 100%;
+     }
+
+     #ohp > svg {
+         z-index: 2;
      }
 
      #cam_input {
@@ -271,19 +270,28 @@
     <script src="js/qrmain.js"></script>
   </head>
   <body class="drawer drawer--right">
-    <header role="banner">
-      <button type="button" class="drawer-toggle drawer-hamburger">
+    <header role="banner" style="z-index: 100;">
+      <button type="button" class="drawer-toggle drawer-hamburger" >
         <span class="sr-only">toggle navigation</span>
-        <span class="drawer-hamburger-icon"></span>
+        <span class="drawer-hamburger-icon" style="z-index: 100;"></span>
       </button>
       <nav id="cam_input" class="drawer-nav cam_col" role="navigation">
-        <ul class="drawer-menu">
+        <div class="drawer-menu">
           <button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true">Clear Text</button>
           <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true">Clear Drawing</button>
           <button class="btn btn-primary" id="clear_all" onclick="clear_all();" aria-hidden="true">Clear</button>
           <button class="btn btn-primary fa fa-undo" id="undo_drawing" onclick="hide_last_element();" aria-hidden="true"></button>
         
           <div id="ui_control">
+            <div class="select">
+              <label for="videoSource" class="col-4" style="display: inline-block;">Video source: </label><select id="videoSource" class="form-control" style="display: inline; width: 50%;"></select>
+            </div>
+            <div>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="gum_rotate">
+                <label class="custom-control-label" for="gum_rotate">rotate camera</label>
+              </div>
+            </div>
             <div style="display:inline;">
               <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked>
@@ -294,7 +302,7 @@
                 <label class="custom-control-label" for="drawing_mode">drawing (F)</label>
               </div>
             </div>
-          
+            
             <div class="form-inline" style="display: inline;">
               <select class="form-control" id="balloon_style" name="balloon_style">
                 <option value="slide">slide</option>
@@ -314,21 +322,22 @@
               <option value="board">Board</option>
               <option value="background+board">Bg Total</option>
             </select>
-            <button class="transparent_button" data-color="transparent">transparent</button>
           </div>
         </div>
-        <div class="form-inline">
-          <div class="col-2 form-inline">
+        <div id="color_selector">
+          <div class="col-3 form-inline" style="display: inline;">
             <input type="color" class="color_button" id="drawing_color" name="drawing_color" value="#FF0000" />
           </div>
-          <button class="col-1 color_button" data-color="red"></button>
-          <button class="col-1 color_button" data-color="yellow"></button>
-          <br><button class="col-1 color_button" data-color="pink"></button>
-          <button class="col-1 color_button" data-color="purple"></button>
-          <button class="col-1 color_button" data-color="green"></button>
-          <br><button class="col-1 color_button" data-color="blue"></button>
-          <button class="col-1 color_button" data-color="black"></button>
-          <button class="col-1 color_button" data-color="white"></button>
+          <button class="color_button" data-color="red"></button>
+          <button class="color_button" data-color="yellow"></button>
+          <br>
+          <button class="color_button" data-color="pink"></button>
+          <button class="color_button" data-color="purple"></button>
+          <button class="color_button" data-color="green"></button>
+          <br>
+          <button class="color_button" data-color="blue"></button>
+          <button class="color_button" data-color="black"></button>
+          <button class="color_button" data-color="white"></button>
         </div>
 
         <div id="ui_control">
@@ -343,7 +352,25 @@
             <img class="avatar_select" src="image/cat_icon/animal_quiz_neko_batsu.png" >
             <img class="avatar_select" src="image/cat_icon/cat3_2_heart.png" >
           </div>
-        </ul>
+          <span id="errorMsg"></span>
+          <div class="select">
+            <label for="videoSource" class="col-4" style="display: inline-block;">Video source: </label><select id="videoSource" class="form-control" style="display: inline; width: 50%;"></select>
+          </div>
+          <div>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="gum_rotate">
+              <label class="custom-control-label" for="gum_rotate">rotate camera</label>
+            </div>
+          </div>
+          <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
+          <br>
+          <button class="btn btn-primary" onclick="speech();">読み上げ</button>
+          <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
+          <a id="image_download" download="board_and_me.png">イメージ保存</a>
+      
+          <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
+          <br><a href="index.html">layout1</a> | <a href="index2.html">layout2</a> | <a href="index3.html">layout3</a> | <a href="index.html">layout4</a>
+        </div>
       </nav>
     </header>
 
@@ -351,7 +378,6 @@
       <div id="ui_top">
         <div id="cam_output" class="cam_col" style="position: relative;">
           <div id="ohp" class="output"></div>
-          
           <div id="frame" class="output">
             <img id="avatar" src="image/cat_icon/cat1_smile.png">
             <div class="balloon1-left balloon" id="balloon">
@@ -369,222 +395,22 @@
             <div id="copyright_container"><span id="copyright"></span></div>
           </div>
         </div>
+        <div id="markdeep_input_container" style="position: absolute; right: 0; top: 0;">
+          <pre id="markdeep_input"></pre>
+        </div>
       </div>
     </main>
-    <pre id="markdeep_input"></pre>
-    <td id="cam_input" class="cam_col">
-      <!-- ace editor -->
-      <!-- <div id="editor_container"></div> -->
-      <pre id="markdeep_input"></pre>
-      <button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true">Clear Text</button>
-      <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true">Clear Drawing</button>
-      <button class="btn btn-primary" id="clear_all" onclick="clear_all();" aria-hidden="true">Clear</button>
-      <button class="btn btn-primary fa fa-undo" id="undo_drawing" onclick="hide_last_element();" aria-hidden="true"></button>
-      
-      <div id="ui_control">
-        <div style="display:inline;">
-          <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked>
-            <label class="custom-control-label" for="markdeep_mode">markdeep (D)</label>
-          </div>
-          <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="drawing_mode" checked>
-            <label class="custom-control-label" for="drawing_mode">drawing (F)</label>
-          </div>
-        </div>
-        
-        <div class="form-inline" style="display: inline;">
-          <select class="form-control" id="balloon_style" name="balloon_style">
-            <option value="slide">slide</option>
-            <option value="l">l</option>
-            <option value="xl">xl</option>
-            <option value="xxl">xxl</option>
-            <option value="xxxl" selected>xxxl</option>
-          </select>
-        </div>
-
-                <div class="form-inline" style="display: inline;">
-                  <select class="form-control" id="color_target" name="color_target" style="display: inline;">
-                    <option value="pen">Pen</option>
-                    <option value="text">Text</option>
-                    <option value="background">Bg</option>
-                    <option value="board">Board</option>
-                    <option value="background+board">Bg Total</option>
-                  </select>
-                  <button class="transparent_button" data-color="transparent">transparent</button>
-                </div>
-              </div>
-
-              <div class="form-inline">
-                <div class="col-2 form-inline">
-                  <input type="color" class="color_button" id="drawing_color" name="drawing_color" value="#FF0000" />
-                </div>
-                <button class="col-1 color_button" data-color="red"></button>
-                <button class="col-1 color_button" data-color="yellow"></button>
-                <br><button class="col-1 color_button" data-color="pink"></button>
-                <button class="col-1 color_button" data-color="purple"></button>
-                <button class="col-1 color_button" data-color="green"></button>
-                <br><button class="col-1 color_button" data-color="blue"></button>
-                <button class="col-1 color_button" data-color="black"></button>
-                <button class="col-1 color_button" data-color="white"></button>
-                <!-- TOOD: color -->
-              </div>
-        </div>
-
-              <div id="ui_control">
-                <div id="avatar_list">
-                  <img class="avatar_select" src="image/cat_icon/cat2_1_idea.png" >
-                  <img class="avatar_select" src="image/cat_icon/cat1_smile.png" >
-                  <img class="avatar_select" src="image/cat_icon/cat3_1_question.png" >
-                  <br><img class="avatar_select" src="image/cat_icon/cat2_4_think.png" >
-                  <img class="avatar_select" src="image/cat_icon/cat2_3_shock.png" >
-                  <img class="avatar_select" src="image/cat_icon/cat2_2_surprise.png" >
-                  <br><img class="avatar_select" src="image/cat_icon/animal_quiz_neko_maru.png">
-                  <img class="avatar_select" src="image/cat_icon/animal_quiz_neko_batsu.png" >
-                  <img class="avatar_select" src="image/cat_icon/cat3_2_heart.png" >
-                </div>
-              </div>
-
-              <input type="text" id="copyright_input" placeholder="credit, copyright" value="">
-              <br><button class="btn btn-primary" onclick="speech();">読み上げ</button>
-              <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
-              <a id="image_download" download="board_and_me.png">イメージ保存</a>
-              <br><a href="index.html">layout1</a> | <a href="index2.html">layout2</a> | <a href="index3.html">layout3</a> | <a href="index.html">layout4</a>
-
-              <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-<hr>
-<span id="errorMsg"></span>
-<div style="width: 50%;">
-  <div class="select">
-<!--    
-        <label for="audioSource" class="col-4" style="display: inline-block;">Audio input source: </label><select id="audioSource" class="form-control" style="display: inline; width: 50%;"></select>
-    </div>
-    <div class="select">
-        <label for="audioOutput" class="col-4" style="display: inline-block;">Audio output destination: </label><select id="audioOutput" class="form-control" style="display: inline; width: 50%;"></select>
-    </div>
--->
-
-    <div class="select">
-        <label for="videoSource" class="col-4" style="display: inline-block;">Video source: </label><select id="videoSource" class="form-control" style="display: inline; width: 50%;"></select>
-    </div>
-    <div>
-      <div class="custom-control custom-switch">
-        <input type="checkbox" class="custom-control-input" id="gum_rotate">
-        <label class="custom-control-label" for="gum_rotate">rotate camera</label>
-      </div>
-    </div>
-</div>
-      <div style="display: none;">
-        <div id="additional">
-          <h2>撮った画像 <a href="#captured_image"><sup>#</sup></a></h2>
-          <!--
-               <h3>おまけSVG画像</h3>
-               <br><textarea id="svg_content"></textarea>
-               <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
-          -->
-
-          <h2>サポート状況 <a href="#support"><sup>#</sup></a></h2>
-          MacのFirefoxではSVGの落書きの保存はできません
-          <br>MacのChromeでは動作します。
-          <br>iPadのSafari, Chromeでは動作します。
-
-          <h2>テンプレート <a href="#template"><sup>#</sup></a></h2>
-          <h3>表<a href="#table"><sup>#</sup></a></h3>
-          <pre class="template">|1|2|3|4|5|6|7| 8|9|
-                |-|-|-|-|-|-|-|-| -|
-                |1|2|3|4|5|6|7|8|9|
-                |1|2|3|4|5|6|7|8|9|
-                |1|2|3|4|5|6|7|8|9|
-                |1|2|3|4|5|6|7|8|9|
-                |1|2|3|4|5|6|7|8|9|
-                |1|2|3|4|5|6|7|8|9|
-                |1|2|3|4|5|6|7|8|9|
-                |1|2|3|4|5|6|7|8|9|
-          </pre>
-
-          <h3>問題解決</h3>
-          <h4>問題解決の流れ</h4>
-          <pre class="template">Where (What): 問題がどこにあるか?&lt;br&gt;&lt;br&gt;&lt;hr&gt;
-                Why: その問題の原因は何か? &lt;br&gt;&lt;br&gt;&lt;hr&gt;
-                How: ではどうすればよいか? &lt;br&gt;&lt;br&gt;&lt;hr&gt;
-
-                書籍 「問題解決 あらゆる課題を突破するビジネスパーソン必須の仕事術」 から引用
-
-                問題: 理想と現状のギャップ
-            <br>「問題とは、望まれた事柄と認識された事柄の間の相違である」
-          </pre>
-
-          <h4>過程(プロセス)と構造</h4>
-          <pre class="template">## 過程(プロセス)
-
-                |過程1 →|過程2 →|過程3 →|過程4|
-                |-----|-----|-----|-----|
-                |-||||
-
-                ## 構造
-
-                ```
-
-                +-----------------+
-                |                 |
-                +-----------------+
-                |                 |
-                +-----------------+
-                |                 |
-                +-----------------+
-                ```
-          </pre>
-
-          <h3>段組みレイアウト</h3>
-          <pre class="template">
-                # 段組みレイアウト
-
-                multi-column layouts
-
-                &lt;div style="column-count:2;"&gt;
-                ## びっくりする猫
-
-                &lt;img width="140" src="image/cat_icon/cat2_2_surprise.png"&gt;
-
-                ## 大事なもの
-
-                1. 食事
-                2. 睡眠
-                3. 運動
-                &lt;/div&gt;
-
-                ## 参考
-
-                [段組みレイアウトの使用](https://developer.mozilla.org/ja/docs/Web/Guide/CSS/Using_multi-column_layouts)
-          </pre>
-
-          <h2>参考 <a href="#reference"><sup>#</sup></a></h2>
-          <ul>
-            <li><a href="https://casual-effects.com/markdeep/">Markdeep - Causal Effects</a></li>
-            <li><a href="https://gist.github.com/doersino/9dcc636493ff1deb30912ed2efc44891">Preview Markdeep as you are typing (very simple, unstyled proof of concept)</a></li>
-            <li><a href="https://github.com/dundalek/markmap">markmap</a></li>
-            <li><a href="https://mamewo.ddo.jp/svg_b/">svg board</a></li>
-            <li>「<a href="https://www.irasutoya.com/">いらすとや</a>」さんのイラストを使いました。</li>
-          </ul>
-
-          <h2>他のレイアウト <a href="#other_layout"><sup>#</sup></a></h2>
-          <a href="index.html">左側にエディタを出す</a>
-          <br><a href="index2.html">下にスクロールしたところにエディタを出す</a>
-
-          <h2>使用したライブラリ</h2>
-          <li><a href="https://ace.c9.io/">Ace</a>
-            <br>Copyright (c) 2010, Ajax.org B.V. All rights reserved.</li>
-            <hr>
-
-            <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
-            <br>Takashi Masuyama mamewotoko AT gmail.com
-            <br><a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a>
-        </div>
-      </div>
+    <!-- 
+         <h2>使用したライブラリ</h2>
+         <li><a href="https://ace.c9.io/">Ace</a>
+         <br>Copyright (c) 2010, Ajax.org B.V. All rights reserved.</li>
+         <hr>
+         
+         <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
+         <br>Takashi Masuyama mamewotoko AT gmail.com
+         <br><a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a>
+         </div>
+       - -->
       <script>window.markdeepOptions = {mode: 'script'};</script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
       <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
@@ -749,7 +575,6 @@
                "white": "#ffffff",
                "orange": "#FFAA00",
                "yellow": "#FFFF00",
-               "transparent": "transparent"
            };
 
            $(".color_button").each(function(i, e){
