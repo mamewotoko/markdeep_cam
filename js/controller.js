@@ -6,45 +6,110 @@ function buttonPressed(b) {
     return b == 1.0;
 }
 
-//ps3
-var L1 = 4;
-var R1 = 5;
-var L2 = 6;
-var R2 = 7;
-var UP = 12;
-var DOWN = 13;
-var LEFT = 14;
-var RIGHT = 15;
-var CROSS = 0;
-var CIRCLE = 1;
-var RECTANGLE = 2;
-var TRIANGLE = 3;
-/* left -1, right 1 */
-var LEFT_STICK_X_AXES = 0;
-/* up -1, down 1 */
-var LEFT_STICK_Y_AXES = 1;
-/* left -1, right 1 */
-var RIHGT_STICK_X_AXES = 2;
-/* up -1, down 1 */
-var RIGHT_STICK_X_AXES = 3;
-var LEFT_AXES_BUTTON = 10;
-var RIGHT_AXES_BUTTON = 11;
+//vertical L con
+var nintendo_switch = {
+    vender_id: 0x057e,
+    product_id: 0x2006,
+
+    /* left 1, right -1 */
+    STICK_X_AXES: 1,
+    /* up -1, down 1 */
+    STICK_Y_AXES: 0,
+    AXES_BUTTON: 10,
+
+    handle: function(gp){
+        if(buttonPressed(gp.buttons[this.AXES_BUTTON])){
+            select_avatar(4);
+            return
+        }
+        var left_stick_x = gp.axes[this.STICK_X_AXES];
+        var left_stick_y = gp.axes[this.STICK_Y_AXES];
+
+        // 0, 1, 2
+        // 3, 4, 5
+        // 6, 7, 8
+        
+        if(left_stick_x < -0.8 && Math.abs(left_stick_y) < 0.2){
+            //right
+            select_avatar(5);
+            return;
+        }
+        else if(0.8 < left_stick_x && Math.abs(left_stick_y) < 0.2){
+            //left
+            select_avatar(3);
+            return;
+        }
+        else if(Math.abs(left_stick_x) < 0.2 && left_stick_y < -0.8){
+            //up
+            select_avatar(1);
+            return;
+        }
+        else if(Math.abs(left_stick_x) < 0.2 && 0.8 < left_stick_y){
+            //down
+            select_avatar(7);
+            return;
+        }
+        else if(0.8 < left_stick_x && 0.8 < left_stick_y){
+            //up-left
+            select_avatar(6);
+            return;
+        }
+        else if(0.8 < left_stick_x && left_stick_y < -0.8){
+            //down-left
+            select_avatar(0);
+            return;
+        }
+        else if(left_stick_x < -0.8 && 0.8 < left_stick_y){
+            //up-right
+            select_avatar(8);
+            return;
+        }
+        else if(left_stick_x < -0.8 && left_stick_y < -0.8){
+            //down-right
+            select_avatar(2);
+            return;
+        }
+    }
+};
 
 var ps3 = {
     vender_id: 0x054c,
     product_id: 0x0268,
 
+    L1: 4,
+    R1: 5,
+    L2: 6,
+    R2: 7,
+    UP: 12,
+    DOWN: 13,
+    LEFT: 14,
+    RIGHT: 15,
+    CROSS: 0,
+    CIRCLE: 1,
+    RECTANGLE: 2,
+    TRIANGLE: 3,
+/* left -1, right 1 */
+    LEFT_STICK_X_AXES: 0,
+/* up -1, down 1 */
+    LEFT_STICK_Y_AXES: 1,
+/* left -1, right 1 */
+    RIHGT_STICK_X_AXES: 2,
+/* up -1, down 1 */
+    RIGHT_STICK_X_AXES: 3,
+    LEFT_AXES_BUTTON: 10,
+    RIGHT_AXES_BUTTON: 11,
+    
     handle: function(gp){
         //app logic...
-        var l2 = buttonPressed(gp.buttons[L2]);
-        var l1 = buttonPressed(gp.buttons[L1]);
+        var l2 = buttonPressed(gp.buttons[this.L2]);
+        var l1 = buttonPressed(gp.buttons[this.L1]);
 
-        if(buttonPressed(gp.buttons[LEFT_AXES_BUTTON])){
+        if(buttonPressed(gp.buttons[this.LEFT_AXES_BUTTON])){
             select_avatar(4);
             return
         }
-        var left_stick_x = gp.axes[LEFT_STICK_X_AXES];
-        var left_stick_y = gp.axes[LEFT_STICK_Y_AXES];
+        var left_stick_x = gp.axes[this.LEFT_STICK_X_AXES];
+        var left_stick_y = gp.axes[this.LEFT_STICK_Y_AXES];
 
         // 0, 1, 2
         // 3, 4, 5
@@ -91,43 +156,43 @@ var ps3 = {
             return;
         }
         
-        if(l1 && l2 && buttonPressed(gp.buttons[UP])){
+        if(l1 && l2 && buttonPressed(gp.buttons[this.UP])){
             select_avatar(7);
             return;
         }
-        else if(l1 && l2 && buttonPressed(gp.buttons[RIGHT])){
+        else if(l1 && l2 && buttonPressed(gp.buttons[this.RIGHT])){
             select_avatar(8);
             return;
         }
-        else if(l2 && buttonPressed(gp.buttons[UP])){
+        else if(l2 && buttonPressed(gp.buttons[this.UP])){
             select_avatar(0);
             return;
         }
-        else if(l2 && buttonPressed(gp.buttons[RIGHT])){
+        else if(l2 && buttonPressed(gp.buttons[this.RIGHT])){
             select_avatar(1);
             return;
         }
-        else if(l2 && buttonPressed(gp.buttons[DOWN])){
+        else if(l2 && buttonPressed(gp.buttons[this.DOWN])){
             select_avatar(2);
             return;
         }
-        else if(l2 && buttonPressed(gp.buttons[LEFT])){
+        else if(l2 && buttonPressed(gp.buttons[this.LEFT])){
             select_avatar(3);
             return;
         }
-        else if(l1 && buttonPressed(gp.buttons[UP])){
+        else if(l1 && buttonPressed(gp.buttons[this.UP])){
             select_avatar(4);
             return;
         }
-        else if(l1 && buttonPressed(gp.buttons[RIGHT])){
+        else if(l1 && buttonPressed(gp.buttons[this.RIGHT])){
             select_avatar(5);
             return;
         }
-        else if(l1 && buttonPressed(gp.buttons[DOWN])){
+        else if(l1 && buttonPressed(gp.buttons[this.DOWN])){
             select_avatar(5);
             return;
         }
-        else if(l1 && buttonPressed(gp.buttons[LEFT])){
+        else if(l1 && buttonPressed(gp.buttons[this.LEFT])){
             select_avatar(6);
             return;
         }
@@ -262,7 +327,7 @@ var sega = {
 };
 
 function gp_handle(gp){
-    var handler_list = [ps3, sega];
+    var handler_list = [ps3, sega, nintendo_switch];
     //var handler_list = [sega];
     for(var i = 0; i < handler_list.length; i++){
         var vender_id = handler_list[i].vender_id.toString(16);
