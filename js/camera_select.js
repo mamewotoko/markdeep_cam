@@ -34,10 +34,10 @@ function gotDevices(deviceInfos) {
     }
     selectors.forEach((select, selectorIndex) => {
         //TODO: remember last setting
-        // const opt = document.createElement('option');
-        // opt.value = "none";
-        // opt.text = "none";
-        // select.prepend(opt);
+        const opt = document.createElement('option');
+        opt.value = "none";
+        opt.text = "none";
+        select.prepend(opt);
 
         //select previous selected camera
         if (Array.prototype.slice.call(select.childNodes).some(n => n.value === values[selectorIndex])) {

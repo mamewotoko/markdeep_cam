@@ -110,8 +110,8 @@
          width: calc(100% - 230px);
          height: 90%;
          position: absolute;
-         top: 5px;
-         right: 5px;
+         top: var(--board-border-width);
+         right: var(--board-border-width);
 
          display: block;
          color: var(--balloon-text-color);
@@ -155,7 +155,7 @@
          position: absolute;
          bottom: 5px;
          right: 45px;
-         font-size: 32px;
+         font-size: 24px;
          width: 100%;
          text-align: right;
      }
@@ -313,6 +313,10 @@
                 <input type="checkbox" class="custom-control-input" id="drawing_mode" checked>
                 <label class="custom-control-label" for="drawing_mode">drawing (F)</label>
               </div>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="display_clock" checked>
+                <label class="custom-control-label" for="display_clock">display clock</label>
+              </div>
             </div>
             
             <div class="form-inline" style="display: inline;">
@@ -374,6 +378,7 @@
           
           <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
           <br><a href="index.html">layout1</a> | <a href="index2.html">layout2</a> | <a href="index3.html">layout3</a> | <a href="index.html">layout4</a> | <a href="pro.html">pro</a>
+          <div><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a></div>
           <div id="errorMsg">No Error</div>
         </div>
       </nav>
@@ -398,7 +403,11 @@
                 <svg id="mindmap" width="100%" height="100%"></svg>
               </div>
             </div>
-            <div id="copyright_container">Formatted by <a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a></div>
+            
+            <div id="copyright_container">
+              <span id="clock"></span>
+              <br><span contenteditable="true">Formatted by <a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a></span>
+            </div>
           </div>
         </div>
         <div id="markdeep_input_container" >
@@ -539,6 +548,11 @@
            $("#avatar").attr("src", $(img).attr("src"));
        }
 
+        function drawClock(){
+            var now = new Date(Date.now());
+            $("#clock").text(now.toString());
+        }
+        
        $(document).ready(function() {
            window.editor = ace.edit("markdeep_input");
            editor.setTheme("ace/theme/twilight");
@@ -619,6 +633,7 @@
            });
            $("#markdeep_board").removeClass();
            $("#markdeep_board").addClass($("#balloon_style").val());
+           setInterval(drawClock, 1000);
        });
        document.addEventListener('keydown', function(event){
            if(window.editor.isFocused()

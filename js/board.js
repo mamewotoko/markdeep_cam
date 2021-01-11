@@ -1,8 +1,10 @@
 var ohp_id = 'ohp';
 var normal_mode = true;
 var display_mode = true;
+var display_clock = true;
 var guide_mode = true;
-var border_width = 5;
+//TODO: config
+var border_width = 4;
 var normal_container_style = `border: solid 4px #D2691E; z-index:1000;`
 var transp_container_style = `border: solid 4px transparent; pointer-events: none; touch-events:none;`
 var container = document.getElementById(ohp_id);
@@ -166,7 +168,7 @@ function board_init(init_pen_color, init_stroke_width){
         last.remove();
     }
 
-    function update_container(display_mode, normal_mode){
+    function update_container(){
         var style;
         if(normal_mode){
             style = normal_container_style;
@@ -180,7 +182,14 @@ function board_init(init_pen_color, init_stroke_width){
         }
         var container = document.getElementById(ohp_id);
         container.style = style;
-        $("#ohp").height($("#ui_top").height());
+        $("#ohp").height($("#frame").height());
+
+        if(display_clock){
+            $("#clock").show();
+        }
+        else {
+            $("#clock").hide();
+        }
     }
 
     //TODO move definition
@@ -213,7 +222,6 @@ function board_init(init_pen_color, init_stroke_width){
         }
         
         //TODO move keybind of ace editor
-
         if(keyname in color_table){
             event.preventDefault();
             window.stroke_color = color_table[keyname];
@@ -236,7 +244,7 @@ function board_init(init_pen_color, init_stroke_width){
             var checked = $("#drawing_mode").prop('checked');
             $("#drawing_mode").prop('checked', !checked);
             normal_mode = !normal_mode;
-            update_container(display_mode, normal_mode);
+            update_container();
         }
         else if(keyname == 'D'){
             //check focus
@@ -250,7 +258,7 @@ function board_init(init_pen_color, init_stroke_width){
         else if(keyname == 'Q'){
             event.preventDefault();
             display_mode = !display_mode;
-            update_container(display_mode, normal_mode);
+            update_container();
         }
         else if(ctrl && (event.code == 'KeyZ' || keyname == '/')){
             event.preventDefault();
@@ -272,14 +280,20 @@ function board_init(init_pen_color, init_stroke_width){
 
     $("#drawing_mode").change(function (){
         normal_mode = this.checked;
-        update_container(display_mode, normal_mode);
+        update_container();
     });
 
     $("#markdeep_mode").change(function (){
         normal_mode = this.checked;
-        update_container(display_mode, normal_mode);
+        update_container();
     });
 
+    $("#display_clock").change(function(){
+        display_clock = this.checked;
+        //TODO: start, stop interval Timer
+        update_container();
+    });
+    
     $("#gum_rotate").change(function (){
         var rotate = this.checked;
         if(rotate){
