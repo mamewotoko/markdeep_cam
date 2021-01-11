@@ -7,7 +7,7 @@ function buttonPressed(b) {
 }
 
 //vertical L con
-var nintendo_switch = {
+var nintendo_switch_l = {
     vender_id: 0x057e,
     product_id: 0x2006,
 
@@ -71,6 +71,72 @@ var nintendo_switch = {
         }
     }
 };
+
+//vertical R con
+var nintendo_switch_r = {
+    vender_id: 0x057e,
+    product_id: 0x2007,
+
+    /* left 1, right -1 */
+    STICK_X_AXES: 1,
+    /* up -1, down 1 */
+    STICK_Y_AXES: 0,
+    AXES_BUTTON: 10,
+
+    handle: function(gp){
+        if(buttonPressed(gp.buttons[this.AXES_BUTTON])){
+            select_avatar(4);
+            return
+        }
+        var left_stick_x = gp.axes[this.STICK_X_AXES];
+        var left_stick_y = gp.axes[this.STICK_Y_AXES];
+
+        // 0, 1, 2
+        // 3, 4, 5
+        // 6, 7, 8
+        
+        if(left_stick_x < -0.8 && Math.abs(left_stick_y) < 0.2){
+            //right
+            select_avatar(5);
+            return;
+        }
+        else if(0.8 < left_stick_x && Math.abs(left_stick_y) < 0.2){
+            //left
+            select_avatar(3);
+            return;
+        }
+        else if(Math.abs(left_stick_x) < 0.2 && left_stick_y < -0.8){
+            //up
+            select_avatar(1);
+            return;
+        }
+        else if(Math.abs(left_stick_x) < 0.2 && 0.8 < left_stick_y){
+            //down
+            select_avatar(7);
+            return;
+        }
+        else if(0.8 < left_stick_x && 0.8 < left_stick_y){
+            //up-left
+            select_avatar(6);
+            return;
+        }
+        else if(0.8 < left_stick_x && left_stick_y < -0.8){
+            //down-left
+            select_avatar(0);
+            return;
+        }
+        else if(left_stick_x < -0.8 && 0.8 < left_stick_y){
+            //up-right
+            select_avatar(8);
+            return;
+        }
+        else if(left_stick_x < -0.8 && left_stick_y < -0.8){
+            //down-right
+            select_avatar(2);
+            return;
+        }
+    }
+}
 
 var ps3 = {
     vender_id: 0x054c,
@@ -327,7 +393,7 @@ var sega = {
 };
 
 function gp_handle(gp){
-    var handler_list = [ps3, sega, nintendo_switch];
+    var handler_list = [ps3, sega, nintendo_switch_l, nintendo_switch_r];
     //var handler_list = [sega];
     for(var i = 0; i < handler_list.length; i++){
         var vender_id = handler_list[i].vender_id.toString(16);
@@ -356,7 +422,7 @@ function render() {
     if(gp_handle_ms < now_epoch - last_gp_handled){
         for(i = 0; i < gamepads.length; i++){
             if(gamepads[i] == null){
-                break;
+                continue;
             }
             if(gamepads[i].connected){
                 gp = gamepads[i];
