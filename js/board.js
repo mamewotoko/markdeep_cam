@@ -195,28 +195,33 @@ function board_init(init_pen_color, init_stroke_width){
     //TODO move definition
     function update_fontsize(){
         var new_style = $("#balloon_style").val();
-        console.log("balloon_style is changed " + new_style);
         $("#markdeep_board").removeClass();
         $("#markdeep_board").addClass(new_style);
     }
     
     document.addEventListener('keydown', function(event){
+        var keyname = event.key;
         if(window.editor.isFocused()
            || document.activeElement.type == "text"){
+            if(keyname == "Escape"){
+                window.editor.blur();
+            }
             return;
         }
-        var keyname = event.key;
         var ctrl = event.getModifierState('Control');
-        console.log("keyname " + keyname);
         if(keyname == "+"){
-            console.log("enlarge font");
-            $("#balloon_style option:selected").next().attr("selected", "selected");
+            $("#balloon_style option:selected")
+                .prop("selected", false)
+                .next()
+                .prop("selected", true);
             update_fontsize();
             return;
         }
         else if(keyname == "-"){
-            console.log("small font");
-            $("#balloon_style option:selected").prev().attr("selected", "selected");
+            $("#balloon_style option:selected")
+                .prop("selected", false)
+                .prev()
+                .prop("selected", true);
             update_fontsize();
             return;
         }
@@ -271,9 +276,20 @@ function board_init(init_pen_color, init_stroke_width){
             event.preventDefault();
             draw.clear();
         }
-        else if(keyname in ['1','2','3','4','5','6','7','8','9']){
+        else if('1' <= keyname && keyname <= '9'){
             event.preventDefault();
-            stroke_width = Math.pow(2, parseInt(keyname));
+            var keyint = parseInt(keyname);
+            if(97 <= event.keyCode && event.keyCode <= 105){
+                //keypad key -> avatar index
+                //7, 8, 9
+                //4, 5, 6
+                //1, 2, 3
+                var avatar_index = [6, 7, 8, 3, 4, 5, 0, 1, 2];
+                select_avatar(avatar_index[keyint-1]);
+            }
+            else {
+                stroke_width = Math.pow(2, parseInt(keyname));
+            }
             return;
         }
     });
