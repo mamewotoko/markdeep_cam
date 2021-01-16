@@ -131,11 +131,6 @@
          z-index: 2;
      }
 
-     #cam_input {
-         vertical-align: top;
-         width: var(--editor-width) !important;
-     }
-
      .avatar_select {
          width: calc(var(--editor-width)*0.3);
          height: auto;
@@ -262,7 +257,6 @@
          margin-left: 5px;
      }
 
-     .drawer-menu,
      .drawer-nav,
      .drawer-hamburger {
          z-index: 1010;
@@ -283,7 +277,7 @@
         <span class="sr-only">toggle navigation</span>
         <span class="drawer-hamburger-icon" style="z-index: 100;"></span>
       </button>
-      <nav id="cam_input" class="drawer-nav cam_col" role="navigation">
+      <nav class="drawer-nav cam_col" role="navigation">
         <div class="drawer-menu">
           <div class="select">
             <label for="videoSource" style="display: inline-block;">Video source: </label>

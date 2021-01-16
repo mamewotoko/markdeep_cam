@@ -22,7 +22,7 @@
 
          --board-border-width: 4px;
 
-         --output-width: calc(100vw - var(--editor-width) - var(--board-border-width)*2);
+         --output-width: calc(100vw - var(--editor-width));
          --output-height: calc(var(--output-width) * 0.5625 - var(--board-border-width));
          --editor-height: var(--output-height);
      }
@@ -57,6 +57,10 @@
 
      #svg_content {
          height: 100px;
+     }
+
+     .markdeep {
+         padding-left: 20px;
      }
 
      .md p {
@@ -127,11 +131,6 @@
          z-index: 2;
      }
 
-     #cam_input {
-         vertical-align: top;
-         width: var(--editor-width) !important;
-     }
-
      .avatar_select {
          width: calc(var(--editor-width)*0.3);
          height: auto;
@@ -188,15 +187,15 @@
      }
 
      .slide h2 {
-         font-size: 50px !important;
+         font-size: 55px !important;
      }
 
      .slide h3 {
-         font-size: 40px !important;
+         font-size: 50px !important;
      }
 
      .slide * {
-         font-size: 38px !important;
+         font-size: 45px !important;
          font-weight: bold;
      }
 
@@ -266,8 +265,7 @@
          margin-left: 5px;
      }
 
-     
-     .drawer-hamburger {
+     .drawer-hamburger, .drawer-nav {
          z-index: 1010;
      }
 
@@ -285,7 +283,7 @@
         <span class="sr-only">toggle navigation</span>
         <span class="drawer-hamburger-icon"></span>
       </button>
-      <nav id="cam_input" class="drawer-nav cam_col" role="navigation">
+      <nav class="drawer-nav cam_col" role="navigation">
         <div class="drawer-menu">
           <div class="select">
             <label for="videoSource" style="display: inline-block;">Video source </label>
