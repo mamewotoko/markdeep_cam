@@ -337,14 +337,17 @@
               <option value="blackboard" selected>Blackboard</option>
               <option value="whiteboard">Whiteboard</option>
               <option value="greenboard">Greenboard</option>
+              <option value="magentaboard">Magentaboard</option>
+              
               <option value="black">Black</option>
               <option value="white">White</option>
               <option value="green">Green</option>
+              <option value="magenta">Magenta</option>
               <option value="none">None</option>
             </select>
-            <label class="custom-control-label" for="color_target" style="display: inline !important;">Color</label>
+            <br><label class="custom-control-label" for="color_target" style="display: inline !important;">Color</label>
 
-            <select class="form-control" id="color_target" name="color_target style="display: inline !important;">
+            <select class="form-control" id="color_target" name="color_target" style="display: inline !important;">
               <option value="pen" selected>Pen</option>
               <option value="text">Text</option>
               <option value="background">Bg</option>
@@ -497,9 +500,6 @@
            var current_svg = draw.size(width, height).svg();
            var ohp_pos = $("#ohp").offset();
            var frame_pos = $("#frame").offset();
-
-           //var x = ohp_pos.left - frame_pos.left;
-           //var y = ohp_pos.top - frame_pos.top;
            var base64data = btoa(current_svg);
 
            var img = new Image();
@@ -522,21 +522,6 @@
            };
        }
 
-       window.addEventListener('paste', function(e){
-           var item = e.clipboardData.items[0];
-           if(!item){
-               return;
-           }
-           if(!item.type.startsWith("image/")){
-               return;
-           }
-           var blob = item.getAsFile();
-           //var img = new Image();
-           var img = $("#avatar")[0];
-           var URLObj = window.URL || window.webkitURL;
-           img.src = URLObj.createObjectURL(blob);
-       });
-
        function init_size(){
            var win_height = window.innerHeight;
            var control_height = $("#ui_control").height();
@@ -544,9 +529,6 @@
            $("#ui_top").height(view_height);
            editor.resize();
        }
-       $(window).resize(function(){
-           init_size();
-       });
 
        function set_bg(color){
            $(":root").css("--balloon-color", color);
@@ -562,7 +544,73 @@
            var now = new Date(Date.now());
            $("#clock").text(now.toString());
        }
-       
+
+        function update_fontsize(){
+            var new_style = $("#balloon_style").val();
+            console.log("balloon_style is changed " + new_style);
+            $("#markdeep_board").removeClass();
+            $("#markdeep_board").addClass(new_style);
+        }
+
+        function update_theme(){
+            var theme_spec = {
+                "blackboard": { "pen": "white", "board": "black", "background": "white" },
+                "whiteboard": { "pen": "black", "board": "white", "background": "none" },
+                "greenboard": { "pen": "white", "board": "#1D6152", "background": "white" },
+                "magentaboard": { "pen": "nont", "board": "#FF00FF", "background": "none" },
+                "black": { "pen": "white", "board": "black", "background": "black" },
+                "white": { "pen": "black", "board": "white", "background": "white" },
+                "green": { "pen": "black", "board": "green", "background": "green" },
+                "magenta": { "pen": "none", "board": "#FF00FF", "background": "#FF00FF" }
+            };
+            var selected = $("#theme_select").val();
+            if(selected == "none"){
+                return;
+            }
+            var pen = theme_spec[selected]["pen"];
+            var board = theme_spec[selected]["board"];
+            var background = theme_spec[selected]["background"];
+
+            if(pen != "none"){
+                window.stroke_color = pen;
+                $(":root").css("--balloon-text-color", pen);
+            }
+            if(board != "none"){
+                $(":root").css("--balloon-color", board);
+            }
+            if(background!= "none"){
+                $(":root").css("--background-color", background);
+            }
+
+            if(selected == "whiteboard"
+               || selected == "blackboard"
+               || selected == "greenboard"){
+                $("#balloon_style").val("slide");
+            }
+            else {
+                $("#balloon_style").val("xl");
+            }
+            update_fontsize();
+        }
+
+        window.addEventListener('paste', function(e){
+            var item = e.clipboardData.items[0];
+            if(!item){
+                return;
+            }
+            if(!item.type.startsWith("image/")){
+                return;
+            }
+            var blob = item.getAsFile();
+            var img = $("#avatar")[0];
+            var URLObj = window.URL || window.webkitURL;
+            img.src = URLObj.createObjectURL(blob);
+       });
+        
+       $(window).resize(function(){
+           init_size();
+       });
+        
        $(document).ready(function() {
            window.editor = ace.edit("markdeep_input");
            editor.setTheme("ace/theme/twilight");
@@ -595,66 +643,17 @@
                "yellow": "#FFFF00",
            };
 
-           function update_fontsize(){
-               var new_style = $("#balloon_style").val();
-               console.log("balloon_style is changed " + new_style);
-               $("#markdeep_board").removeClass();
-               $("#markdeep_board").addClass(new_style);
-           }
-
-           function update_theme(){
-               var spec = {
-                   "blackboard": { "pen": "white", "board": "black", "background": "white" },
-                   "whiteboard": { "pen": "black", "board": "white", "background": "none" },
-                   "greenboard": { "pen": "white", "board": "#1D6152", "background": "white" },
-                   "black": { "pen": "white", "board": "black", "background": "black" },
-                   "white": { "pen": "black", "board": "white", "background": "white" },
-                   "green": { "pen": "black", "board": "green", "background": "green" }
-               };
-               
-               var selected = $("#theme_select").val();
-               if(selected == "none"){
-                   return;
-               }
-               console.log(spec, selected);
-               var pen = spec[selected]["pen"];
-               var board = spec[selected]["board"];
-               var background = spec[selected]["background"];
-
-               //TODO: modify
-               if(pen != "none"){
-                   window.stroke_color = pen;
-                   $(":root").css("--balloon-text-color", pen);
-               }
-               if(board != "none"){
-                   $(":root").css("--balloon-color", board);
-               }
-               if(background!= "none"){
-                   $(":root").css("--background-color", background);
-               }
-
-               if(selected == "whiteboard"
-                  || selected == "blackboard"
-                  || selected == "greenboard"){
-                   $("#balloon_style").val("slide");
-               }
-               else {
-                   $("#balloon_style").val("xl");
-               }
-               update_fontsize();
-           }
-
            $(".color_button").each(function(i, e){
                $(e).css("background-color",
                         color_table[$(e).attr("data-color")]);
            });
 
-           $("#theme_select").change(function(e){
-               update_fontsize();
-           });            
-           
            $("#balloon_style").change(function(e){
                update_fontsize();
+           });
+
+           $("#theme_select").change(function(e){
+               update_theme();
            });
 
            update_theme();
