@@ -24,14 +24,11 @@
          --output-width: 100vw - 10px;
          /* boardjs */
          --board-border-width: 4px;
-
-         /*--output-height: min(calc(var(--output-width) * 0.5625), 100vh);*/
-         /*--output-height: 80vh;*/
-         /*--editor-height: var(--output-height);*/
      }
      body {
          padding: 0px;
          touch-action: manipulate;
+         overflow: hidden;
      }
      hr {
          margin-top: 5px;
@@ -92,7 +89,7 @@
 
      #frame {
          width: 100%;
-         height: 100%;
+         height: calc(100% - var(--board-border-width));
          vertical-align: top;
          position: relative;
      }
@@ -138,13 +135,13 @@
      .output {
          margin-bottom: 10px;
      }
+
      #cam_output {
          vertical-align: top;
          width: var(--output-width);
          right: 0;
          background: var(--background-color);
      }
-
 
      #copyright_container {
          position: absolute;
@@ -253,8 +250,9 @@
          bottom: 0;
      }
 
-     .drawer-menu {
+     .drawer-nav {
          margin-left: 5px;
+         padding-left: 10px;
      }
 
      .drawer-nav,
@@ -277,7 +275,7 @@
         <span class="sr-only">toggle navigation</span>
         <span class="drawer-hamburger-icon" style="z-index: 100;"></span>
       </button>
-      <nav class="drawer-nav cam_col" role="navigation">
+      <nav class="drawer-nav" role="navigation">
         <div class="drawer-menu">
           <div class="select">
             <label for="videoSource" style="display: inline-block;">Video source: </label>
@@ -327,7 +325,7 @@
           </div>
 
           <div class="form-inline" style="display: inline;">
-            <label class="custom-control-label" for="color_target" style="display: inline !important;">Change color</label>
+            <label class="custom-control-label" for="color_target" style="display: inline !important;">Color of </label>
 
             <select class="form-control" id="color_target" name="color_target" style="display: inline !important;">
               <option value="pen">Pen</option>
