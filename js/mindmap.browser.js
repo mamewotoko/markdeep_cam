@@ -21,7 +21,8 @@ function update_markmap(text){
 
 //function update_markdown(){
 window.update_markdown = function(){
-    var input = $('#markdeep_input').val() + "\n";
+    //var input = $('#markdeep_input').val() + "\n";
+    var input = window.editor.getValue() + "\n";
     var markdeep_mode = $("#markdeep_mode").is(":checked");
 
     if(markdeep_mode){

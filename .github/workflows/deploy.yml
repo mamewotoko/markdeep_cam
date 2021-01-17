@@ -11,9 +11,7 @@ jobs:
 
       - name: Install and Build
         run: |
-          bash setup.sh
           bash build.sh
-          ls -l
 
       - name: Deploy 🚀
         uses: peaceiris/actions-gh-pages@v3

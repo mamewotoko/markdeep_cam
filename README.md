@@ -33,13 +33,7 @@ mindmap mode
 Build
 -----
 
-### setup
-
-```
-sh setup.sh
-```
-
-### compile js (browserify)
+install library and compile js (browserify)
 
 ```
 sh build.sh

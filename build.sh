@@ -1,8 +1,10 @@
 #! /bin/sh
-npm install
 rm -rf build
-mkdir build
-mkdir -p lib/third/css lib/third/js
+
+npm install
+npm run build
+ls -l
+mkdir -p build lib/third/css lib/third/js
 
 cp ./node_modules/jquery/dist/jquery.min.js lib/third/js
 cp ./node_modules/bootstrap/dist/js/bootstrap.min.js lib/third/js
