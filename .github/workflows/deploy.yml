@@ -11,12 +11,12 @@ jobs:
 
       - name: Install and Build
         run: |
-          bash setup.sh
+          npm install
+          npm run deploy
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: .
-          CLEAN: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          publish_dir: .
