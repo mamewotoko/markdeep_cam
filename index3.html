@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./css/qr.css" />
+    <style>
+     :root {
+         --editor-width: 25vw;
+         /*background: #e0edff; */
+         --balloon-color: #000000;
+         --balloon-text-color: #FFFFFF;
+         --background-color: #FFFFFF;
+         --output-width: calc(100vw - var(--editor-width));
+     }
+     body {
+         padding: 0px;
+     }
+     hr {
+         margin-top: 5px;
+         margin-bottom: 5px;
+     }
+     .color_button {
+         width: 50px;
+         height: 25px;
+     }
+
+     .template {
+         border: solid 1px black;
+     }
+
+     #markdeep_input {
+         height: calc(100% - 200px) !important;
+         width: var(--editor-width);
+         font-familiy: monospace;
+         font-size: 18px;
+     }
+
+     #svg_content {
+         height: 100px;
+     }
+
+     td {
+         padding: 0.5em;
+     }
+
+     .md p {
+         font-size: inherit;
+         font-weight: normal;
+         margin: 0 0 10px;
+     }
+
+     .md h1, .md h2, .md h3 {
+         margin-top: 0;
+         padding-top: 0;
+         color: white !important;
+     }
+
+     .md h1:before, .md h2:before, .md h3:before {
+         display: none;
+     }
+
+     .diagram text {
+         font-size: 14px !important;
+     }
+
+     #capture_button { width: 80px; }
+
+     #main {
+         height: 100%;
+     }
+
+     .cam_col {
+         height: 100%;
+         padding: 0;
+         vertical-align: top;
+     }
+
+     #frame {
+         width: 100%;
+         height: 100%;
+         vertical-align: top;
+         position: relative;
+     }
+
+     .balloon {
+         width: calc(100% - 230px);
+         height: 90%;
+         position: absolute;
+         top: 5px;
+         right: 5px;
+
+         display: block;
+         padding: 20px;
+         color: var(--balloon-text-color);
+         overflow-y: hidden;
+         background: var(--balloon-color);
+     }
+
+     #ohp {
+         position: absolute;
+         top: 0px;
+         left: 0px;
+         width: 100%;
+         height: 100%;
+     }
+
+     #cam_input {
+         vertical-align: top;
+         width: var(--editor-width) !important;
+     }
+
+     .output {
+     }
+
+     #cam_output {
+         vertical-align: top;
+         width: var(--output-width);
+         height: calc(var(--output-width) * 0.5625);
+         right: 0;
+         background: var(--background-color);
+     }
+
+     #copyright_input {
+         width: 95%;
+     }
+
+     #copyright_container {
+         position: absolute;
+         bottom: 10px;
+         right: 40px;
+         font-size: 32px;
+         width: 100%;
+         text-align: right;
+     }
+
+     .markdeep * {
+         /*         -webkit-text-stroke-width: 3px;
+            -webkit-text-stroke-color: white; */
+     }
+
+     .word {
+         font-size: 70px;
+         font-weight: bold;
+     }
+
+     .markdeep hr {
+         height: 2px;
+         background-color: var(--balloon-text-color);
+     }
+     /* board style */
+     .slide h1 {
+         font-size: 60px !important;
+     }
+
+     .slide h2 {
+         font-size: 55px !important;
+     }
+
+     .slide h3 {
+         font-size: 50px !important;
+     }
+
+     .slide * {
+         font-size: 45px !important;
+         font-weight: bold;
+     }
+
+     /*******/
+
+     .xxxl * {
+         font-size: 300px !important;
+     }
+
+     .xxl * {
+         font-size: 180px !important;
+     }
+
+     .xl * {
+         font-size: 120px !important;
+     }
+     
+     .l * {
+         font-size: 70px !important;
+     }
+
+     .markdeep .m {
+         font-size: 50px !important;
+     }
+
+     #additional h1 {
+         text-align: center;
+     }
+
+     #additional h2 {
+         border-left: #254117 6px solid;
+         border-bottom: #254117 2px solid;
+         padding-left: 4px;
+         margin-bottom: 10px;
+         margin-top: 15px !important;
+     }
+
+     #avatar {
+         position: absolute;
+         width:200px;
+         height: auto;
+         bottom: -2px !important;
+         /* padding-left:30px !important; */
+     }
+
+     #ui_top {
+         height: calc(100vh - 220px);
+     }
+    </style>
+    <script src="https://use.fontawesome.com/16164d916e.js"></script>
+    <script src="js/qrcode.js"></script>
+    <script src="js/qrmain.js"></script>
+  </head>
+  <body>
+    <div id="ui_top">
+      <table id="main">
+        <tbody>
+          <tr>
+            <td id="cam_output" class="cam_col" style="position: relative;">
+              <div id="ohp" class="output"></div>
+
+              <div id="frame" class="output">
+                <img id="avatar" src="image/cat_icon/animal_neko.png">
+                <div class="balloon1-left balloon" id="balloon">
+                  <div id="markdeep_board" style="height: 95%;">
+                    <div class="markdeep xxxl" id="result"></div>
+                  </div>
+                  <div id="markmap_container">
+                    <svg id="mindmap" width="100%" height="100%"></svg>
+                  </div>
+                </div>
+                <div id="copyright_container"><span id="copyright"></span></div>
+              </div>
+            </td>
+            <td id="cam_input" class="cam_col">
+              <!-- ace editor -->
+              <!-- <div id="editor_container"></div> -->
+              <pre id="markdeep_input">Cats!
+</pre>
+              <!--
+                   <textarea id="markdeep_input" rows="12"># I have five questions!
+                   ## Who: ____________
+                   ## Why: ____________
+                   ## What: ___________
+                   ## Where: __________
+                   ## When: ___________
+                   </textarea>
+              -->
+
+              <button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true">Clear Text</button>
+              <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true">Clear Drawing</button>
+              <button class="btn btn-primary" id="clear_all" onclick="clear_all();" aria-hidden="true">Clear</button>
+              <button class="btn btn-primary fa fa-undo" id="undo_drawing" onclick="hide_last_element();" aria-hidden="true"></button>
+              <br><input type="text" id="copyright_input" placeholder="credit, copyright" value="">
+              <br><button class="btn btn-primary" onclick="speech();">読み上げ</button>
+              <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
+              <a id="image_download" download="board_and_me.png">イメージ保存</a>
+
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked>
+                <label class="custom-control-label" for="markdeep_mode">markdeep mode (D)</label>
+              </div>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="drawing_mode" checked>
+                <label class="custom-control-label" for="drawing_mode">drawing mode (F)</label>
+              </div>
+
+              <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
+      <div id="ui_control">
+        <div class="form-inline">
+          <div class="col-1 form-inline">
+            <select class="form-control" id="balloon_style" name="balloon_style">
+              <option value="slide">slide</option>
+              <option value="l">l</option>
+              <option value="xl">xl</option>
+              <option value="xxl" selected>xxl</option>
+              <option value="xxxl">xxxl</option>
+            </select>
+          </div>
+          <div class="col-1 form-inline">
+            <select class="form-control" id="color_target" name="color_target">
+              <option value="pen">Pen</option>
+              <option value="text">Text</option>
+              <option value="background">Bg</option>
+              <option value="board">Board</option>
+              <option value="background+board">Bg Total</option>
+            </select>
+          </div>
+          <div class="col-1 form-inline">
+
+            <input type="color" class="color_button" id="drawing_color" name="drawing_color" value="#FF0000" />
+          </div>
+            <button class="col-1 color_button" data-color="red"></button>
+            <button class="col-1 color_button" data-color="yellow"></button>
+            <button class="col-1 color_button" data-color="pink"></button>
+            <button class="col-1 color_button" data-color="purple"></button>
+            <button class="col-1 color_button" data-color="green"></button>
+            <button class="col-1 color_button" data-color="blue"></button>
+            <button class="col-1 color_button" data-color="black"></button>
+            <button class="col-1 color_button" data-color="white"></button>
+            <!-- TOOD: color -->
+        </div>
+        <div id="avatar_list">
+          <img src="image/cat_icon/cat2_1_idea.png" style="width:100px; height: auto;" >
+          <img src="image/cat_icon/animal_neko.png" style="width:100px; height: auto;" >
+          <img src="image/cat_icon/cat3_1_question.png" style="width:100px; height: auto;" >
+          <img src="image/cat_icon/cat2_4_think.png" style="width:100px; height: auto;" >
+          <img src="image/cat_icon/cat2_3_shock.png" style="width:100px; height: auto;" >
+          <img src="image/cat_icon/cat2_2_surprise.png" style="width:100px; height: auto;" >
+          <img src="image/cat_icon/cat3_3_sleep.png" style="width:100px; height: auto;" >
+          <img src="image/cat_icon/cat3_4_tehe.png" style="width:100px; height: auto;" >
+          <img src="image/cat_icon/cat3_2_heart.png" style="width:100px; height: auto;" >
+          <!--
+               <br>↑人物アイコン(幅 200pxを推奨します): 画像をpasteするか、以下の画像をダブルクリックしてください。
+          -->
+        </div>
+      </div>
+      <div style="display: none;">
+        <div id="additional">
+          <h2>撮った画像 <a href="#captured_image"><sup>#</sup></a></h2>
+
+
+          <div id="target">
+          </div>
+
+          <!--
+               <h3>おまけSVG画像</h3>
+               <br><textarea id="svg_content"></textarea>
+               <button class="btn btn-primary" onclick="save_svg();">SVG保存</button>
+          -->
+
+          <h2>サポート状況 <a href="#support"><sup>#</sup></a></h2>
+          MacのFirefoxではSVGの落書きの保存はできません
+          <br>MacのChromeでは動作します。
+          <br>iPadのSafari, Chromeでは動作します。
+
+          <h2>テンプレート <a href="#template"><sup>#</sup></a></h2>
+          <h3>表<a href="#table"><sup>#</sup></a></h3>
+          <pre class="template">|1|2|3|4|5|6|7| 8|9|
+                |-|-|-|-|-|-|-|-| -|
+                |1|2|3|4|5|6|7|8|9|
+                |1|2|3|4|5|6|7|8|9|
+                |1|2|3|4|5|6|7|8|9|
+                |1|2|3|4|5|6|7|8|9|
+                |1|2|3|4|5|6|7|8|9|
+                |1|2|3|4|5|6|7|8|9|
+                |1|2|3|4|5|6|7|8|9|
+                |1|2|3|4|5|6|7|8|9|
+          </pre>
+
+          <h3>問題解決</h3>
+          <h4>問題解決の流れ</h4>
+          <pre class="template">Where (What): 問題がどこにあるか?&lt;br&gt;&lt;br&gt;&lt;hr&gt;
+                Why: その問題の原因は何か? &lt;br&gt;&lt;br&gt;&lt;hr&gt;
+                How: ではどうすればよいか? &lt;br&gt;&lt;br&gt;&lt;hr&gt;
+
+                書籍 「問題解決 あらゆる課題を突破するビジネスパーソン必須の仕事術」 から引用
+
+                問題: 理想と現状のギャップ
+            <br>「問題とは、望まれた事柄と認識された事柄の間の相違である」
+          </pre>
+
+          <h4>過程(プロセス)と構造</h4>
+          <pre class="template">## 過程(プロセス)
+
+                |過程1 →|過程2 →|過程3 →|過程4|
+                |-----|-----|-----|-----|
+                |-||||
+
+                ## 構造
+
+                ```
+
+                +-----------------+
+                |                 |
+                +-----------------+
+                |                 |
+                +-----------------+
+                |                 |
+                +-----------------+
+                ```
+          </pre>
+
+          <h3>段組みレイアウト</h3>
+          <pre class="template">
+                # 段組みレイアウト
+
+                multi-column layouts
+
+                &lt;div style="column-count:2;"&gt;
+                ## びっくりする猫
+
+                &lt;img width="140" src="image/cat_icon/cat2_2_surprise.png"&gt;
+
+                ## 大事なもの
+
+                1. 食事
+                2. 睡眠
+                3. 運動
+                &lt;/div&gt;
+
+                ## 参考
+
+                [段組みレイアウトの使用](https://developer.mozilla.org/ja/docs/Web/Guide/CSS/Using_multi-column_layouts)
+          </pre>
+
+          <h3>webcam<a href="#webcam"><sup>#</sup></a></h3>
+
+          <pre class="template">  &lt;video id="gum" playsinline autoplay muted&gt;&lt;/video&gt;
+                &lt;script&gt; init_camera();  &lt;/script&gt;
+          </pre>
+
+          <!-- webcam用コンテンツ -->
+          <script>
+           function handleSuccess(stream) {
+               console.log('getUserMedia() got stream:', stream);
+               window.stream = stream;
+
+               const gumVideo = document.querySelector('video#gum');
+               gumVideo.srcObject = stream;
+           }
+
+           async function init(constraints) {
+               try {
+                   const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                   handleSuccess(stream);
+               } catch (e) {
+                   console.log('navigator.getUserMedia error:', e);
+               }
+           }
+
+           function init_camera(){
+               //const hasEchoCancellation = document.querySelector('#echoCancellation').checked;
+               const constraints = {
+                   audio: {
+                       //echoCancellation: {exact: hasEchoCancellation}
+                   },
+                   video: {
+
+                   }
+               };
+               console.log('Using media constraints:', constraints);
+               init(constraints);
+           }
+          </script>
+
+          <h2>参考 <a href="#reference"><sup>#</sup></a></h2>
+          <ul>
+            <li><a href="https://casual-effects.com/markdeep/">Markdeep - Causal Effects</a></li>
+            <li><a href="https://gist.github.com/doersino/9dcc636493ff1deb30912ed2efc44891">Preview Markdeep as you're typing (very simple, unstyled proof of concept)</a></li>
+            <li><a href="https://github.com/dundalek/markmap">markmap</a></li>
+            <li><a href="https://mamewo.ddo.jp/svg_b/">svg board</a></li>
+            <li>「<a href="https://www.irasutoya.com/">いらすとや</a>」さんのイラストを使いました。</li>
+          </ul>
+
+          <h2>他のレイアウト <a href="#other_layout"><sup>#</sup></a></h2>
+          <a href="index.html">左側にエディタを出す</a>
+          <br><a href="index2.html">下にスクロールしたところにエディタを出す</a>
+
+          <h2>使用したライブラリ</h2>
+          <li><a href="https://ace.c9.io/">Ace</a>
+            <br>Copyright (c) 2010, Ajax.org B.V. All rights reserved.</li>
+            <hr>
+
+            <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
+            <br>Takashi Masuyama mamewotoko AT gmail.com
+            <br><a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a>
+        </div>
+      </div>
+      <script>window.markdeepOptions = {mode: 'script'};</script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+      <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="https://mamewo.ddo.jp/svg_b/node_modules/svg.js/dist/svg.min.js"></script>
+      <script src="https://mamewo.ddo.jp/svg_b/js/svg.draw.js"></script>
+      <script src="js/board.js"></script>
+      <!--  <script src="node_modules/canvg/lib/umd.js"></script> -->
+
+      <script src="js/controller.js"></script>
+
+
+      <script>
+       function clear_markdeep(){
+           $("#markdeep_input").val("");
+           var e = jQuery.Event("keypress");
+           e.which = 13; //choose the one you want
+           e.keyCode = 13;
+           $("#markdeep_input").trigger(e);
+           var e = jQuery.Event("keyup");
+           e.which = 13; //choose the one you want
+           e.keyCode = 13;
+           $("#markdeep_input").trigger(e);
+       }
+
+       function clear_svg(){
+           draw.clear();
+       }
+
+       function clear_all(){
+           clear_markdeep();
+           clear_svg();
+       }
+
+       //undo_drawing
+
+       function capture(){
+           var w = $("#frame").width();
+           var h = $("#frame").height();
+
+           var config = {
+               width: w,
+               height: h,
+               scrollY: -window.scrollY
+           };
+           var target = document.getElementById("target");
+           target.innerHTML = "";
+
+           html2canvas($("#frame")[0], config).then(canvas => {
+               canvas.id = "captured_frame";
+               $("#target").width(w);
+               $("#target").height(h);
+
+               target.appendChild(canvas);
+               add_svg(canvas);
+           });
+       }
+
+       function add_svg(c){
+           var current_svg = draw.svg();
+           var ohp_pos = $("#ohp").offset();
+           var frame_pos = $("#frame").offset();
+
+           var x = ohp_pos.left - frame_pos.left;
+           var y = ohp_pos.top - frame_pos.top;
+           var base64data = btoa(current_svg);
+
+           var img = new Image();
+           img.width = $("#ohp").width();
+           img.height = $("#ohp").height();
+           img.src = "data:image/svg+xml;base64," + base64data;
+           img.onload = function(){
+               var context = c.getContext("2d");
+               console.log("add_svg %d %d %s", x, y, current_svg);
+               console.log(img);
+               //TODO: image moves to left
+               x += 300;
+               context.drawImage(img, x, y, $("#ohp").width(), $("#ohp").height());
+               document.getElementById("image_download").href = c.toDataURL("image/png");
+               img.parentNode.removeChild(img);
+           };
+           //img.style = "display: none;";
+           var target = document.getElementById("target");
+           target.appendChild(img);
+       }
+
+       window.addEventListener('paste', function(e){
+           var item = e.clipboardData.items[0];
+           console.log("item");
+           console.log(item);
+           if(!item){
+               return;
+           }
+           if(!item.type.startsWith("image/")){
+               return;
+           }
+           var blob = item.getAsFile();
+           //var img = new Image();
+           var img = $("#avatar")[0];
+           var URLObj = window.URL || window.webkitURL;
+           img.src = URLObj.createObjectURL(blob);
+       });
+
+       $("#copyright_input").on("keydown", function(e){
+           console.log("keydown" + e.keyCode);
+           if(e.keyCode == 13){
+               //enter is pressed
+               var copyright_text = $("#copyright_input").val();
+               console.log("keydown enter " + copyright_text);
+               $("#copyright").text(copyright_text);
+           }
+       });
+
+       function init_size(){
+           var win_height = window.innerHeight;
+           var control_height = $("#ui_control").height();
+           var view_height = Math.max(win_height - control_height + 60, 100);
+           console.log("view_height " + view_height);
+           // $("#ui_top").height(view_height-220);
+           editor.resize();
+       }
+       $(window).resize(function(){
+           init_size();
+       });
+
+       function set_bg(color){
+           $(":root").css("--balloon-color", color);
+           $(":root").css("--background-color", color);
+       }
+
+       function select_avatar(i){
+           var img = $("#avatar_list img")[i];
+           $("#avatar").attr("src", $(img).attr("src"));
+       }
+
+       $(document).ready(function() {
+           window.editor = ace.edit("markdeep_input");
+           editor.setTheme("ace/theme/twilight");
+           editor.setKeyboardHandler("ace/keyboard/emacs");
+           editor.session.setMode("ace/mode/markdown");
+
+           init_size();
+           //window.scrollTo(0, 0);
+
+           var color_table = {
+               "red": "#ff0000",
+               "blue": "#0000ff",
+               "green": "#00ff00",
+               "pink": "#FF00FF",
+               "purple": "#692f9c",
+               "black": "#000000",
+               "white": "#ffffff",
+               "orange": "#FFAA00",
+               "yellow": "#FFFF00"
+           };
+
+           $(".color_button").each(function(i, e){
+               $(e).css("background-color",
+                        color_table[$(e).attr("data-color")]);
+           });
+
+           $("#balloon_style").change(function(e){
+               console.log("balloon_style is changed");
+               var new_style = $(this).val();
+               $("#result").removeClass();
+               $("#result").addClass("markdeep");
+               $("#result").addClass(new_style);
+           })
+           
+           $(".color_button").click(function(e){
+               var color = color_table[$(this).attr("data-color")];
+               console.log("click " + $(this).attr("data-color") + " " + color);
+               $("#drawing_color").val(color);
+               var color_target = $("#color_target").val();
+               if(color_target == "pen"){
+                   window.stroke_color = color;
+               }
+               else if(color_target == "text"){
+                   $(":root").css("--balloon-text-color", color);
+               }
+               else if (color_target == "background"){
+                   $(":root").css("--background-color", color);
+               }
+               else if(color_target == "board"){
+                   $(":root").css("--balloon-color", color);
+               }
+               else if(color_target == "background+board"){
+                   $(":root").css("--background-color", color);
+                   $(":root").css("--balloon-color", color);
+               }
+           });
+
+           $("#avatar_list img").dblclick(function(e){
+               e.preventDefault();
+               $("#avatar").attr("src", $(this).attr("src"));
+           });
+
+           $("#drawing_color").change(function(e){
+               console.log("color changed " + $(this).val());
+               window.stroke_color = $(this).val();
+           });
+
+           //support firefox... failed
+           /* function add_svg2(c){ */
+           /*     var context = c.getContext('2d'); */
+           /*     var v = canvg.Canvg.fromString(context, draw.svg()); */
+           /*     //canvg(c, draw.svg()); */
+           /*     v.start(); */
+           /* } */
+
+       });
+      </script>
+      <script src="./js/html2canvas.min.js"></script>
+
+      <!--
+          <script>
+            var editor = ace.edit("editor_container");
+            editor.setOptions({
+            fontFamily: "monospace",
+            fontSize: "20px"
+            });
+            $("#editor_container textarea")[0].id = "markdeep_input";
+          </script>
+          -->
+          <script src="js/mindmap.browser.js"></script>
+          <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+          <!--
+              <script src="lib/js/ace.js" type="text/javascript" charset="utf-8"></script>
+              -->
+              <script src="./lib/js/ace-build/src-min-noconflict/ace.js"></script>
+  </body>
+</html>
