@@ -21,17 +21,16 @@ function update_markmap(text){
 
 //function update_markdown(){
 window.update_markdown = function(){
-    //var input = $('#markdeep_input').val() + "\n";
-    var input = window.editor.getValue() + "\n";
-    var input = input.replace(/<script.*?>/, "").replace("</script>", "");
-
+    var input = $('#markdeep_input').val() + "\n";
     var markdeep_mode = $("#markdeep_mode").is(":checked");
 
     if(markdeep_mode){
         $("#markdeep_board").css("display", "block");
         $("#markmap_container").css("display", "none");
 
-        $('.markdeep').html(window.markdeep.format(input));
+        // TODO: clear markdeep?
+        //console.log(window.markdeep.format(input));
+        $('.markdeep').html(window.markdeep.format(input));  // <----------- magic
         postprocessMarkdeep();
     }
     else {
@@ -43,15 +42,6 @@ window.update_markdown = function(){
     }
 
 }
-$(document).ready(function() {
-    //"use strict";
-    $("#mindmap").css("width", $("#balloon").css("width"))
-        .css("height", $("#balloon").css("height"));
-    $("#markdeep_mode").change(update_markdown);
-    document.head.innerHTML = window.markdeep.stylesheet() + document.head.innerHTML;
-    update_markdown();
-    $('#markdeep_input').on("change keyup paste", update_markdown);
-});
 
 function postprocessMarkdeep() {
     // for some reason, markdeep creates an additional, superflous <p> tag right
@@ -66,7 +56,6 @@ function postprocessMarkdeep() {
         MathJax.Hub.Queue(["Typeset", MathJax.Hub, $(this).get()]);
     });
 }
-
 
 },{"d3":3,"markmap/lib/d3-flextree":4,"markmap/lib/parse.markdown":5,"markmap/lib/transform.headings":6,"markmap/lib/view.mindmap":7}],2:[function(require,module,exports){
 /*!
@@ -5025,7 +5014,7 @@ return Autolinker;
           svg.remove();
         }
       }
-      if (d3_mouse_bug44083) point.x = e.pageX, point.y = e.pageY; else point.x = e.clientX,
+      if (d3_mouse_bug44083) point.x = e.pageX, point.y = e.pageY; else point.x = e.clientX, 
       point.y = e.clientY;
       point = point.matrixTransform(container.getScreenCTM().inverse());
       return [ point.x, point.y ];
@@ -5395,7 +5384,7 @@ return Autolinker;
     }
     function mousewheeled() {
       var dispatch = event.of(this, arguments);
-      if (mousewheelTimer) clearTimeout(mousewheelTimer); else d3_selection_interrupt.call(this),
+      if (mousewheelTimer) clearTimeout(mousewheelTimer); else d3_selection_interrupt.call(this), 
       translate0 = location(center0 = center || d3.mouse(this)), zoomstarted(dispatch);
       mousewheelTimer = setTimeout(function() {
         mousewheelTimer = null;
@@ -5765,7 +5754,7 @@ return Autolinker;
   d3.xhr = d3_xhrType(d3_identity);
   function d3_xhrType(response) {
     return function(url, mimeType, callback) {
-      if (arguments.length === 2 && typeof mimeType === "function") callback = mimeType,
+      if (arguments.length === 2 && typeof mimeType === "function") callback = mimeType, 
       mimeType = null;
       return d3_xhr(url, mimeType, response, callback);
     };
@@ -6603,7 +6592,7 @@ return Autolinker;
     return n ? (date.y = d3_time_expandYear(+n[0]), i + n[0].length) : -1;
   }
   function d3_time_parseZone(date, string, i) {
-    return /^[+-]\d{4}$/.test(string = string.slice(i, i + 5)) ? (date.Z = -string,
+    return /^[+-]\d{4}$/.test(string = string.slice(i, i + 5)) ? (date.Z = -string, 
     i + 5) : -1;
   }
   function d3_time_expandYear(d) {
@@ -6796,7 +6785,7 @@ return Autolinker;
     var λ00, φ00, λ0, cosφ0, sinφ0;
     d3_geo_area.point = function(λ, φ) {
       d3_geo_area.point = nextPoint;
-      λ0 = (λ00 = λ) * d3_radians, cosφ0 = Math.cos(φ = (φ00 = φ) * d3_radians / 2 + π / 4),
+      λ0 = (λ00 = λ) * d3_radians, cosφ0 = Math.cos(φ = (φ00 = φ) * d3_radians / 2 + π / 4), 
       sinφ0 = Math.sin(φ);
     };
     function nextPoint(λ, φ) {
@@ -8625,7 +8614,7 @@ return Autolinker;
       return _ ? center([ -_[1], _[0] ]) : (_ = center(), [ _[1], -_[0] ]);
     };
     projection.rotate = function(_) {
-      return _ ? rotate([ _[0], _[1], _.length > 2 ? _[2] + 90 : 90 ]) : (_ = rotate(),
+      return _ ? rotate([ _[0], _[1], _.length > 2 ? _[2] + 90 : 90 ]) : (_ = rotate(), 
       [ _[0], _[1], _[2] - 90 ]);
     };
     return rotate([ 0, 0, 90 ]);
@@ -9479,7 +9468,7 @@ return Autolinker;
     };
     quadtree.extent = function(_) {
       if (!arguments.length) return x1 == null ? null : [ [ x1, y1 ], [ x2, y2 ] ];
-      if (_ == null) x1 = y1 = x2 = y2 = null; else x1 = +_[0][0], y1 = +_[0][1], x2 = +_[1][0],
+      if (_ == null) x1 = y1 = x2 = y2 = null; else x1 = +_[0][0], y1 = +_[0][1], x2 = +_[1][0], 
       y2 = +_[1][1];
       return quadtree;
     };
@@ -11183,7 +11172,7 @@ return Autolinker;
         return d3_layout_treemapPad(node, x);
       }
       var type;
-      pad = (padding = x) == null ? d3_layout_treemapPadNull : (type = typeof x) === "function" ? padFunction : type === "number" ? (x = [ x, x, x, x ],
+      pad = (padding = x) == null ? d3_layout_treemapPadNull : (type = typeof x) === "function" ? padFunction : type === "number" ? (x = [ x, x, x, x ], 
       padConstant) : padConstant;
       return treemap;
     };
@@ -11483,7 +11472,7 @@ return Autolinker;
     scale.tickFormat = function(n, format) {
       if (!arguments.length) return d3_scale_logFormat;
       if (arguments.length < 2) format = d3_scale_logFormat; else if (typeof format !== "function") format = d3.format(format);
-      var k = Math.max(.1, n / scale.ticks().length), f = positive ? (e = 1e-12, Math.ceil) : (e = -1e-12,
+      var k = Math.max(.1, n / scale.ticks().length), f = positive ? (e = 1e-12, Math.ceil) : (e = -1e-12, 
       Math.floor), e;
       return function(d) {
         return d / pow(f(log(d) + e)) <= k ? format(d) : "";
@@ -11583,7 +11572,7 @@ return Autolinker;
     };
     scale.rangePoints = function(x, padding) {
       if (arguments.length < 2) padding = 0;
-      var start = x[0], stop = x[1], step = domain.length < 2 ? (start = (start + stop) / 2,
+      var start = x[0], stop = x[1], step = domain.length < 2 ? (start = (start + stop) / 2, 
       0) : (stop - start) / (domain.length - 1 + padding);
       range = steps(start + step * padding / 2, step);
       rangeBand = 0;
@@ -11595,7 +11584,7 @@ return Autolinker;
     };
     scale.rangeRoundPoints = function(x, padding) {
       if (arguments.length < 2) padding = 0;
-      var start = x[0], stop = x[1], step = domain.length < 2 ? (start = stop = Math.round((start + stop) / 2),
+      var start = x[0], stop = x[1], step = domain.length < 2 ? (start = stop = Math.round((start + stop) / 2), 
       0) : (stop - start) / (domain.length - 1 + padding) | 0;
       range = steps(start + Math.round(step * padding / 2 + (stop - start - (domain.length - 1 + padding) * step) / 2), step);
       rangeBand = 0;
@@ -12018,7 +12007,7 @@ return Autolinker;
     return points.length < 4 ? d3_svg_lineLinear(points) : points[1] + d3_svg_lineHermite(points.slice(1, -1), d3_svg_lineCardinalTangents(points, tension));
   }
   function d3_svg_lineCardinalClosed(points, tension) {
-    return points.length < 3 ? d3_svg_lineLinear(points) : points[0] + d3_svg_lineHermite((points.push(points[0]),
+    return points.length < 3 ? d3_svg_lineLinear(points) : points[0] + d3_svg_lineHermite((points.push(points[0]), 
     points), d3_svg_lineCardinalTangents([ points[points.length - 2] ].concat(points, [ points[1] ]), tension));
   }
   function d3_svg_lineCardinal(points, tension) {
@@ -12776,7 +12765,7 @@ return Autolinker;
         var g = d3.select(this);
         var scale0 = this.__chart__ || scale, scale1 = this.__chart__ = scale.copy();
         var ticks = tickValues == null ? scale1.ticks ? scale1.ticks.apply(scale1, tickArguments_) : scale1.domain() : tickValues, tickFormat = tickFormat_ == null ? scale1.tickFormat ? scale1.tickFormat.apply(scale1, tickArguments_) : d3_identity : tickFormat_, tick = g.selectAll(".tick").data(ticks, scale1), tickEnter = tick.enter().insert("g", ".domain").attr("class", "tick").style("opacity", ε), tickExit = d3.transition(tick.exit()).style("opacity", ε).remove(), tickUpdate = d3.transition(tick.order()).style("opacity", 1), tickSpacing = Math.max(innerTickSize, 0) + tickPadding, tickTransform;
-        var range = d3_scaleRange(scale1), path = g.selectAll(".domain").data([ 0 ]), pathUpdate = (path.enter().append("path").attr("class", "domain"),
+        var range = d3_scaleRange(scale1), path = g.selectAll(".domain").data([ 0 ]), pathUpdate = (path.enter().append("path").attr("class", "domain"), 
         d3.transition(path));
         tickEnter.append("line");
         tickEnter.append("text");
@@ -13378,7 +13367,7 @@ d3.layout.flextree = function() {
       nodeSize = null,
       setNodeSizes = false;
 
-  // This stores the x_size of the root node, for use with the spacing
+  // This stores the x_size of the root node, for use with the spacing 
   // function
   var wroot = null;
 
@@ -13403,8 +13392,8 @@ d3.layout.flextree = function() {
     var wt = {
       t: t,
       prelim: 0,
-      mod: 0,
-      shift: 0,
+      mod: 0, 
+      shift: 0, 
       change: 0,
       msel: 0,
       mser: 0,
@@ -13441,14 +13430,14 @@ d3.layout.flextree = function() {
   }
 
   // Recursively set the y coordinate of the children, based on
-  // the y coordinate of the parent, and its height. Also set parent
+  // the y coordinate of the parent, and its height. Also set parent 
   // and depth.
   function zerothWalk(wt, initial) {
     wt.t.y = initial;
     wt.t.depth = 0;
     _zerothWalk(wt);
   }
-
+  
   function _zerothWalk(wt) {
     var kid_y = wt.t.y + wt.y_size,
         kid_depth = wt.t.depth + 1,
@@ -13474,11 +13463,11 @@ d3.layout.flextree = function() {
     for (var i = 1; i < wt.num_children; ++i) {
       firstWalk(wt.children[i]);
 
-      // Store lowest vertical coordinate while extreme nodes still point
+      // Store lowest vertical coordinate while extreme nodes still point 
       // in current subtree.
-      var minY = bottom(wt.children[i].er);
+      var minY = bottom(wt.children[i].er);                                
       separate(wt, i, ih);
-      ih = updateIYL(minY, i, ih);
+      ih = updateIYL(minY, i, ih);                                     
     }
     positionRoot(wt);
     setExtremes(wt);
@@ -13491,27 +13480,27 @@ d3.layout.flextree = function() {
       wt.msel = wt.mser = 0;
     }
     else {
-      wt.el = wt.children[0].el;
+      wt.el = wt.children[0].el; 
       wt.msel = wt.children[0].msel;
-      wt.er = wt.children[wt.num_children - 1].er;
+      wt.er = wt.children[wt.num_children - 1].er; 
       wt.mser = wt.children[wt.num_children - 1].mser;
     }
   }
 
   function separate(wt, i, ih) {
-    // Right contour node of left siblings and its sum of modifiers.
-    var sr = wt.children[i-1];
+    // Right contour node of left siblings and its sum of modifiers.  
+    var sr = wt.children[i-1]; 
     var mssr = sr.mod;
-
-    // Left contour node of current subtree and its sum of modifiers.
-    var cl = wt.children[i];
+   
+    // Left contour node of current subtree and its sum of modifiers.  
+    var cl = wt.children[i]; 
     var mscl = cl.mod;
-
+   
     while (sr != null && cl != null) {
       if (bottom(sr) > ih.lowY) ih = ih.nxt;
-
-      // How far to the left of the right side of sr is the left side
-      // of cl? First compute the center-to-center distance, then add
+    
+      // How far to the left of the right side of sr is the left side 
+      // of cl? First compute the center-to-center distance, then add 
       // the "gap" (separation or spacing)
       var dist = (mssr + sr.prelim) - (mscl + cl.prelim);
       if (separation != null) {
@@ -13527,135 +13516,135 @@ d3.layout.flextree = function() {
 
       // Fix for layout bug, https://github.com/Klortho/d3-flextree/issues/1,
       // HT @lianyi
-      else if ( i === 1 && mscl === 0 &&
+      else if ( i === 1 && mscl === 0 && 
                 sr.num_children === 0 && cl.num_children > 1 && dist < 0 ) {
         mscl += dist;
         moveSubtree(wt, i, ih.index, dist);
       }
 
-      var sy = bottom(sr),
+      var sy = bottom(sr), 
           cy = bottom(cl);
-
-      // Advance highest node(s) and sum(s) of modifiers
-      if (sy <= cy) {
+    
+      // Advance highest node(s) and sum(s) of modifiers  
+      if (sy <= cy) {                                                    
         sr = nextRightContour(sr);
         if (sr != null) mssr += sr.mod;
-      }
-      if (sy >= cy) {
+      }                                                               
+      if (sy >= cy) {                                           
         cl = nextLeftContour(cl);
         if (cl != null) mscl += cl.mod;
       }
     }
 
-    // Set threads and update extreme nodes. In the first case, the
-    // current subtree must be taller than the left siblings.
+    // Set threads and update extreme nodes. In the first case, the 
+    // current subtree must be taller than the left siblings.  
     if (sr == null && cl != null) setLeftThread(wt, i, cl, mscl);
-
-    // In this case, the left siblings must be taller than the current
-    // subtree.
+    
+    // In this case, the left siblings must be taller than the current 
+    // subtree.  
     else if (sr != null && cl == null) setRightThread(wt, i, sr, mssr);
   }
 
   function moveSubtree(wt, i, si, dist) {
-    // Move subtree by changing mod.
-    wt.children[i].mod += dist;
-    wt.children[i].msel += dist;
+    // Move subtree by changing mod.  
+    wt.children[i].mod += dist; 
+    wt.children[i].msel += dist; 
     wt.children[i].mser += dist;
-    distributeExtra(wt, i, si, dist);
+    distributeExtra(wt, i, si, dist);                                  
   }
 
   function nextLeftContour(wt) {
     return wt.num_children == 0 ? wt.tl : wt.children[0];
   }
-
+    
   function nextRightContour(wt) {
-    return wt.num_children == 0 ?
+    return wt.num_children == 0 ? 
       wt.tr : wt.children[wt.num_children - 1];
   }
-
-  function bottom(wt) {
-    return wt.t.y + wt.y_size;
+    
+  function bottom(wt) { 
+    return wt.t.y + wt.y_size; 
   }
-
+  
   function setLeftThread(wt, i, cl, modsumcl) {
     var li = wt.children[0].el;
     li.tl = cl;
-
-    // Change mod so that the sum of modifier after following thread
-    // is correct.
+   
+    // Change mod so that the sum of modifier after following thread 
+    // is correct.  
     var diff = (modsumcl - cl.mod) - wt.children[0].msel;
-    li.mod += diff;
-
-    // Change preliminary x coordinate so that the node does not move.
+    li.mod += diff; 
+   
+    // Change preliminary x coordinate so that the node does not move.  
     li.prelim -= diff;
-
-    // Update extreme node and its sum of modifiers.
-    wt.children[0].el = wt.children[i].el;
+   
+    // Update extreme node and its sum of modifiers.  
+    wt.children[0].el = wt.children[i].el; 
     wt.children[0].msel = wt.children[i].msel;
   }
-
-  // Symmetrical to setLeftThread.
+    
+  // Symmetrical to setLeftThread.  
   function setRightThread(wt, i, sr, modsumsr) {
     var ri = wt.children[i].er;
     ri.tr = sr;
     var diff = (modsumsr - sr.mod) - wt.children[i].mser;
-    ri.mod += diff;
+    ri.mod += diff; 
     ri.prelim -= diff;
-    wt.children[i].er = wt.children[i - 1].er;
+    wt.children[i].er = wt.children[i - 1].er; 
     wt.children[i].mser = wt.children[i - 1].mser;
   }
 
-  // Position root between children, taking into account their mod.
+  // Position root between children, taking into account their mod.  
   function positionRoot(wt) {
-    wt.prelim = ( wt.children[0].prelim +
+    wt.prelim = ( wt.children[0].prelim + 
                   wt.children[0].mod -
                   wt.children[0].x_size/2 +
-                  wt.children[wt.num_children - 1].mod +
+                  wt.children[wt.num_children - 1].mod + 
                   wt.children[wt.num_children - 1].prelim +
                   wt.children[wt.num_children - 1].x_size/2) / 2;
   }
 
   function secondWalk(wt, modsum) {
     modsum += wt.mod;
-    // Set absolute (non-relative) horizontal coordinate.
+    // Set absolute (non-relative) horizontal coordinate.  
     wt.t.x = wt.prelim + modsum;
-    addChildSpacing(wt);
-    for (var i = 0; i < wt.num_children; i++)
+    addChildSpacing(wt);                                               
+    for (var i = 0; i < wt.num_children; i++) 
       secondWalk(wt.children[i], modsum);
   }
 
   function distributeExtra(wt, i, si, dist) {
     // Are there intermediate children?
-    if (si != i - 1) {
-      var nr = i - si;
-      wt.children[si + 1].shift += dist / nr;
-      wt.children[i].shift -= dist / nr;
-      wt.children[i].change -= dist - dist / nr;
-    }
-  }
-
-  // Process change and shift to add intermediate spacing to mod.
+    if (si != i - 1) {                                                    
+      var nr = i - si;                                            
+      wt.children[si + 1].shift += dist / nr;                                     
+      wt.children[i].shift -= dist / nr;                                         
+      wt.children[i].change -= dist - dist / nr;                                 
+    }                                                                 
+  }                                                                    
+   
+  // Process change and shift to add intermediate spacing to mod.  
   function addChildSpacing(wt) {
-    var d = 0, modsumdelta = 0;
-    for (var i = 0; i < wt.num_children; i++) {
-      d += wt.children[i].shift;
-      modsumdelta += d + wt.children[i].change;
-      wt.children[i].mod += modsumdelta;
-    }
-  }
+    var d = 0, modsumdelta = 0;                                    
+    for (var i = 0; i < wt.num_children; i++) {                                  
+      d += wt.children[i].shift;                                               
+      modsumdelta += d + wt.children[i].change;                                
+      wt.children[i].mod += modsumdelta;                                       
+    }                                                                 
+  }                                                                    
 
-  // Make/maintain a linked list of the indexes of left siblings and their
-  // lowest vertical coordinate.
+  // Make/maintain a linked list of the indexes of left siblings and their 
+  // lowest vertical coordinate.  
   function updateIYL(minY, i, ih) {
-    // Remove siblings that are hidden by the new subtree.
-    while (ih != null && minY >= ih.lowY) ih = ih.nxt;
-    // Prepend the new subtree.
+    // Remove siblings that are hidden by the new subtree.  
+    while (ih != null && minY >= ih.lowY) ih = ih.nxt;                 
+    // Prepend the new subtree.  
     return {
-      lowY: minY,
-      index: i,
+      lowY: minY, 
+      index: i, 
       nxt: ih,
-    };
-  }
+    };                                       
+  }         
 
   // Renormalize the coordinates
   function renormalize(wt) {
@@ -13673,7 +13662,7 @@ d3.layout.flextree = function() {
         if (t.x < left.t.x) left = node;
         if (t.x > right.t.x) right = node;
         if (t.depth > bottom.t.depth) bottom = node;
-        if (node.children)
+        if (node.children) 
           toVisit = toVisit.concat(node.children);
       }
 
@@ -13691,7 +13680,7 @@ d3.layout.flextree = function() {
           t.x_size *= kx;
           t.y_size *= ky;
         }
-        if (node.children)
+        if (node.children) 
           toVisit = toVisit.concat(node.children);
       }
     }
