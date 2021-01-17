@@ -3,6 +3,10 @@
     "version": "1.0.0",
     "author": "Takashi Masuyama <mamewotoko@gmail.com>",
     "license": "Apache2.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mamewotoko/markdeep_cam.git"
+    },
     "scripts": {
         "build": "browserify js/mindmap.js > js/mindmap.browser.js"
     },
