@@ -11,7 +11,7 @@ jobs:
 
       - name: Install and Build
         run: |
-          bash setups.sh
+          bash setup.sh
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
