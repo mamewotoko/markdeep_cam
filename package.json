@@ -7,9 +7,13 @@
         "build": "browserify js/mindmap.js > js/mindmap.browser.js"
     },
     "dependencies": {
+        "bootstrap": "^4.5.3",
         "drawerjs": "^1.0.5",
         "html2canvas": "^1.0.0-rc.5",
-        "markmap": "^0.6.1"
+        "iscroll": "^5.2.0",
+        "jquery": "^3.5.1",
+        "markmap": "^0.6.1",
+        "svg.draw.js": "^2.0.4"
     },
     "devDependencies": {
         "browserify": "^16.5.1"

@@ -7,10 +7,8 @@
         content="width=device-width, initial-scale=1, maximum-scale=1"
     />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <link rel="localizations" href="localization.json" type="application/x-l10n+json">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css"></link>
     <link rel="stylesheet" type="text/css" href="./css/qr.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.2.0/iscroll.js"></script>
     <link rel="stylesheet" type="text/css" href="./dist/css/drawer.css" />
     <title>pro</title>
     <style>
@@ -302,11 +300,11 @@
             <div style="display:inline;">
               <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked>
-                <label class="custom-control-label" for="markdeep_mode">markdeep (D)</label>
+                <label class="custom-control-label" for="markdeep_mode">markdeep/mindmap (D)</label>
               </div>
               <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" id="drawing_mode" checked>
-                <label class="custom-control-label" for="drawing_mode"><span class="en">drawing/mindmap</span><span class="ja">手書きの絵/マインドマップ切り替え</span> (F)</label>
+                <label class="custom-control-label" for="drawing_mode"><span class="en">Display drawing</span><span class="ja">手書きの絵の表示</span> (F)</label>
               </div>
               <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" id="tategaki_mode">
@@ -430,25 +428,32 @@
     </main>
     <!-- 
          <h2>使用したライブラリ</h2>
-    <li><a href="https://ace.c9.io/">Ace</a>
-      <br>Copyright (c) 2010, Ajax.org B.V. All rights reserved.</li>
-    <hr>
-    
-    <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
-    <br>Takashi Masuyama mamewotoko AT gmail.com
-    <br><a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a>
-</div>
--->
-<script>window.markdeepOptions = {mode: 'script'};</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+         <li><a href="https://ace.c9.io/">Ace</a>
+         <br>Copyright (c) 2010, Ajax.org B.V. All rights reserved.</li>
+         <hr>
+         
+         <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
+         <br>Takashi Masuyama mamewotoko AT gmail.com
+         <br><a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a>
+         </div>
+    -->
+    <script>window.markdeepOptions = {mode: 'script'};</script>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
 <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <!-- TODO: install svg.js, svg.draw.js with npm -->
-<script src="https://mamewo.ddo.jp/svg_b/node_modules/svg.js/dist/svg.min.js"></script>
-<script src="https://mamewo.ddo.jp/svg_b/js/svg.draw.js"></script>
+<script src="./node_modules/svg.js/dist/svg.min.js"></script>
+<script src="./node_modules/svg.draw.js/dist/svg.draw.min.js"></script>
+<script src="./js/html2canvas.min.js"></script>
+<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="./lib/js/ace-build/src-min-noconflict/ace.js"></script>
+<script src="js/camera_select.js" async></script>
+<script src="./node_modules/iscroll/build/iscroll.js"></script>
+<script src="dist/js/drawer.min.js"></script>
+
 <script src="js/board.js"></script>
 <script src="js/controller.js"></script>
-      
+
 <script>
  var init_pen_width = 4;
  var debug = false;
@@ -727,12 +732,6 @@
      }
  });
 </script>
-      <script src="./js/html2canvas.min.js"></script>
-      <script src="js/mindmap.browser.js"></script>
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-      <script src="./lib/js/ace-build/src-min-noconflict/ace.js"></script>
-      <script src="js/camera_select.js" async></script>
-      <script src="dist/js/drawer.min.js"></script>
+<script src="js/mindmap.browser.js"></script>
   </body>
 </html>
