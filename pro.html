@@ -7,15 +7,18 @@
         content="width=device-width, initial-scale=1, maximum-scale=1"
     />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css"></link>
+    <title>Pro</title>
+    <link rel="stylesheet" href="lib/third/css/bootstrap.min.css"></link>
     <link rel="stylesheet" type="text/css" href="./css/qr.css" />
-    <link rel="stylesheet" type="text/css" href="./dist/css/drawer.css" />
-    <title>pro</title>
+    <link rel="stylesheet" type="text/css" href="./lib/css/drawer.css" />
+    <script src="./lib/third/js/jquery.min.js"></script>    
+    <script src="./lib/third/js/bootstrap.min.js"></script>
+    
     <style>
-      :root {
-          --avatar-width: 200px;
-          --avatar-right-margin: 30px;
-          
+     :root {
+         --avatar-width: 200px;
+         --avatar-right-margin: 30px;
+         
          --editor-width: 20vw;
          /*background: #e0edff; */
          --init-pen-color: #FFFFFF;
@@ -26,16 +29,16 @@
          --output-width: 100vw - 10px;
          /* boardjs */
          --board-border-width: 4px;
-      }
+     }
 
      span.ja {
-          display: inline;
-      }
+         display: inline;
+     }
 
      span.en {
-          display: none;
-      }
-      
+         display: none;
+     }
+     
      body {
          padding: 0px;
          touch-action: manipulate;
@@ -295,7 +298,7 @@
           <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true"><span class="en">Clear Drawing</span><span class="ja">手書きの絵を消す</span></button>
           <button class="btn btn-primary" id="clear_all" onclick="clear_all();" aria-hidden="true"><span class="en">Clear All</span><span class="ja">全て消す</span></button>
           <button class="btn btn-primary fa fa-undo" id="undo_drawing" onclick="hide_last_element();" aria-hidden="true"></button>
-        
+          
           <div id="ui_control">
             <div style="display:inline;">
               <div class="custom-control custom-switch">
@@ -343,7 +346,7 @@
               <option value="magenta">Magenta</option>
               <option value="none">None</option>
             </select>
-          
+            
             <br><label class="custom-control-label" for="color_target" style="display: inline !important;"><span class="en">Color of</span><span class="ja">色の設定</span></label>
 
             <select class="form-control" id="color_target" name="color_target" style="display: inline !important;">
@@ -438,21 +441,18 @@
          </div>
     -->
     <script>window.markdeepOptions = {mode: 'script'};</script>
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-<script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-<!-- TODO: install svg.js, svg.draw.js with npm -->
-<script src="./node_modules/svg.js/dist/svg.min.js"></script>
-<script src="./node_modules/svg.draw.js/dist/svg.draw.min.js"></script>
-<script src="./js/html2canvas.min.js"></script>
-<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="./lib/js/ace-build/src-min-noconflict/ace.js"></script>
-<script src="js/camera_select.js" async></script>
-<script src="./node_modules/iscroll/build/iscroll.js"></script>
-<script src="dist/js/drawer.min.js"></script>
+    <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script src="./lib/third/js/svg.min.js"></script>
+    <script src="./lib/third/js/svg.draw.min.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="./js/html2canvas.min.js"></script>
 
-<script src="js/board.js"></script>
-<script src="js/controller.js"></script>
+    <script src="./lib/js/ace-build/src-min-noconflict/ace.js"></script>
+    <script src="js/camera_select.js" async></script>
+    <script src="./lib/third/js/iscroll.js"></script>
+    <script src="./lib/js/drawer.min.js"></script>
 
 <script>
  var init_pen_width = 4;

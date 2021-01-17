@@ -7,10 +7,13 @@
         content="width=device-width, initial-scale=1, maximum-scale=1"
     />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css"></link>
-    <link rel="stylesheet" type="text/css" href="./css/qr.css" />
-    <link rel="stylesheet" type="text/css" href="./dist/css/drawer.css" />
     <title>Normal</title>
+    <link rel="stylesheet" href="lib/third/css/bootstrap.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="./css/qr.css" />
+    <link rel="stylesheet" type="text/css" href="./lib/css/drawer.css" />
+    <script src="./lib/third/js/jquery.min.js"></script>    
+    <script src="./lib/third/js/bootstrap.min.js"></script>
+    
     <style>
      :root {
          --editor-width: 20vw;
@@ -411,21 +414,19 @@
       </div>
     </main>
     <script>window.markdeepOptions = {mode: 'script'};</script>
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+
     <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-    <script src="./node_modules/svg.js/dist/svg.min.js"></script>
-    <script src="./node_modules/svg.draw.js/dist/svg.draw.min.js"></script>
+    <script src="./lib/third/js/svg.min.js"></script>
+    <script src="./lib/third/js/svg.draw.min.js"></script>
     <script src="js/board.js"></script>
-    <!--  <script src="node_modules/canvg/lib/umd.js"></script> -->
     <script src="js/controller.js"></script>
     <script src="./js/html2canvas.min.js"></script>
 
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./lib/js/ace-build/src-min-noconflict/ace.js"></script>
     <script src="js/camera_select.js" async></script>
-    <script src="./node_modules/iscroll/build/iscroll.js"></script>
-    <script src="dist/js/drawer.min.js"></script>
+    <script src="./lib/third/js/iscroll.js"></script>
+    <script src="./lib/js/drawer.min.js"></script>
     
     <script>
      var init_pen_width = 4;
