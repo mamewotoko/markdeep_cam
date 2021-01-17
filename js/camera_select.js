@@ -86,6 +86,6 @@ function enumerateDevices(){
 }
 
 videoSelect.onchange = start;
-
 enumerateDevices();
-//start();
+start();
+
