@@ -7,7 +7,7 @@
         content="width=device-width, initial-scale=1, maximum-scale=1"
     />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>Pro</title>
+    <title>Full</title>
     <link rel="stylesheet" href="lib/third/css/bootstrap.min.css"></link>
     <link rel="stylesheet" type="text/css" href="./css/qr.css" />
     <link rel="stylesheet" type="text/css" href="./lib/css/drawer.css" />
@@ -16,8 +16,8 @@
     
     <style>
      :root {
-         --avatar-width: 200px;
-         --avatar-right-margin: 30px;
+         --avatar-width: 0px;
+         --avatar-right-margin: 0px;
          
          --editor-width: 20vw;
          /*background: #e0edff; */
@@ -375,6 +375,7 @@
         </div>
 
         <div id="ui_control">
+          <!--
           <div id="avatar_list">
             <img class="avatar_select" src="image/cat_icon/cat2_1_idea.png" >
             <img class="avatar_select" src="image/cat_icon/cat1_smile.png" >
@@ -386,13 +387,14 @@
             <img class="avatar_select" src="image/cat_icon/animal_quiz_neko_batsu.png" >
             <img class="avatar_select" src="image/cat_icon/cat3_2_heart.png" >
           </div>
+          -->
           <button class="btn btn-primary" onclick="speech();"><span class="en">Read text</span><span class="ja">読み上げ</span></button>
           <button class="btn btn-primary fa fa-send" id="send_button" onclick="send_button();" aria-hidden="true"></button>
           <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
           <a id="image_download" download="board_and_me.png"><span class="en">Save as a image</span><span class="ja">画像として保存</span></a>
           
           <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
-          <br><a href="index.html">layout1</a> | <a href="index2.html">layout2</a> | <a href="index3.html">layout3</a> | <a href="index.html">layout4</a> | <a href="pro.html">pro</a> | <a href="pro.html?lang=ja">pro (日本語)</a> |  <a href="full.html">full</a>
+          <br><a href="index.html">layout1</a> | <a href="index2.html">layout2</a> | <a href="index3.html">layout3</a> | <a href="index.html">layout4</a> | <a href="pro.html">pro</a> | <a href="pro.html?lang=ja">pro (日本語)</a>
           <div><a href="#" onclick="generate_qrcode_of_url();"><span class="en">QR code of this web page</span><span class="ja">このページのQRコード</span></a></div>
           <div id="errorMsg"></div>
         </div>
@@ -404,7 +406,7 @@
         <div id="cam_output" class="cam_col" style="position: relative;">
           <div id="ohp" class="output"></div>
           <div id="frame" class="output">
-            <img id="avatar" src="image/cat_icon/cat1_smile.png">
+<!--            <img id="avatar" src="image/cat_icon/cat1_smile.png"> -->
             <div class="balloon" id="balloon">
               <div id="markdeep_board" class="caption">
                 <div sytle="position: relative;">
