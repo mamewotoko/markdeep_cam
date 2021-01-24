@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Full</title>
+    <link rel="stylesheet" href="lib/third/css/bootstrap.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="./css/qr.css" />
+    <link rel="stylesheet" type="text/css" href="./lib/css/drawer.css" />
+    <script src="./lib/third/js/jquery.min.js"></script>
+    <script src="./lib/third/js/bootstrap.min.js"></script>
+
+    <style>
+     :root {
+         --avatar-width: 0px;
+         --avatar-right-margin: 0px;
+
+         --editor-width: 20vw;
+         /*background: #e0edff; */
+         --init-pen-color: #FFFFFF;
+         --balloon-color: #000000;
+         --balloon-text-color: #FFFFFF;
+         --background-color: #FFFFFF;
+         /* minus border....*/
+         --output-width: 100vw - 10px;
+         /* boardjs */
+         --board-border-width: 4px;
+     }
+
+     span.ja {
+         display: inline;
+     }
+
+     span.en {
+         display: none;
+     }
+
+     body {
+         padding: 0px;
+         touch-action: manipulate;
+         overflow: hidden;
+     }
+     hr {
+         margin-top: 5px;
+         margin-bottom: 5px;
+     }
+
+     .color_button {
+         width: 30%;
+         height: 25px;
+     }
+
+     .template {
+         border: solid 1px black;
+     }
+
+     .rotate {
+         transform: rotate(180deg);
+     }
+
+     #markdeep_input {
+         height: var(--editor-height);
+         width: var(--editor-width);
+         font-familiy: monospace;
+         font-size: 18px;
+     }
+
+     #svg_content {
+         height: 100px;
+     }
+
+     .md h1, .md h2, .md h3 {
+         margin-top: 0;
+         padding-top: 0;
+         color: white !important;
+     }
+
+     .md h1:before, .md h2:before, .md h3:before {
+         display: none;
+     }
+
+     .diagram text {
+         font-size: 14px !important;
+     }
+
+     #capture_button { width: 80px; }
+
+     .cam_col {
+         height: 100%;
+         padding: 0;
+         vertical-align: top;
+     }
+
+     #frame {
+         width: 100%;
+         height: calc(100% - var(--board-border-width));
+         vertical-align: top;
+         position: relative;
+     }
+
+     #markdeep_input_container {
+         position: absolute;
+         left: calc(-1 * var(--editor-width));
+         top: 0;
+     }
+     .balloon {
+         width: calc(100% - var(--avatar-right-margin) - var(--avatar-width));
+         height: 90%;
+         position: absolute;
+         top: var(--board-border-width);
+         right: var(--board-border-width);
+
+         display: block;
+         color: var(--balloon-text-color);
+         overflow-y: hidden;
+         background: var(--balloon-color);
+     }
+
+     #ohp {
+         position: absolute;
+         top: 0px;
+         left: 0px;
+         width: 100%;
+         height: 100%;
+     }
+
+     #ohp > svg {
+         z-index: 2;
+     }
+
+     .avatar_select {
+         width: calc(var(--editor-width)*0.3);
+         height: auto;
+     }
+     .output {
+         margin-bottom: 10px;
+     }
+
+     #cam_output {
+         vertical-align: top;
+         width: var(--output-width);
+         right: 0;
+         background: var(--background-color);
+     }
+
+     #copyright_container {
+         position: absolute;
+         bottom: 5px;
+         right: 45px;
+         font-size: 18px;
+         width: 100%;
+         text-align: right;
+     }
+
+     .word {
+         font-size: 70px;
+         font-weight: bold;
+     }
+
+     .markdeep hr {
+         height: 2px;
+         background-color: var(--balloon-text-color);
+     }
+
+     .caption {
+         font-size: 60px !important;
+         height: 35%;
+         position: absolute;
+         line-height: 1.1;
+         margin-bottom: 5px !important;
+         bottom: 5px;
+     }
+
+     /* board style */
+     .slide h1 {
+         font-size: 60px !important;
+     }
+
+     .slide h2 {
+         font-size: 55px !important;
+     }
+
+     .slide h3 {
+         font-size: 50px !important;
+     }
+
+     .slide * {
+         font-size: 45px !important;
+         font-weight: bold;
+     }
+
+     /*******/
+     .xxxl * {
+         font-size: 300px !important;
+     }
+
+     .xxl * {
+         font-size: 180px !important;
+     }
+
+     .xl * {
+         font-size: 120px !important;
+     }
+
+     .l * {
+         font-size: 70px !important;
+     }
+
+     .markdeep .m {
+         font-size: 50px !important;
+     }
+
+     .markdeep .s {
+         font-size: 20px !important;
+     }
+
+     #additional h1 {
+         text-align: center;
+     }
+
+     #additional h2 {
+         border-left: #254117 6px solid;
+         border-bottom: #254117 2px solid;
+         padding-left: 4px;
+         margin-bottom: 10px;
+         margin-top: 15px !important;
+     }
+
+     #avatar {
+         position: absolute;
+         width: var(--avatar-width);
+         height: auto;
+         bottom: 0;
+     }
+
+     .drawer-nav {
+         margin-left: 5px;
+         padding-left: 10px;
+     }
+
+     .drawer-nav,
+     .drawer-hamburger {
+         z-index: 1010;
+     }
+
+     .md pre {
+         color: var(--balloon-text-color) !important;
+     }
+
+     #result {
+         width: 100%;
+         padding: 20px;
+     }
+     /* japanese tategaki */
+     .ja_markdeep {
+         writing-mode: vertical-rl;
+         width: 100%;
+         text-align: right;
+     }
+
+     .ja_markdeep p {
+         font-size: inherit;
+         font-weight: normal;
+         margin: 0 0 10px;
+         text-align: left;
+     }
+
+     #gum {
+         display: none; width: 100%; height: 100%;
+         object-fit: contain;
+     }
+
+     #3dcanvas {
+         width: 100%; height: 100%;
+     }
+
+    </style>
+    <script src="https://use.fontawesome.com/16164d916e.js"></script>
+    <script src="js/qrcode.js"></script>
+    <script src="js/qrmain.js"></script>
+  </head>
+  <body class="drawer drawer--right">
+    <header role="banner" style="z-index: 100;">
+      <button type="button" class="drawer-toggle drawer-hamburger" >
+        <span class="sr-only">toggle navigation</span>
+        <span class="drawer-hamburger-icon" style="z-index: 100;"></span>
+      </button>
+      <nav class="drawer-nav" role="navigation">
+        <div class="drawer-menu">
+          <div class="select">
+            <label for="videoSource" style="display: inline-block;"><span class="en">Video source:</span><span class="ja">背景とする動画</span></label>
+            <select id="videoSource" class="form-control" style="display: inline; width: 50%;">
+              <option value="none" selected>None</option>
+            </select>
+          </div>
+          <div>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="gum_rotate">
+              <label class="custom-control-label" for="gum_rotate"><span class="en">Rotate camera</span><span class="ja">動画を180度回転する</span></label>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" id="clear_markdeep" onclick="clear_markdeep();" aria-hidden="true"><span class="en">Clear Text</span><span class="ja">文字を消す</span></button>
+          <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true"><span class="en">Clear Drawing</span><span class="ja">手書きの絵を消す</span></button>
+          <button class="btn btn-primary" id="clear_all" onclick="clear_all();" aria-hidden="true"><span class="en">Clear All</span><span class="ja">全て消す</span></button>
+          <button class="btn btn-primary fa fa-undo" id="undo_drawing" onclick="hide_last_element();" aria-hidden="true"></button>
+
+          <div id="ui_control">
+            <div style="display:inline;">
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="markdeep_mode" checked>
+                <label class="custom-control-label" for="markdeep_mode">markdeep/mindmap (D)</label>
+              </div>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="drawing_mode" checked>
+                <label class="custom-control-label" for="drawing_mode"><span class="en">Display drawing</span><span class="ja">手書きの絵の表示</span> (F)</label>
+              </div>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="tategaki_mode">
+                <label class="custom-control-label" for="tategaki_mode"><span class="en">tategaki</span><span class="ja">縦書</span></label>
+              </div>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="display_clock" checked>
+                <label class="custom-control-label" for="display_clock"><span class="en">Display clock</span><span class="ja">時計を表示する</span></label>
+              </div>
+            </div>
+
+            <div class="form-inline" style="display: inline;">
+              <label class="custom-control-label" for="balloon_style" style="display: inline  !important;"><span class="en">Font size</span><span class="ja">文字の大きさ</span></label>
+
+              <select class="form-control" id="balloon_style" name="balloon_style" style="display: inline !important;">
+                <option value="slide">s</option>
+                <option value="l">l</option>
+                <option value="xl">xl</option>
+                <option value="xxl">xxl</option>
+                <option value="xxxl" selected>xxxl</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-inline" style="display: inline;">
+            <label class="custom-control-label" for="theme_select" style="display: inline !important;"><span class="en">Theme</span><span class="ja">テーマ</span></label>
+            <select class="form-control" id="theme_select" name="theme_select" style="display: inline !important;">
+              <option value="blackboard" selected>Blackboard</option>
+              <option value="whiteboard">Whiteboard</option>
+              <option value="greenboard">Greenboard</option>
+              <option value="magentaboard">Magentaboard</option>
+
+              <option value="black">Black</option>
+              <option value="white">White</option>
+              <option value="green">Green</option>
+              <option value="magenta">Magenta</option>
+              <option value="none">None</option>
+            </select>
+
+            <br><label class="custom-control-label" for="color_target" style="display: inline !important;"><span class="en">Color of</span><span class="ja">色の設定</span></label>
+
+            <select class="form-control" id="color_target" name="color_target" style="display: inline !important;">
+              <option value="pen">Drawing</option>
+              <option value="text">Text</option>
+              <option value="background">Bg</option>
+              <option value="board">Board</option>
+              <option value="background+board">Bg Total</option>
+            </select>
+          </div>
+        </div>
+        <div id="color_selector">
+          <div class="colour-button form-inline" style="display: inline;">
+            <input type="color" class="color_button" id="drawing_color" name="drawing_color" value="#FF0000" />
+          </div>
+          <button class="color_button" data-color="red"></button>
+          <button class="color_button" data-color="yellow"></button>
+          <br>
+          <button class="color_button" data-color="pink"></button>
+          <button class="color_button" data-color="purple"></button>
+          <button class="color_button" data-color="green"></button>
+          <br>
+          <button class="color_button" data-color="blue"></button>
+          <button class="color_button" data-color="black"></button>
+          <button class="color_button" data-color="white"></button>
+        </div>
+
+        <div id="ui_control">
+          <!--
+          <div id="avatar_list">
+            <img class="avatar_select" src="image/cat_icon/cat2_1_idea.png" >
+            <img class="avatar_select" src="image/cat_icon/cat1_smile.png" >
+            <img class="avatar_select" src="image/cat_icon/cat3_1_question.png" >
+            <br><img class="avatar_select" src="image/cat_icon/cat2_4_think.png" >
+            <img class="avatar_select" src="image/cat_icon/cat2_3_shock.png" >
+            <img class="avatar_select" src="image/cat_icon/cat2_2_surprise.png" >
+            <br><img class="avatar_select" src="image/cat_icon/animal_quiz_neko_maru.png">
+            <img class="avatar_select" src="image/cat_icon/animal_quiz_neko_batsu.png" >
+            <img class="avatar_select" src="image/cat_icon/cat3_2_heart.png" >
+          </div>
+          -->
+          <button class="btn btn-primary" onclick="speech();"><span class="en">Read text</span><span class="ja">読み上げ</span></button>
+          <button class="btn btn-primary fa fa-send" id="send_button" onclick="send_button();" aria-hidden="true"></button>
+          <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
+          <a id="image_download" download="board_and_me.png"><span class="en">Save as a image</span><span class="ja">画像として保存</span></a>
+
+          <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
+          <br><a href="index.html">layout1</a> | <a href="index2.html">layout2</a> | <a href="index3.html">layout3</a> | <a href="index.html">layout4</a> | <a href="pro.html">pro</a> | <a href="pro.html?lang=ja">pro (日本語)</a>
+          <div><a href="#" onclick="generate_qrcode_of_url();"><span class="en">QR code of this web page</span><span class="ja">このページのQRコード</span></a></div>
+          <div id="errorMsg"></div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div id="ui_top">
+        <div id="cam_output" class="cam_col" style="position: relative;">
+          <div id="ohp" class="output"></div>
+          <div id="frame" class="output">
+<!--            <img id="avatar" src="image/cat_icon/cat1_smile.png"> -->
+            <div class="balloon" id="balloon">
+              <div id="markdeep_board" class="caption">
+                <div sytle="position: relative;">
+                  <!-- TOOD: keep aspect ratio of original video -->
+                  <video id="gum" controls playsinline autoplay muted>ビデオデータを送信することありません。一時的な録画をクライアント側で行います。</video>
+                  <canvas class="output" id="3dcanvas" style="position: absolute; top: 0; left: 0; z-index: 3;"></canvas>
+                  <div class="markdeep" id="result" style="position: absolute; top: 0; left: 0; z-index: 4;"></div>
+                </div>
+                <!-- TODO: tab -->
+              </div>
+              <div id="markmap_container">
+                <svg id="mindmap" width="100%" height="100%"></svg>
+              </div>
+            </div>
+
+            <div id="copyright_container">
+              <span id="clock"></span>
+              <br><span contenteditable="true">Formatted by <a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a></span>
+            </div>
+          </div>
+        </div>
+        <div id="markdeep_input_container" >
+          <pre id="markdeep_input"></pre>
+        </div>
+      </div>
+    </main>
+    <script>window.markdeepOptions = {mode: 'script'};</script>
+    <script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script src="./js/svg.min.js"></script>
+    <script src="./js/svg.draw.js"></script>
+
+    <script src="js/board.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/three.min.js"></script>
+    <script src="js/OrbitControls.js"></script>
+
+    <script src="js/greentea.js"></script>
+    <script src="./js/html2canvas.min.js"></script>
+
+    <script src="./lib/js/ace-build/src-min-noconflict/ace.js"></script>
+    <script src="js/camera_select.js" async></script>
+    <script src="./lib/third/js/iscroll.js"></script>
+    <script src="./lib/js/drawer.min.js"></script>
+
+<script>
+ var init_pen_width = 4;
+ var debug = false;
+
+ function clear_markdeep(){
+     $("#markdeep_input").val("");
+     window.editor.setValue("");
+     var e = jQuery.Event("keyup");
+     //press enter
+     e.which = 13;
+     e.keyCode = 13;
+     $("#markdeep_input").trigger(e);
+ }
+
+ function clear_svg(){
+     draw.clear();
+ }
+
+ function clear_all(){
+     clear_markdeep();
+     clear_svg();
+ }
+
+ function capture(){
+     var w = $("#frame").width();
+     var h = $("#frame").height();
+
+     var config = {
+         width: w,
+         height: h,
+         scrollY: -window.scrollY
+     };
+
+     var target = document.getElementById("target");
+     if(target != null){
+         target.innerHTML = "";
+     }
+
+     html2canvas($("#frame")[0], config).then(canvas => {
+         canvas.id = "captured_frame";
+         if(target != null){
+             target.appendChild(canvas);
+         }
+         add_svg(canvas, w, h);
+     });
+ }
+
+ function add_svg(canvas, width, height){
+     var current_svg = draw.size(width, height).svg();
+     var ohp_pos = $("#ohp").offset();
+     var frame_pos = $("#frame").offset();
+     var base64data = btoa(current_svg);
+
+     var img = new Image();
+     img.width = width;
+     img.height = height;
+     console.log("offset ", ohp_pos, frame_pos, width, height)
+
+     img.src = "data:image/svg+xml;base64," + base64data;
+     img.onload = function(){
+         var context = canvas.getContext("2d");
+         //TODO: image moves to left
+         context.drawImage(img, 0, 0, width, height);
+         document.getElementById("image_download").href = canvas.toDataURL("image/png");
+         if(!debug){
+             var target = document.getElementById("target");
+             if(target != null){
+                 target.innerHTML = "";
+             }
+         }
+     };
+ }
+
+ window.addEventListener('paste', function(e){
+     var item = e.clipboardData.items[0];
+     if(!item){
+         return;
+     }
+     if(!item.type.startsWith("image/")){
+         return;
+     }
+     var blob = item.getAsFile();
+     var img = $("#avatar")[0];
+     var URLObj = window.URL || window.webkitURL;
+     img.src = URLObj.createObjectURL(blob);
+ });
+
+ function init_size(){
+     var win_height = window.innerHeight;
+     $("#ui_top").height(Math.min(win_height, window.innerWidth * 0.5625));
+     editor.resize();
+ }
+ $(window).resize(function(){
+     init_size();
+ });
+
+ function set_bg(color){
+     $(":root").css("--balloon-color", color);
+     $(":root").css("--background-color", color);
+ }
+
+ function select_avatar(i){
+     var img = $("#avatar_list img")[i];
+     $("#avatar").attr("src", $(img).attr("src"));
+ }
+
+ function drawClock(){
+     var now = new Date(Date.now());
+     $("#clock").text(now.toString());
+ }
+
+ function update_fontsize(){
+     var new_style = $("#balloon_style").val();
+     $("#markdeep_board").removeClass();
+     $("#markdeep_board").addClass(new_style);
+ }
+
+ function update_theme(){
+     var theme_spec = {
+         "blackboard": { "pen": "white", "board": "black", "background": "white" },
+         "whiteboard": { "pen": "black", "board": "white", "background": "none" },
+         "greenboard": { "pen": "white", "board": "#1D6152", "background": "white" },
+         "magentaboard": { "pen": "nont", "board": "#FF00FF", "background": "none" },
+         "black": { "pen": "white", "board": "black", "background": "black" },
+         "white": { "pen": "black", "board": "white", "background": "white" },
+         "green": { "pen": "black", "board": "green", "background": "green" },
+         "magenta": { "pen": "none", "board": "#FF00FF", "background": "#FF00FF" }
+     };
+     var selected = $("#theme_select").val();
+     if(selected == "none"){
+         return;
+     }
+     var pen = theme_spec[selected]["pen"];
+     var board = theme_spec[selected]["board"];
+     var background = theme_spec[selected]["background"];
+
+     if(pen != "none"){
+         window.stroke_color = pen;
+         $(":root").css("--balloon-text-color", pen);
+     }
+     if(board != "none"){
+         $(":root").css("--balloon-color", board);
+     }
+     if(background!= "none"){
+         $(":root").css("--background-color", background);
+     }
+
+     if(selected == "whiteboard"
+        || selected == "blackboard"
+        || selected == "greenboard"){
+         $("#balloon_style").val("slide");
+     }
+     else {
+         $("#balloon_style").val("xl");
+     }
+     update_fontsize();
+ }
+
+ $(document).ready(function() {
+     var params = new URLSearchParams(window.location.search);
+     var lang = params.get('lang');
+
+     if(lang == "ja"){
+         $("span.ja").css("display", "inline");
+         $("span.en").css("display", "none");
+     }
+     else {
+         $("span.ja").css("display", "none");
+         $("span.en").css("display", "inline");
+     }
+
+     window.editor = ace.edit("markdeep_input");
+     editor.setTheme("ace/theme/twilight");
+     editor.setKeyboardHandler("ace/keyboard/emacs");
+     editor.session.setMode("ace/mode/markdown");
+
+     // Then we set the value in the --vh custom property to the root of the document
+     init_size();
+     $(".drawer").drawer();
+
+     //initialize mindmap
+     $("#mindmap").css("width", $("#balloon").css("width"))
+                  .css("height", $("#balloon").css("height"));
+     $("#markdeep_mode").change(update_markdown);
+     $("#tategaki_mode").change(function(){
+
+         if($("#tategaki_mode").is(":checked")){
+             $("#result").addClass("ja_markdeep");
+         }
+         else {
+             $("#result").removeClass("ja_markdeep");
+         }
+     });
+     document.head.innerHTML = window.markdeep.stylesheet() + document.head.innerHTML;
+     update_markdown();
+     $('#markdeep_input').on("change keyup paste", update_markdown);
+
+     //window.scrollTo(0, 0);
+     board_init($(":root").css("--init-pen-color"), init_pen_width);
+
+     var color_table = {
+         "red": "#ff0000",
+         "blue": "#0000ff",
+         "green": "#00ff00",
+         "pink": "#FF00FF",
+         "purple": "#692f9c",
+         "black": "#000000",
+         "white": "#ffffff",
+         "orange": "#FFAA00",
+         "yellow": "#FFFF00",
+     };
+
+     $(".color_button").each(function(i, e){
+         $(e).css("background-color",
+                  color_table[$(e).attr("data-color")]);
+     });
+
+     $("#theme_select").change(function(e){
+         update_theme();
+     });
+
+     update_theme();
+
+     $("#balloon_style").change(function(e){
+         var new_style = $(this).val();
+         console.log("balloon_style is changed " + new_style);
+         $("#markdeep_board").removeClass();
+         $("#markdeep_board").addClass(new_style);
+     })
+
+     $(".color_button").click(function(e){
+         var color = color_table[$(this).attr("data-color")];
+         console.log("click " + $(this).attr("data-color") + " " + color);
+         $("#drawing_color").val(color);
+         var color_target = $("#color_target").val();
+         if(color_target == "pen"){
+             window.stroke_color = color;
+         }
+         else if(color_target == "text"){
+             $(":root").css("--balloon-text-color", color);
+         }
+         else if (color_target == "background"){
+             $(":root").css("--background-color", color);
+         }
+         else if(color_target == "board"){
+             $(":root").css("--balloon-color", color);
+         }
+         else if(color_target == "background+board"){
+             $(":root").css("--background-color", color);
+             $(":root").css("--balloon-color", color);
+         }
+     });
+
+     $("#avatar_list img").dblclick(function(e){
+         e.preventDefault();
+         $("#avatar").attr("src", $(this).attr("src"));
+     });
+
+     $("#drawing_color").change(function(e){
+         console.log("color changed " + $(this).val());
+         window.stroke_color = $(this).val();
+     });
+     $("#markdeep_board").removeClass();
+     $("#markdeep_board").addClass($("#balloon_style").val());
+     function loop(){
+         window.controller_loop();
+         window.greentea_loop();
+         requestAnimationFrame(loop);
+     }
+
+     requestAnimationFrame(loop);
+     setInterval(drawClock, 1000);
+ });
+ document.addEventListener('keydown', function(event){
+     if(window.editor.isFocused()
+        || document.activeElement.type == "text"){
+         return;
+     }
+     var keyname = event.key;
+     if(keyname === "Escape"){
+         $(".drawer").drawer("toggle");
+     }
+ });
+</script>
+<script src="js/mindmap.browser.js"></script>
+  </body>
+</html>
