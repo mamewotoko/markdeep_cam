@@ -11,14 +11,14 @@
     <link rel="stylesheet" href="lib/third/css/bootstrap.min.css"></link>
     <link rel="stylesheet" type="text/css" href="./css/qr.css" />
     <link rel="stylesheet" type="text/css" href="./lib/css/drawer.css" />
-    <script src="./lib/third/js/jquery.min.js"></script>    
+    <script src="./lib/third/js/jquery.min.js"></script>
     <script src="./lib/third/js/bootstrap.min.js"></script>
-    
+
     <style>
      :root {
          --avatar-width: 200px;
          --avatar-right-margin: 30px;
-         
+
          --editor-width: 20vw;
          /*background: #e0edff; */
          --init-pen-color: #FFFFFF;
@@ -38,7 +38,7 @@
      span.en {
          display: none;
      }
-     
+
      body {
          padding: 0px;
          touch-action: manipulate;
@@ -268,6 +268,11 @@
          margin: 0 0 10px;
          text-align: left;
      }
+
+     #gum {
+         display: none; width: 100%; height: 100%;
+         object-fit: contain;
+     }
     </style>
     <script src="https://use.fontawesome.com/16164d916e.js"></script>
     <script src="js/qrcode.js"></script>
@@ -298,7 +303,7 @@
           <button class="btn btn-primary" id="clear_svg" onclick="clear_svg();" aria-hidden="true"><span class="en">Clear Drawing</span><span class="ja">手書きの絵を消す</span></button>
           <button class="btn btn-primary" id="clear_all" onclick="clear_all();" aria-hidden="true"><span class="en">Clear All</span><span class="ja">全て消す</span></button>
           <button class="btn btn-primary fa fa-undo" id="undo_drawing" onclick="hide_last_element();" aria-hidden="true"></button>
-          
+
           <div id="ui_control">
             <div style="display:inline;">
               <div class="custom-control custom-switch">
@@ -318,10 +323,10 @@
                 <label class="custom-control-label" for="display_clock"><span class="en">Display clock</span><span class="ja">時計を表示する</span></label>
               </div>
             </div>
-            
+
             <div class="form-inline" style="display: inline;">
               <label class="custom-control-label" for="balloon_style" style="display: inline  !important;"><span class="en">Font size</span><span class="ja">文字の大きさ</span></label>
-              
+
               <select class="form-control" id="balloon_style" name="balloon_style" style="display: inline !important;">
                 <option value="slide">s</option>
                 <option value="l">l</option>
@@ -339,14 +344,14 @@
               <option value="whiteboard">Whiteboard</option>
               <option value="greenboard">Greenboard</option>
               <option value="magentaboard">Magentaboard</option>
-              
+
               <option value="black">Black</option>
               <option value="white">White</option>
               <option value="green">Green</option>
               <option value="magenta">Magenta</option>
               <option value="none">None</option>
             </select>
-            
+
             <br><label class="custom-control-label" for="color_target" style="display: inline !important;"><span class="en">Color of</span><span class="ja">色の設定</span></label>
 
             <select class="form-control" id="color_target" name="color_target" style="display: inline !important;">
@@ -390,7 +395,7 @@
           <button class="btn btn-primary fa fa-send" id="send_button" onclick="send_button();" aria-hidden="true"></button>
           <button class="btn btn-primary fa fa-camera" id="capture_button" onclick="capture();" aria-hidden="true"></button>
           <a id="image_download" download="board_and_me.png"><span class="en">Save as a image</span><span class="ja">画像として保存</span></a>
-          
+
           <!-- The Modal --><div id="myModal" class="modal">  <!-- The Close Button --> <span class="close">&times;</span>  <!-- Modal Content (The Image) -->  <img class="modal-content" id="img01">  <!-- Modal Caption (Image Text) -->  <div id="caption"></div></div>
           <br><a href="index.html">layout1</a> | <a href="index2.html">layout2</a> | <a href="index3.html">layout3</a> | <a href="index.html">layout4</a> | <a href="pro.html">pro</a> | <a href="pro.html?lang=ja">pro (日本語)</a> |  <a href="full.html">full</a>
           <div><a href="#" onclick="generate_qrcode_of_url();"><span class="en">QR code of this web page</span><span class="ja">このページのQRコード</span></a></div>
@@ -409,7 +414,7 @@
               <div id="markdeep_board" class="caption">
                 <div sytle="position: relative;">
                   <!-- TOOD: keep aspect ratio of original video -->
-                  <video id="gum" style="display: none; width: 100%; height: 100%;" controls playsinline autoplay muted>ビデオデータを送信することありません。一時的な録画をクライアント側で行います。</video>
+                  <video id="gum" controls playsinline autoplay muted>ビデオデータを送信することありません。一時的な録画をクライアント側で行います。</video>
                   <div class="markdeep" id="result" style="position: absolute; top: 0; left: 0; z-index: 1;"></div>
                 </div>
                 <!-- TODO: tab -->
@@ -418,7 +423,7 @@
                 <svg id="mindmap" width="100%" height="100%"></svg>
               </div>
             </div>
-            
+
             <div id="copyright_container">
               <span id="clock"></span>
               <br><span contenteditable="true">Formatted by <a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a></span>
@@ -430,12 +435,12 @@
         </div>
       </div>
     </main>
-    <!-- 
+    <!--
          <h2>使用したライブラリ</h2>
          <li><a href="https://ace.c9.io/">Ace</a>
          <br>Copyright (c) 2010, Ajax.org B.V. All rights reserved.</li>
          <hr>
-         
+
          <br><a href="#" onclick="generate_qrcode_of_url();">このページのQRコード</a>
          <br>Takashi Masuyama mamewotoko AT gmail.com
          <br><a href="https://github.com/mamewotoko/markdeep_cam">mamewotoko/markdeep_cam</a>
@@ -459,7 +464,7 @@
 <script>
  var init_pen_width = 4;
  var debug = false;
- 
+
  function clear_markdeep(){
      $("#markdeep_input").val("");
      window.editor.setValue("");
@@ -613,7 +618,7 @@
      }
      update_fontsize();
  }
- 
+
  $(document).ready(function() {
      var params = new URLSearchParams(window.location.search);
      var lang = params.get('lang');
@@ -626,7 +631,7 @@
          $("span.ja").css("display", "none");
          $("span.en").css("display", "inline");
      }
-     
+
      window.editor = ace.edit("markdeep_input");
      editor.setTheme("ace/theme/twilight");
      editor.setKeyboardHandler("ace/keyboard/emacs");
@@ -641,7 +646,7 @@
                   .css("height", $("#balloon").css("height"));
      $("#markdeep_mode").change(update_markdown);
      $("#tategaki_mode").change(function(){
-         
+
          if($("#tategaki_mode").is(":checked")){
              $("#result").addClass("ja_markdeep");
          }
@@ -652,7 +657,7 @@
      document.head.innerHTML = window.markdeep.stylesheet() + document.head.innerHTML;
      update_markdown();
      $('#markdeep_input').on("change keyup paste", update_markdown);
-     
+
      //window.scrollTo(0, 0);
      board_init($(":root").css("--init-pen-color"), init_pen_width);
 
