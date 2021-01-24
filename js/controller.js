@@ -28,7 +28,7 @@ var nintendo_switch_l = {
         // 0, 1, 2
         // 3, 4, 5
         // 6, 7, 8
-        
+
         if(left_stick_x < -0.8 && Math.abs(left_stick_y) < 0.2){
             //right
             select_avatar(5);
@@ -94,7 +94,7 @@ var nintendo_switch_r = {
         // 0, 1, 2
         // 3, 4, 5
         // 6, 7, 8
-        
+
         if(left_stick_x < -0.8 && Math.abs(left_stick_y) < 0.2){
             //right
             select_avatar(5);
@@ -164,7 +164,7 @@ var ps3 = {
     RIGHT_STICK_X_AXES: 3,
     LEFT_AXES_BUTTON: 10,
     RIGHT_AXES_BUTTON: 11,
-    
+
     handle: function(gp){
         //app logic...
         var l2 = buttonPressed(gp.buttons[this.L2]);
@@ -180,7 +180,7 @@ var ps3 = {
         // 0, 1, 2
         // 3, 4, 5
         // 6, 7, 8
-        
+
         if(left_stick_x < -0.8 && Math.abs(left_stick_y) < 0.2){
             //left
             select_avatar(3);
@@ -221,7 +221,7 @@ var ps3 = {
             select_avatar(0);
             return;
         }
-        
+
         if(l1 && l2 && buttonPressed(gp.buttons[this.UP])){
             select_avatar(7);
             return;
@@ -289,7 +289,7 @@ var sega = {
     product_id: 0x0024,
     current: 0,
     pressed_time: 0,
-    
+
     up_pressed: function(gp){
         //Firefox
         return Math.abs(gp.axes[this.UP_DOWN_AXES] - (-1)) < 0.001;
@@ -329,7 +329,7 @@ var sega = {
     handle: function(gp){
         var pressed_time_thres_ms = 500;
         //hide, left, normal, large
-        
+
         if(this.a_pressed(gp) && this.x_pressed(gp)){
             //select 6
             this.current = 6;
@@ -411,14 +411,13 @@ var initialized = false;
 var last_gp_handled = 0;
 var gp_handle_ms = 100;
 
-function render() {
+window.controller_loop = function() {
     var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
     if (!gamepads) {
-        requestAnimationFrame(render);
         return;
     }
     var gp = null;
-    var now_epoch = Date.now(); 
+    var now_epoch = Date.now();
     if(gp_handle_ms < now_epoch - last_gp_handled){
         for(i = 0; i < gamepads.length; i++){
             if(gamepads[i] == null){
@@ -432,8 +431,6 @@ function render() {
         last_gp_handled = now_epoch;
     }
     //console.log("gamepads.length " + gamepads.length);
-    //skip 
-    requestAnimationFrame(render);
-    return;
+    //skip
 }
-render();
+//call controller_loop
