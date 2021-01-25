@@ -7,7 +7,7 @@
         content="width=device-width, initial-scale=1, maximum-scale=1"
     />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>Full</title>
+    <title>3D</title>
     <link rel="stylesheet" href="lib/third/css/bootstrap.min.css"></link>
     <link rel="stylesheet" type="text/css" href="./css/qr.css" />
     <link rel="stylesheet" type="text/css" href="./lib/css/drawer.css" />
@@ -20,7 +20,6 @@
          --avatar-right-margin: 0px;
 
          --editor-width: 20vw;
-         /*background: #e0edff; */
          --init-pen-color: #FFFFFF;
          --balloon-color: #000000;
          --balloon-text-color: #FFFFFF;
@@ -726,6 +725,7 @@
      });
      $("#markdeep_board").removeClass();
      $("#markdeep_board").addClass($("#balloon_style").val());
+     init_greentea();
      function loop(){
          window.controller_loop();
          window.greentea_loop();

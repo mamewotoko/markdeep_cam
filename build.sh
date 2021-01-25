@@ -3,7 +3,7 @@ rm -rf build
 
 npm install
 npm run build
-ls -l
+# ls -l
 mkdir -p build lib/third/css lib/third/js
 
 cp ./node_modules/jquery/dist/jquery.min.js lib/third/js
