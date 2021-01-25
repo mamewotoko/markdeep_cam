@@ -1,14 +1,18 @@
 //for rev. 74
-(function(){
+window.init_greentea = function(){
     var TEXT_COLOR = "#FFFFFF";
     var TEXTURE_BACKGROUND_COLOR = "#00FF00";
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-    var renderer = new THREE.WebGLRenderer({ alpha: true, canvas: $("#3dcanvas")[0] });
+    var main_canvas = $("#3dcanvas")[0];
+    console.log("main canvas", main_canvas);
+    var renderer = new THREE.WebGLRenderer({ alpha: true, canvas: main_canvas });
     renderer.setClearColor(0x000000, 0);
-    renderer.setSize( window.innerWidth, window.innerHeight*0.7);
+    renderer.setSize($("#gum").width(), $("#gum").height());
+    // renderer.setSize(main_canvas.parentElement.innerWidth,
+    //                  main_canvas.parentElement.innerHeight);
     //document.body.appendChild(renderer.domElement);
     var control = new THREE.OrbitControls(camera, renderer.domElement);
 
@@ -23,7 +27,6 @@
     canvas.height = 32;
     //canvas.width = 16;
     //canvas.height = 16;
-    console.log("canvas", canvas);
     var xc = canvas.getContext("2d");
     xc.fillStyle=TEXTURE_BACKGROUND_COLOR;
     xc.fillRect(0, 0, canvas.width, canvas.height);
@@ -72,4 +75,4 @@
         control.update();
         renderer.render(scene, camera);
     };
-})();
+}
