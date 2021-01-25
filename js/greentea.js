@@ -1,7 +1,7 @@
 //for rev. 74
 window.init_greentea = function(){
     var TEXT_COLOR = "#FFFFFF";
-    var TEXTURE_BACKGROUND_COLOR = "#00FF00";
+    var TEXTURE_BACKGROUND_COLOR = "#c59606";
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -23,51 +23,26 @@ window.init_greentea = function(){
     scene.add(light);
 
     var canvas = document.createElement("canvas");
-    canvas.width = 64;
-    canvas.height = 32;
-    //canvas.width = 16;
-    //canvas.height = 16;
+    canvas.width = 128;
+    canvas.height = 128;
     var xc = canvas.getContext("2d");
     xc.fillStyle=TEXTURE_BACKGROUND_COLOR;
     xc.fillRect(0, 0, canvas.width, canvas.height);
     xc.fillStyle=TEXT_COLOR;
     //macでない場合どうなる?
-    xc.font = "18pt ヒラギノ角ゴ";
-    xc.fillText("お茶", 0, 22);
+    xc.font = "82pt ヒラギノ角ゴ";
+    xc.fillText("？", 0, canvas.width * 0.8);
 
-    //1. 全面にテクスチャーをはった場合
-    //
-    var geometry = new THREE.CylinderGeometry(10, 10, 32, 128);
-    var texture = new THREE.Texture(canvas);
-    texture.needsUpdate = true;
-    var material = new THREE.MeshPhongMaterial({ map: texture });
-    //var material = end_material;
-    var obj = new THREE.Mesh(geometry, material);
-    obj.position.x -= 15;
-    obj.rotation.y = -Math.PI/6;
-    scene.add(obj);
-
-    //2. 平らな面はテクスチャをやめる
-    geometry = new THREE.CylinderGeometry(10, 10, 32, 128);
-    var texture = new THREE.Texture(canvas);
-    texture.needsUpdate = true;
-    var side_material = new THREE.MeshPhongMaterial({ map: texture });
-    var end_material = new THREE.MeshPhongMaterial({ color: TEXTURE_BACKGROUND_COLOR });
-    material = new THREE.MeshFaceMaterial([side_material, end_material]);
-
-    //後ろ radialSegments*2個は end_material
-    //それ以外は side_material
-    for(var i = 0; i < geometry.faces.length-geometry.parameters.radialSegments*2; i++){
-        geometry.faces[i].materialIndex = 0;
+    for(var i = 0; i < 3; i++){
+        var geometry = new THREE.BoxGeometry(32, 32, 32);
+        var texture = new THREE.Texture(canvas);
+        texture.needsUpdate = true;
+        var material = new THREE.MeshPhongMaterial({ map: texture });
+        //var material = end_material;
+        var obj = new THREE.Mesh(geometry, material);
+        obj.position.x -= 32 * 2 * i;
+        scene.add(obj);
     }
-    for(var i = geometry.faces.length-geometry.parameters.radialSegments*2; i < geometry.faces.length; i++){
-        geometry.faces[i].materialIndex = 1;
-    }
-    obj = new THREE.Mesh(geometry, material);
-
-    obj.position.x += 15;
-    obj.rotation.y = -Math.PI/6;
-    scene.add(obj);
 
     camera.position.set(0, 40, 30);
 
