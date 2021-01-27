@@ -1,12 +1,15 @@
 markdeep cam
 ==============
 
-* [demo page (normal) ](https://mamewotoko.github.io/markdeep_cam/)
-  * ![demo ohp style](./doc/with_camera.png)
-* [demo page (pro) ](https://mamewotoko.github.io/markdeep_cam/pro.html)
-* [demo page (3d)](https://mamewotoko.github.io/markdeep_cam/3d.html)
-* [demo page (full) ](https://mamewotoko.github.io/markdeep_cam/full.html)
-* [demo page for smartphone](https://mamewotoko.github.io/markdeep_cam/index2.html)
+Demo
+------
+
+* [normal](https://mamewotoko.github.io/markdeep_cam/)
+  * ![ohp style](./doc/with_camera.png)
+* [pro](https://mamewotoko.github.io/markdeep_cam/pro.html)
+* [3d](https://mamewotoko.github.io/markdeep_cam/3d.html)
+* [full](https://mamewotoko.github.io/markdeep_cam/full.html)
+* [for smartphone](https://mamewotoko.github.io/markdeep_cam/index2.html)
 
 Content that I want display to virtual camera of remote meeeting like webex, slack and zoom. (with [OBS-studio](https://obsproject.com/ja))
 
