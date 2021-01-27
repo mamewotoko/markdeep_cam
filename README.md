@@ -15,11 +15,11 @@ Content that I want display to virtual camera of remote meeeting like webex, sla
 
 screen to display markdeep (markup language like markdown), mindmap, and svg.
 
-![zoom demo image](image/emacs_markdeep_cam.png)
+![zoom demo image](doc/emacs_markdeep_cam.png)
 
-![demo image with formula](image/markdeep_cam_demo.png)
+![demo image with formula](doc/markdeep_cam_demo.png)
 
-![demo image with drawing](image/drawing.png)
+![demo image with drawing](doc/drawing.png)
 
 insert other pages with iframe
 
