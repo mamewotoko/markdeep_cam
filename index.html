@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="lib/third/css/bootstrap.min.css"></link>
     <link rel="stylesheet" type="text/css" href="./css/qr.css" />
     <link rel="stylesheet" type="text/css" href="./lib/css/drawer.css" />
-    <script src="./lib/third/js/jquery.min.js"></script>    
+    <script src="./lib/third/js/jquery.min.js"></script>
     <script src="./lib/third/js/bootstrap.min.js"></script>
-    
+
     <style>
      :root {
          --editor-width: 20vw;
@@ -273,6 +273,12 @@
          font-weight: normal;
          margin: 0 0 10px;
          text-align: left;
+
+     #gum {
+         display: none;
+         width: 100%;
+         height: 100%;
+         object-fit: contain;
      }
     </style>
     <script src="https://use.fontawesome.com/16164d916e.js"></script>
@@ -408,11 +414,9 @@
           <div id="frame" class="output">
             <img id="avatar" src="image/cat_icon/cat1_smile.png">
             <div class="balloon1-left balloon" id="balloon">
-              <div id="markdeep_board" class="caption balloon_padding">
-                <div sytle="position: relative;">
-                  <video id="gum" style="display: none; width: 100%; height: 100%;" controls playsinline autoplay muted>ビデオデータを送信することありません。一時的な録画をクライアント側で行います。</video>
-                  <div class="markdeep balloon_padding" id="result" style="position: absolute; top: 0; left: 0; z-index: 1;"></div>
-                </div>
+              <div id="markdeep_board" class="caption balloon_padding" style="width: 100%; height: 100%; position: relative;">
+                <video id="gum" controls playsinline autoplay muted>ビデオデータを送信することありません。一時的な録画をクライアント側で行います。</video>
+                <div class="markdeep balloon_padding" id="result" style="position: absolute; top: 0; left: 0; z-index: 1;"></div>
                 <!-- TODO: tab -->
               </div>
               <div id="markmap_container">
@@ -446,7 +450,7 @@
     <script src="js/camera_select.js" async></script>
     <script src="./lib/third/js/iscroll.js"></script>
     <script src="./lib/js/drawer.min.js"></script>
-    
+
     <script>
      var init_pen_width = 4;
      var debug = false;
@@ -636,7 +640,7 @@
          document.head.innerHTML = window.markdeep.stylesheet() + document.head.innerHTML;
          update_markdown();
          $('#markdeep_input').on("change keyup paste", update_markdown);
-         
+
          //window.scrollTo(0, 0);
          board_init(window.stroke_color, init_pen_width);
 
@@ -666,7 +670,7 @@
          });
 
          update_theme();
-         
+
          $(".color_button").click(function(e){
              $("#theme_select").val("none");
              var color = color_table[$(this).attr("data-color")];
@@ -690,7 +694,7 @@
                  $(":root").css("--balloon-color", color);
              }
          });
-         
+
          $("#avatar_list img").dblclick(function(e){
              e.preventDefault();
              $("#avatar").attr("src", $(this).attr("src"));
@@ -716,6 +720,6 @@
          }
      });
     </script>
-    <script src="js/mindmap.browser.js"></script>    
+    <script src="js/mindmap.browser.js"></script>
   </body>
 </html>

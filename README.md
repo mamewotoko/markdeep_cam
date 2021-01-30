@@ -1,21 +1,25 @@
 markdeep cam
 ==============
 
-* [demo page (normal) ](https://mamewotoko.github.io/markdeep_cam/)
-  * ![demo ohp style](./doc/with_camera.png)
-* [demo page (pro) ](https://mamewotoko.github.io/markdeep_cam/pro.html)
-* [demo page (full) ](https://mamewotoko.github.io/markdeep_cam/full.html)
-* [demo page for smartphone](https://mamewotoko.github.io/markdeep_cam/index2.html)
+Demo
+------
+
+* [normal](https://mamewotoko.github.io/markdeep_cam/)
+  * ![ohp style](./doc/with_camera.png)
+* [pro](https://mamewotoko.github.io/markdeep_cam/pro.html)
+* [3d](https://mamewotoko.github.io/markdeep_cam/3d.html)
+* [full](https://mamewotoko.github.io/markdeep_cam/full.html)
+* [for smartphone](https://mamewotoko.github.io/markdeep_cam/index2.html)
 
 Content that I want display to virtual camera of remote meeeting like webex, slack and zoom. (with [OBS-studio](https://obsproject.com/ja))
 
 screen to display markdeep (markup language like markdown), mindmap, and svg.
 
-![zoom demo image](image/emacs_markdeep_cam.png)
+![zoom demo image](doc/emacs_markdeep_cam.png)
 
-![demo image with formula](image/markdeep_cam_demo.png)
+![demo image with formula](doc/markdeep_cam_demo.png)
 
-![demo image with drawing](image/drawing.png)
+![demo image with drawing](doc/drawing.png)
 
 insert other pages with iframe
 

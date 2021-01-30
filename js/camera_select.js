@@ -20,7 +20,7 @@ function gotDevices(deviceInfos) {
             select.removeChild(select.firstChild);
         }
     });
-   
+
     for (let i = 0; i !== deviceInfos.length; ++i) {
         const deviceInfo = deviceInfos[i];
         const option = document.createElement('option');
@@ -49,6 +49,9 @@ function gotDevices(deviceInfos) {
 function gotStream(stream) {
     window.stream = stream; // make stream available to console
     videoElement.srcObject = stream;
+    //var setting = stream.getVideoTracks()[0].getSettings();
+    //videoElement.width = setting.width;
+    //videoElement.height = setting.height;
     return navigator.mediaDevices.enumerateDevices();
 }
 
@@ -73,6 +76,7 @@ function start() {
     const constraints = {
       video: {deviceId: videoSource ? {exact: videoSource} : undefined}
     };
+
     navigator.mediaDevices.getUserMedia(constraints)
         .then(gotStream)
         .then(gotDevices)
@@ -82,10 +86,9 @@ function start() {
 function enumerateDevices(){
     navigator.mediaDevices.enumerateDevices()
         .then(gotDevices)
-        .catch(handleError);  
+        .catch(handleError);
 }
 
 videoSelect.onchange = start;
 enumerateDevices();
 start();
-
