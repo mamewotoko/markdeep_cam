@@ -260,6 +260,20 @@
      .md pre {
          color: var(--balloon-text-color) !important;
      }
+
+     /* japanese tategaki */
+     .ja_markdeep {
+         writing-mode: vertical-rl;
+         width: 100%;
+         text-align: right;
+     }
+
+     .ja_markdeep p {
+         font-size: inherit;
+         font-weight: normal;
+         margin: 0 0 10px;
+         text-align: left;
+     }
     </style>
     <script src="https://use.fontawesome.com/16164d916e.js"></script>
     <script src="js/qrcode.js"></script>
@@ -299,6 +313,10 @@
             <div class="custom-control custom-switch">
               <input type="checkbox" class="custom-control-input" id="drawing_mode" checked>
               <label class="custom-control-label" for="drawing_mode">drawing (F)</label>
+            </div>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="tategaki_mode">
+              <label class="custom-control-label" for="tategaki_mode"><span class="en">tategaki</span></label>
             </div>
             <div class="custom-control custom-switch">
               <input type="checkbox" class="custom-control-input" id="display_clock" checked>
@@ -606,6 +624,15 @@
          $("#mindmap").css("width", $("#balloon").css("width"))
                       .css("height", $("#balloon").css("height"));
          $("#markdeep_mode").change(update_markdown);
+         $("#tategaki_mode").change(function(){
+             
+             if($("#tategaki_mode").is(":checked")){
+                 $("#result").addClass("ja_markdeep");
+             }
+             else {
+                 $("#result").removeClass("ja_markdeep");
+             }
+         });
          document.head.innerHTML = window.markdeep.stylesheet() + document.head.innerHTML;
          update_markdown();
          $('#markdeep_input').on("change keyup paste", update_markdown);
