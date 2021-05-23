@@ -1,4 +1,4 @@
-markdeep cam
+markdeep cam [![Build and Deploy](https://github.com/mamewotoko/markdeep_cam/actions/workflows/deploy.yml/badge.svg)](https://github.com/mamewotoko/markdeep_cam/actions/workflows/deploy.yml)
 ==============
 
 Demo
