@@ -76,8 +76,11 @@ License
 
 ### Third-party sources
 
-* [webrtc/samples](https://github.com/webrtc/samples)
 * [dundalek/markmap](https://github.com/dundalek/markmap)
+    * mindmap
+* [ajaxorg/ace](https://github.com/ajaxorg/ace)
+    * editor
+* [webrtc/samples](https://github.com/webrtc/samples)
 
 Reference
 ----------
